@@ -1,0 +1,11 @@
+{
+    "name": "robotrails-runner",
+    "description": "Runner for the RoboTrails picture-block app (Bluetooth UART, TPBot)",
+    "dependencies": {
+        "core": "*",
+        "bluetooth": "*",
+        "pxt-TPBot": "github:elecfreaks/pxt-TPBot"
+    },
+    "files": ["main.ts"],
+    "yotta": { "config": { "microbit-dal": { "bluetooth": { "pairing_mode": 0, "open": 1 } } } }
+}

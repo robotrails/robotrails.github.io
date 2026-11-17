@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoboTrails · Προγραμματισμός ρομπότ με εικόνες</title>
+<meta name="description" content="Προγραμματισμός ρομπότ με εικόνες για παιδιά 5–7 ετών: μπλοκ χωρίς λέξεις, εικονικό micro:bit και πίστα, ζωντανός έλεγχος του TPBot Edu μέσω Bluetooth. Δωρεάν.">
+<meta property="og:title" content="RoboTrails: coding robots with pictures">
+<meta property="og:description" content="Picture-block coding for robots, for ages 5–7. Virtual micro:bit and track, live Bluetooth control of the TPBot Edu. Free.">
+<meta property="og:image" content="https://robotrails.github.io/assets/og.png">
+<meta name="theme-color" content="#0071BC">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  @font-face { font-family: "Commissioner"; src: url(assets/commissioner.woff2) format("woff2"); font-weight: 400 800; font-display: swap; }
+  :root { --blue: #0071BC; --orange: #F15A24; --gold: #FBB03B; --sky: #0096EA; --charcoal: #6D6E71; --ink: #1A1A1A; --line: #DDDDDD; --alt: #F5F5F5; --accent: #B94418; --tint-blue: #E6F4FD; --tint-gold: #FEF4DE; --tint-orange: #FDEBE4; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; font-family: "Commissioner", "Segoe UI", Arial, sans-serif; font-size: 18px; line-height: 1.65; color: var(--ink); background: #fff; }
+  a { color: var(--blue); }
+  code { font-family: "JetBrains Mono", Consolas, "Courier New", monospace; font-size: .85em; background: var(--alt); padding: 2px 6px; border-radius: 4px; word-break: break-all; }
+  html[lang="el"] [data-l="en"], html[lang="en"] [data-l="el"] { display: none !important; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  header.top { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; align-items: center; gap: 18px; min-height: 64px; }
+  header.top img { height: 38px; width: auto; display: block; }
+  nav { margin-left: auto; display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: 16px; }
+  nav a { text-decoration: none; color: var(--ink); } nav a:hover { color: var(--blue); }
+  .langbtn { font: inherit; font-weight: 700; font-size: 15px; padding: 5px 12px; background: #fff; color: var(--ink); border: 2px solid var(--charcoal); border-radius: 6px; cursor: pointer; }
+  .btn { display: inline-block; padding: 12px 24px; font: inherit; font-weight: 700; font-size: 20px; line-height: 1.3; text-decoration: none; color: #fff; background: var(--orange); border: 2px solid var(--orange); border-radius: 6px; }
+  .btn.ghost { color: var(--blue); background: #fff; border-color: var(--blue); }
+  .btn.small { font-size: 17px; padding: 8px 18px; }
+  .hero { padding: 48px 0 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; align-items: center; }
+  .kicker { margin: 0 0 8px; font-size: 14px; font-weight: 800; letter-spacing: .1em; color: var(--accent); }
+  h1 { margin: 0 0 14px; font-size: 46px; line-height: 1.15; font-weight: 800; color: var(--blue); }
+  h2 { margin: 0 0 14px; font-size: 32px; line-height: 1.25; font-weight: 700; color: var(--blue); }
+  h3 { margin: 0 0 6px; font-size: 20px; line-height: 1.3; font-weight: 700; }
+  .lead { margin: 0 0 24px; font-size: 20px; color: var(--ink); }
+  .acts { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+  .note { margin: 0; font-size: 15px; color: var(--charcoal); }
+  .shot { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 6px; }
+  section.block { padding: 44px 0; }
+  section.alt { background: var(--alt); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 18px 18px 16px; }
+  .card p { margin: 0; font-size: 16px; line-height: 1.6; }
+  .ic { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 10px; border-radius: 50%; background: var(--sky); }
+  .ic svg { width: 26px; height: 26px; }
+  ol.steps { list-style: none; counter-reset: s; margin: 0 0 22px; padding: 0; display: grid; gap: 14px; max-width: 860px; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; }
+  ol.steps li::before { content: counter(s); width: 34px; height: 34px; line-height: 34px; text-align: center; border-radius: 50%; background: var(--gold); color: #000; font-weight: 800; font-size: 17px; }
+  .callout { padding: 16px 20px; border-radius: 6px; background: var(--tint-gold); max-width: 860px; }
+  .callout .label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 800; letter-spacing: .1em; }
+  .callout ul { margin: 6px 0 0; padding-left: 22px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  details { border-bottom: 1px solid var(--line); max-width: 860px; }
+  summary { cursor: pointer; padding: 14px 0; font-weight: 700; font-size: 19px; }
+  details p { margin: 0 0 16px; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--charcoal); font-size: 15px; }
+  footer .wrap { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; }
+  footer img { height: 36px; width: auto; display: block; }
+  footer p { margin: 0 0 6px; } footer .links a { margin-right: 18px; font-weight: 700; }
+  @media (max-width: 900px) {
+    .hero .wrap, .two { grid-template-columns: 1fr; } .cards { grid-template-columns: 1fr 1fr; } h1 { font-size: 36px; }
+    nav a.hide-s { display: none; }
+  }
+  @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } footer .wrap { grid-template-columns: 1fr; } header.top img { height: 30px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a href="./" aria-label="STEM education"><img src="assets/stem-education-logo.png" alt="STEM education"></a>
+  <nav>
+    <a class="hide-s" href="#features"><span data-l="el">Τι κάνει</span><span data-l="en">What it does</span></a>
+    <a class="hide-s" href="#start"><span data-l="el">Ξεκινώντας</span><span data-l="en">Getting started</span></a>
+    <a href="tracks/"><span data-l="el">Πίστες</span><span data-l="en">Tracks</span></a>
+    <a class="hide-s" href="#faq"><span data-l="el">Ερωτήσεις</span><span data-l="en">Questions</span></a>
+    <button class="langbtn" id="lang" type="button">EN</button>
+  </nav>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <div>
+    <p class="kicker"><span data-l="el">ΓΙΑ ΠΑΙΔΙΑ 5–7 ΕΤΩΝ</span><span data-l="en">FOR AGES 5–7</span></p>
+    <h1><span data-l="el">Προγραμματισμός ρομπότ με εικόνες</span><span data-l="en">Coding robots with pictures</span></h1>
+    <p class="lead" data-l="el">Σύρετε εικόνες για να προγραμματίσετε ένα ρομπότ micro:bit να κινείται, να ανάβει φώτα, να παίζει ήχους και να δείχνει εικόνες στην οθόνη του. Χωρίς λέξεις, χωρίς εγκατάσταση, σε tablet και υπολογιστή.</p>
+    <p class="lead" data-l="en">Drag pictures to program a micro:bit robot to move, light up, play sounds and draw on its screen. No words, no installation, on tablets and computers.</p>
+    <div class="acts">
+      <a class="btn" href="app/"><span data-l="el">Άνοιγμα εφαρμογής</span><span data-l="en">Open the app</span></a>
+      <a class="btn ghost" href="tracks/"><span data-l="el">Πίστες</span><span data-l="en">Tracks</span></a>
+    </div>
+    <p class="note"><span data-l="el">Δωρεάν. Λειτουργεί σε Chrome ή Edge.</span><span data-l="en">Free. Works in Chrome or Edge.</span></p>
+  </div>
+  <div>
+    <img class="shot" data-l="el" src="assets/app-el.webp" width="1100" height="688" alt="Η εφαρμογή: μπλοκ με εικόνες, εικονικό micro:bit και η πίστα του νησιού του θησαυρού">
+    <img class="shot" data-l="en" src="assets/app-en.webp" width="1100" height="688" alt="The app: picture blocks, a virtual micro:bit and the treasure island track">
+  </div>
+</div></section>
+
+<section class="block alt" id="features"><div class="wrap">
+  <h2><span data-l="el">Τι κάνει</span><span data-l="en">What it does</span></h2>
+  <div class="cards"><div class="card"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="15" height="15" rx="3"/><rect x="27" y="6" width="15" height="15" rx="3"/><rect x="6" y="27" width="15" height="15" rx="3"/><rect x="27" y="27" width="15" height="15" rx="3"/></svg></span><h3><span data-l="el">Εικόνες αντί για λέξεις</span><span data-l="en">Pictures instead of words</span></h3><p data-l="el">Κάθε μπλοκ είναι μια εικόνα με, το πολύ, έναν αριθμό από κάτω. Τα παιδιά σύρουν και παίζουν.</p><p data-l="en">Every block is a picture with at most one number underneath. Children drag and play.</p></div><div class="card"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="38" height="26" rx="4"/><path d="M18 42 H30 M24 34 V42"/></svg></span><h3><span data-l="el">Δοκιμή χωρίς ρομπότ</span><span data-l="en">Try it without a robot</span></h3><p data-l="el">Ένα εικονικό micro:bit και μια εικονική πίστα δείχνουν τι θα κάνει το πρόγραμμα, πριν συνδεθεί οτιδήποτε.</p><p data-l="en">A virtual micro:bit and a virtual track show what the program will do, before anything is connected.</p></div><div class="card"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14 L34 34 L24 44 L24 4 L34 14 L14 34"/></svg></span><h3><span data-l="el">Ζωντανός έλεγχος μέσω Bluetooth</span><span data-l="en">Live control over Bluetooth</span></h3><p data-l="el">Συνδέστε ένα micro:bit μία φορά. Η οθόνη LED, οι ήχοι, τα κουμπιά και η κίνηση δουλεύουν αμέσως, χωρίς λήψη προγραμμάτων.</p><p data-l="en">Connect a micro:bit once. The LED screen, sounds, buttons and movement work straight away, with no program downloads.</p></div><div class="card"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="8" width="24" height="32" rx="8"/><path d="M6 14 V22 M42 14 V22 M6 30 V38 M42 30 V38"/></svg></span><h3><span data-l="el">Ρομπότ TPBot Edu και TPBot</span><span data-l="en">TPBot Edu and TPBot robots</span></h3><p data-l="el">Με το TPBot Edu το ρομπότ διανύει ακριβείς αποστάσεις, κάνει ακριβείς στροφές και λέει πότε φτάνει. Το πλέγμα έχει τετράγωνα 20 cm, όπως ο χάρτης του κιτ.</p><p data-l="en">With TPBot Edu the robot drives exact distances, turns exact angles and says when it has arrived. The grid uses 20 cm squares, like the map in the kit.</p></div><div class="card"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 L28.5 18 L41 19 L31.5 27.5 L34.5 40 L24 33 L13.5 40 L16.5 27.5 L7 19 L19.5 18Z"/></svg></span><h3><span data-l="el">Πίστες και παιχνίδια</span><span data-l="en">Tracks and games</span></h3><p data-l="el">Φορτώστε μια πίστα ως φόντο, βάλτε στόχο και παγίδες, μετρήστε βήματα. Το micro:bit χαμογελά όταν το ρομπότ φτάνει και στενοχωριέται όταν πέφτει σε παγίδα.</p><p data-l="en">Load a track as the backdrop, place a target and traps, count steps. The micro:bit smiles when the robot arrives and frowns when it falls into a trap.</p></div><div class="card"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24 Q24 6 44 24 Q24 42 4 24Z"/><circle cx="24" cy="24" r="5"/></svg></span><h3><span data-l="el">Εργαλεία για τον εκπαιδευτικό</span><span data-l="en">Tools for the teacher</span></h3><p data-l="el">Προεπισκόπηση της διαδρομής, επαναφορά θέσης, προσομοίωση αισθητήρων και πλήρης οθόνη για προβολέα.</p><p data-l="en">Route preview, position reset, sensor simulation and a full-screen stage for the projector.</p></div></div>
+</div></section>
+
+<section class="block" id="start"><div class="wrap">
+  <h2><span data-l="el">Ξεκινώντας</span><span data-l="en">Getting started</span></h2>
+  <ol class="steps"><li><div data-l="el">Χρειάζεστε tablet Android, Chromebook ή υπολογιστή με Chrome ή Edge, ένα micro:bit V2 και, για κίνηση, ένα ρομπότ TPBot Edu ή TPBot.</div><div data-l="en">You need an Android tablet, a Chromebook or a computer with Chrome or Edge, a micro:bit V2 and, to drive, a TPBot Edu or TPBot robot.</div></li><li><div data-l="el">Φορτώστε μία φορά ένα μικρό πρόγραμμα στο micro:bit (οδηγίες παρακάτω). Από εκεί και πέρα κανένα παιδί δεν χρειάζεται να το ανοίξει ξανά.</div><div data-l="en">Load one small program onto the micro:bit, once (instructions below). After that no child ever needs to open it again.</div></li><li><div data-l="el">Ανοίξτε την εφαρμογή και πατήστε το κουμπί Bluetooth. Διαλέξτε το micro:bit σας: στην οθόνη του εμφανίζεται ένα τικ.</div><div data-l="en">Open the app and press the Bluetooth button. Choose your micro:bit: a tick appears on its screen.</div></li><li><div data-l="el">Σύρετε μπλοκ στο πρόγραμμα και πατήστε το πράσινο κουμπί.</div><div data-l="en">Drag blocks into the program and press the green button.</div></li></ol>
+  <div class="two">
+    <div>
+      <h3><span data-l="el">Το πρόγραμμα του micro:bit</span><span data-l="en">The micro:bit program</span></h3>
+      <p data-l="el">Το micro:bit χρειάζεται ένα μικρό πρόγραμμα που δείχνει τις εικόνες, παίζει τους ήχους, οδηγεί το ρομπότ και στέλνει πίσω τα κουμπιά και τους αισθητήρες. Το φτιάχνετε μία φορά:</p>
+      <p data-l="en">The micro:bit needs one small program that shows the pictures, plays the sounds, drives the robot and sends the buttons and sensors back. You make it once:</p>
+      <ol class="steps"><li><div data-l="el">Ανοίξτε το <a href="https://makecode.microbit.org" target="_blank" rel="noopener">makecode.microbit.org</a> και φτιάξτε ένα νέο έργο.</div><div data-l="en">Open <a href="https://makecode.microbit.org" target="_blank" rel="noopener">makecode.microbit.org</a> and start a new project.</div></li><li><div data-l="el">Επιλέξτε <b>JavaScript</b> από τον διακόπτη στην κορυφή και επικολλήστε τον κώδικα του <a href="runner/main.ts" download>main.ts</a>.</div><div data-l="en">Switch to <b>JavaScript</b> at the top and paste the code of <a href="runner/main.ts" download>main.ts</a>.</div></li><li><div data-l="el">Στις <b>Επεκτάσεις</b> προσθέστε το <b>bluetooth</b> και επικολλήστε τη διεύθυνση <code>https://github.com/elecfreaks/pxt-TPBot</code>.</div><div data-l="en">In <b>Extensions</b> add <b>bluetooth</b> and paste the address <code>https://github.com/elecfreaks/pxt-TPBot</code>.</div></li><li><div data-l="el">Στις ρυθμίσεις του έργου ενεργοποιήστε το <b>No Pairing Required</b>.</div><div data-l="en">In the project settings turn on <b>No Pairing Required</b>.</div></li><li><div data-l="el">Πατήστε <b>Λήψη</b> και αντιγράψτε το αρχείο .hex στον δίσκο <b>MICROBIT</b>.</div><div data-l="en">Press <b>Download</b> and copy the .hex file onto the <b>MICROBIT</b> drive.</div></li></ol>
+    </div>
+    <div>
+      <div class="callout"><span class="label" style="color:var(--accent)"><span data-l="el">ΣΥΜΒΟΥΛΗ</span><span data-l="en">TIP</span></span>
+        <span data-l="el">Φτιάξτε το αρχείο .hex μία φορά και δώστε το σε όλους τους εκπαιδευτικούς. Αρκεί να το αντιγράψουν στο micro:bit.</span>
+        <span data-l="en">Make the .hex file once and give it to every teacher. They only need to copy it onto the micro:bit.</span></div>
+      <p style="margin-top:20px"><a class="btn small ghost" href="runner/main.ts" download>main.ts</a> <a class="btn small ghost" href="runner/README.md"><span data-l="el">Οδηγίες</span><span data-l="en">Instructions</span></a></p>
+    </div>
+  </div>
+</div></section>
+
+<section class="block alt" id="tracks"><div class="wrap">
+  <h2><span data-l="el">Πίστες</span><span data-l="en">Tracks</span></h2>
+  <p class="lead" data-l="el" style="max-width:820px">Μια κοινή βιβλιοθήκη με πίστες για το δάπεδο: ακολούθηση γραμμής, χάρτες, παιχνίδια με στόχο και παγίδες. Κάθε πίστα ανοίγει στην εφαρμογή με ένα πάτημα. Φτιάξατε τη δική σας; Μοιραστείτε την με άλλα σχολεία.</p>
+  <p class="lead" data-l="en" style="max-width:820px">A shared library of floor tracks: line following, maps, target-and-trap games. Every track opens in the app with one tap. Made your own? Share it with other schools.</p>
+  <div class="acts"><a class="btn" href="tracks/"><span data-l="el">Δείτε τις πίστες</span><span data-l="en">Browse the tracks</span></a><a class="btn ghost" href="tracks/#add"><span data-l="el">Προσθέστε τη δική σας</span><span data-l="en">Add your own</span></a></div>
+</div></section>
+
+<section class="block" id="guide"><div class="wrap">
+  <h2><span data-l="el">Οδηγός χρήσης</span><span data-l="en">User guide</span></h2>
+  <div class="callout"><span class="label" style="color:var(--ink)"><span data-l="el">ΣΗΜΕΙΩΣΗ</span><span data-l="en">NOTE</span></span>
+    <span data-l="el">Ο αναλυτικός οδηγός με όλες τις λειτουργίες έρχεται σύντομα. Θα έχει τα εξής κεφάλαια:</span>
+    <span data-l="en">The full guide to every function is coming soon. It will have these chapters:</span>
+    <ul><li><span data-l="el">Τα μπλοκ</span><span data-l="en">The blocks</span></li><li><span data-l="el">Η σκηνή και η πίστα</span><span data-l="en">The stage and the track</span></li><li><span data-l="el">Τα ρομπότ</span><span data-l="en">The robots</span></li><li><span data-l="el">Εργαλεία εκπαιδευτικού</span><span data-l="en">Teacher tools</span></li><li><span data-l="el">Πίστες και παιχνίδια</span><span data-l="en">Tracks and games</span></li></ul></div>
+</div></section>
+
+<section class="block alt" id="faq"><div class="wrap">
+  <h2><span data-l="el">Συχνές ερωτήσεις</span><span data-l="en">Frequently asked questions</span></h2>
+  <details><summary><span data-l="el">Ποιες συσκευές υποστηρίζονται;</span><span data-l="en">Which devices work?</span></summary><p data-l="el">Tablet Android, Chromebook, Windows, macOS και Linux με Chrome ή Edge. Στο iPad η εφαρμογή ανοίγει και η προσομοίωση δουλεύει, αλλά ο browser δεν επιτρέπει σύνδεση Bluetooth με το micro:bit.</p><p data-l="en">Android tablets, Chromebooks, Windows, macOS and Linux with Chrome or Edge. On an iPad the app opens and the simulation works, but the browser does not allow a Bluetooth connection to the micro:bit.</p></details><details><summary><span data-l="el">Χρειάζεται internet;</span><span data-l="en">Do I need internet?</span></summary><p data-l="el">Για να ανοίξει η εφαρμογή και για να φορτώσει η βιβλιοθήκη πιστών, ναι. Μόλις ανοίξει, το πρόγραμμα και η σύνδεση με το micro:bit δεν το χρειάζονται.</p><p data-l="en">To open the app and to load the tracks library, yes. Once it is open, the program and the connection to the micro:bit do not need it.</p></details><details><summary><span data-l="el">Ποια ρομπότ υποστηρίζονται;</span><span data-l="en">Which robots are supported?</span></summary><p data-l="el">Το TPBot Edu (ακριβείς αποστάσεις και στροφές) και το TPBot (χρονομετρημένες κινήσεις). Η εφαρμογή είναι φτιαγμένη ώστε να προστεθούν και άλλα ρομπότ.</p><p data-l="en">TPBot Edu (exact distances and turns) and TPBot (timed moves). The app is built so that more robots can be added.</p></details><details><summary><span data-l="el">Αποθηκεύονται δεδομένα των παιδιών;</span><span data-l="en">Is any data about the children stored?</span></summary><p data-l="el">Όχι. Δεν υπάρχουν λογαριασμοί και δεν στέλνεται τίποτα. Οι ρυθμίσεις και το τελευταίο πρόγραμμα μένουν μόνο στη συσκευή. Δείτε την <a href="privacy.html">πολιτική απορρήτου</a>.</p><p data-l="en">No. There are no accounts and nothing is sent anywhere. The settings and the last program stay on the device only. See the <a href="privacy.html">privacy policy</a>.</p></details><details><summary><span data-l="el">Πώς προσθέτω μια πίστα;</span><span data-l="en">How do I add a track?</span></summary><p data-l="el">Ανοίξτε τη <a href="tracks/#add">συλλογή πιστών</a> και ακολουθήστε τα πέντε βήματα στο κάτω μέρος της σελίδας.</p><p data-l="en">Open the <a href="tracks/#add">tracks gallery</a> and follow the five steps at the bottom of the page.</p></details><details><summary><span data-l="el">Είναι δωρεάν;</span><span data-l="en">Is it free?</span></summary><p data-l="el">Ναι. Ο κώδικας είναι διαθέσιμος στο <a href="https://github.com/robotrails/robotrails.github.io" target="_blank" rel="noopener">GitHub</a>.</p><p data-l="en">Yes. The code is available on <a href="https://github.com/robotrails/robotrails.github.io" target="_blank" rel="noopener">GitHub</a>.</p></details>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <img src="assets/stem-education-logo.png" alt="STEM education">
+  <div>
+    <p data-l="el">Το micro:bit είναι σήμα κατατεθέν του Micro:bit Educational Foundation και το TPBot προϊόν της ELECFREAKS. Αυτό το εργαλείο δεν συνδέεται με αυτούς και δεν έχει εγκριθεί από αυτούς.</p>
+    <p data-l="en">micro:bit is a trademark of the Micro:bit Educational Foundation and TPBot is a product of ELECFREAKS. This tool is not affiliated with or endorsed by them.</p>
+    <p class="links"><a href="tracks/"><span data-l="el">Πίστες</span><span data-l="en">Tracks</span></a><a href="privacy.html"><span data-l="el">Απόρρητο</span><span data-l="en">Privacy</span></a><a href="https://github.com/robotrails/robotrails.github.io" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/robotrails/robotrails.github.io/issues" target="_blank" rel="noopener"><span data-l="el">Αναφορά προβλήματος</span><span data-l="en">Report a problem</span></a></p>
+  </div>
+</div></footer>
+<script>
+  (function () {
+    var l = localStorage.getItem('site:lang') || ((navigator.language || '').indexOf('el') === 0 ? 'el' : 'en');
+    function set(v) { document.documentElement.lang = v; document.getElementById('lang').textContent = v === 'el' ? 'EN' : 'EL'; localStorage.setItem('site:lang', v); }
+    set(l);
+    document.getElementById('lang').addEventListener('click', function () { set(document.documentElement.lang === 'el' ? 'en' : 'el'); });
+  })();
+</script>
+</body>
+</html>

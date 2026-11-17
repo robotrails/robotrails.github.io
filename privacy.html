@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Απόρρητο · Privacy</title><link rel="icon" href="favicon.ico">
+<style>
+  @font-face { font-family: "Commissioner"; src: url(assets/commissioner.woff2) format("woff2"); font-weight: 400 800; font-display: swap; }
+  :root { --blue: #0071BC; --orange: #F15A24; --gold: #FBB03B; --sky: #0096EA; --charcoal: #6D6E71; --ink: #1A1A1A; --line: #DDDDDD; --alt: #F5F5F5; --accent: #B94418; --tint-blue: #E6F4FD; --tint-gold: #FEF4DE; --tint-orange: #FDEBE4; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; font-family: "Commissioner", "Segoe UI", Arial, sans-serif; font-size: 18px; line-height: 1.65; color: var(--ink); background: #fff; }
+  a { color: var(--blue); }
+  code { font-family: "JetBrains Mono", Consolas, "Courier New", monospace; font-size: .85em; background: var(--alt); padding: 2px 6px; border-radius: 4px; word-break: break-all; }
+  html[lang="el"] [data-l="en"], html[lang="en"] [data-l="el"] { display: none !important; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  header.top { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--line); }
+  header.top .wrap { display: flex; align-items: center; gap: 18px; min-height: 64px; }
+  header.top img { height: 38px; width: auto; display: block; }
+  nav { margin-left: auto; display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: 16px; }
+  nav a { text-decoration: none; color: var(--ink); } nav a:hover { color: var(--blue); }
+  .langbtn { font: inherit; font-weight: 700; font-size: 15px; padding: 5px 12px; background: #fff; color: var(--ink); border: 2px solid var(--charcoal); border-radius: 6px; cursor: pointer; }
+  .btn { display: inline-block; padding: 12px 24px; font: inherit; font-weight: 700; font-size: 20px; line-height: 1.3; text-decoration: none; color: #fff; background: var(--orange); border: 2px solid var(--orange); border-radius: 6px; }
+  .btn.ghost { color: var(--blue); background: #fff; border-color: var(--blue); }
+  .btn.small { font-size: 17px; padding: 8px 18px; }
+  .hero { padding: 48px 0 40px; }
+  .hero .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 40px; align-items: center; }
+  .kicker { margin: 0 0 8px; font-size: 14px; font-weight: 800; letter-spacing: .1em; color: var(--accent); }
+  h1 { margin: 0 0 14px; font-size: 46px; line-height: 1.15; font-weight: 800; color: var(--blue); }
+  h2 { margin: 0 0 14px; font-size: 32px; line-height: 1.25; font-weight: 700; color: var(--blue); }
+  h3 { margin: 0 0 6px; font-size: 20px; line-height: 1.3; font-weight: 700; }
+  .lead { margin: 0 0 24px; font-size: 20px; color: var(--ink); }
+  .acts { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+  .note { margin: 0; font-size: 15px; color: var(--charcoal); }
+  .shot { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 6px; }
+  section.block { padding: 44px 0; }
+  section.alt { background: var(--alt); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 18px 18px 16px; }
+  .card p { margin: 0; font-size: 16px; line-height: 1.6; }
+  .ic { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 10px; border-radius: 50%; background: var(--sky); }
+  .ic svg { width: 26px; height: 26px; }
+  ol.steps { list-style: none; counter-reset: s; margin: 0 0 22px; padding: 0; display: grid; gap: 14px; max-width: 860px; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; }
+  ol.steps li::before { content: counter(s); width: 34px; height: 34px; line-height: 34px; text-align: center; border-radius: 50%; background: var(--gold); color: #000; font-weight: 800; font-size: 17px; }
+  .callout { padding: 16px 20px; border-radius: 6px; background: var(--tint-gold); max-width: 860px; }
+  .callout .label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 800; letter-spacing: .1em; }
+  .callout ul { margin: 6px 0 0; padding-left: 22px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  details { border-bottom: 1px solid var(--line); max-width: 860px; }
+  summary { cursor: pointer; padding: 14px 0; font-weight: 700; font-size: 19px; }
+  details p { margin: 0 0 16px; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--charcoal); font-size: 15px; }
+  footer .wrap { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; }
+  footer img { height: 36px; width: auto; display: block; }
+  footer p { margin: 0 0 6px; } footer .links a { margin-right: 18px; font-weight: 700; }
+  @media (max-width: 900px) {
+    .hero .wrap, .two { grid-template-columns: 1fr; } .cards { grid-template-columns: 1fr 1fr; } h1 { font-size: 36px; }
+    nav a.hide-s { display: none; }
+  }
+  @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } footer .wrap { grid-template-columns: 1fr; } header.top img { height: 30px; } }
+
+ main { max-width: 760px; margin: 0 auto; padding: 36px 24px 60px; }</style></head>
+<body>
+<header class="top"><div class="wrap"><a href="./"><img src="assets/stem-education-logo.png" alt="STEM education"></a>
+<nav><a href="./"><span data-l="el">Αρχική</span><span data-l="en">Home</span></a><button class="langbtn" id="lang" type="button">EN</button></nav></div></header>
+<main><h1><span data-l="el">Απόρρητο</span><span data-l="en">Privacy</span></h1><p data-l="el">Η εφαρμογή δεν έχει λογαριασμούς, δεν ζητά προσωπικά στοιχεία και δεν περιέχει διαφημίσεις ή εργαλεία παρακολούθησης.</p><p data-l="en">The app has no accounts, asks for no personal data and contains no advertising or tracking tools.</p><p data-l="el">Ό,τι φτιάχνετε (το πρόγραμμα, οι ρυθμίσεις, η γλώσσα, το φόντο και τα τετράγωνα στόχου και παγίδας) αποθηκεύεται μόνο στη μνήμη του browser της συσκευής σας και δεν στέλνεται πουθενά. Μπορείτε να το σβήσετε διαγράφοντας τα δεδομένα του ιστότοπου από τον browser.</p><p data-l="en">What you make (the program, the settings, the language, the backdrop and the target and trap squares) is stored only in your device’s browser memory and is not sent anywhere. You can delete it by clearing the site data in the browser.</p><p data-l="el">Η σύνδεση με το micro:bit γίνεται απευθείας από τον browser με Bluetooth, με συσκευή που επιλέγετε εσείς κάθε φορά.</p><p data-l="en">The connection to the micro:bit is made straight from the browser over Bluetooth, to a device that you choose each time.</p><p data-l="el">Ο ιστότοπος και η βιβλιοθήκη πιστών φιλοξενούνται στο GitHub Pages. Όπως κάθε διακομιστής, το GitHub μπορεί να καταγράφει τη διεύθυνση IP όταν ανοίγετε τη σελίδα· δείτε την πολιτική απορρήτου του GitHub.</p><p data-l="en">The website and the tracks library are hosted on GitHub Pages. Like any server, GitHub may log the IP address when you open the page; see GitHub’s privacy statement.</p><p data-l="el">Όταν ανεβάζετε μια πίστα στη βιβλιοθήκη, το όνομα που γράφετε ως συγγραφέα και η εικόνα γίνονται δημόσια. Μην ανεβάζετε φωτογραφίες αναγνωρίσιμων προσώπων, ιδίως παιδιών.</p><p data-l="en">When you upload a track to the library, the name you write as author and the picture become public. Do not upload photos of identifiable people, especially children.</p></main>
+<script>
+  (function () {
+    var l = localStorage.getItem('site:lang') || ((navigator.language || '').indexOf('el') === 0 ? 'el' : 'en');
+    function set(v) { document.documentElement.lang = v; document.getElementById('lang').textContent = v === 'el' ? 'EN' : 'EL'; localStorage.setItem('site:lang', v); }
+    set(l);
+    document.getElementById('lang').addEventListener('click', function () { set(document.documentElement.lang === 'el' ? 'en' : 'el'); });
+  })();
+</script></body></html>
