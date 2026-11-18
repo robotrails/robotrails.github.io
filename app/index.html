@@ -282,6 +282,77 @@
   #libmsg { margin: 8px 4px; font-size: 1rem; color: var(--charcoal); }
   .libfoot { flex: none; padding: 8px 16px; border-top: 1px solid var(--line); background: var(--alt); font-size: .9rem; }
   .libfoot a { color: var(--blue); font-weight: 700; }
+
+  /* record mode */
+  .mbside.l { flex-direction: row; }
+  .pscol { display: flex; flex-direction: column; gap: 10px; }
+  #mbpanel #recBtn { width: 70px; height: 70px; }
+  #mbpanel #recBtn svg { width: 42px; height: 42px; }
+  #recBtn.on { background: var(--gold); }
+  @media (min-width: 801px) and (max-height: 760px) { #mbpanel #recBtn { width: 58px; height: 58px; } #mbpanel #recBtn svg { width: 34px; height: 34px; } }
+  #side { position: relative; }
+  #recpanel { position: absolute; inset: 0; z-index: 30; display: none; flex-direction: column; }
+  body.rec #recpanel { display: flex; }
+  #rechead { flex: none; display: flex; align-items: center; gap: 10px; background: var(--blue); color: #fff; padding: 6px 10px 6px 14px; }
+  #rechead > svg { width: 34px; height: 34px; }
+  #recCount { margin-right: auto; min-width: 40px; padding: 2px 10px; border-radius: var(--radius); background: #fff; color: var(--ink); font-weight: 800; font-size: 1.2rem; text-align: center; }
+  #rechead .tool.small { width: 44px; height: 44px; border: 2px solid #fff; background: transparent; }
+  #recmem { flex: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 12px; min-height: 66px; max-height: 32%; overflow: auto; align-content: flex-start; background: #D6E8F5; }
+  .rchip { width: 44px; height: 44px; border-radius: var(--radius); background: var(--bot); display: grid; place-items: center; transition: transform .15s; }
+  .rchip svg { width: 30px; height: 30px; }
+  .rchip.now { outline: 4px solid var(--gold); outline-offset: 1px; transform: scale(1.12); }
+  #recpad { --rp: clamp(70px, min(14vh, 10vw), 140px); flex: 1 1 auto; display: grid; grid-template-columns: repeat(3, var(--rp)); grid-template-rows: repeat(3, var(--rp)); gap: 14px; place-content: center; padding: 14px; }
+  .rp { width: 100%; height: 100%; padding: 0; border-radius: var(--radius); border: 2px solid var(--charcoal); display: grid; place-items: center; }
+  .rp svg { width: 62%; height: 62%; }
+  .rp.mv { background: var(--bot); } .rp.go { background: var(--go); } .rp.er { background: #fff; }
+  .rp:active { transform: scale(.94); }
+  body.recrun .rp.mv { opacity: .45; }
+  .rp.full { animation: shk .4s; }
+  /* content of an interactive square */
+  #media { z-index: 130; }
+  .mediabox { width: min(1100px, 94vw); height: min(86vh, 820px); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+  #mediabody { flex: 1 1 auto; min-height: 0; display: grid; place-items: center; background: #1A1A1A; }
+  #mediabody img, #mediabody video { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+  .ytcard { position: relative; display: block; width: min(90%, 900px); }
+  .ytcard img { width: 100%; display: block; border-radius: var(--radius); }
+  .ytcard span { position: absolute; inset: 0; display: grid; place-items: center; }
+  .ytcard svg { width: 120px; height: 85px; }
+  #mediabody iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+  #mediaOpen { display: grid; place-items: center; } #mediaOpen[hidden] { display: none; }
+  #mediaClose { background: var(--orange) !important; border-color: var(--orange) !important; }
+  .grow { margin-right: auto; }
+  .edia .iaic { width: 36px; height: 36px; flex: none; }
+  #edurl { flex: 1 1 90px; min-width: 0; height: 50px; font: 600 1rem "Commissioner", Arial, sans-serif; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 10px; }
+  #edurl:focus { outline: 3px solid var(--blue); }
+  #edinfo { flex: 1 1 100%; font-size: .85rem; color: var(--charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* modify a square */
+  #sqed { z-index: 120; }
+  .edbox { width: min(1000px, 96vw); max-height: 96vh; padding: 0; display: flex; flex-direction: column; overflow: hidden; text-align: left; }
+  #edtitle { margin-right: auto; font-weight: 800; font-size: 1.2rem; }
+  #edok { background: var(--orange) !important; border-color: var(--orange) !important; }
+  .edmain { display: flex; flex-wrap: wrap; gap: 16px; padding: 14px; justify-content: center; align-items: flex-start; overflow: auto; }
+  .edstage { position: relative; width: min(64vh, 90vw, 540px); aspect-ratio: 1; flex: none; }
+  #edcv { display: block; width: 100%; height: 100%; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; touch-action: none; cursor: crosshair; }
+  #edcam { position: absolute; inset: 0; display: none; border-radius: var(--radius); overflow: hidden; background: #1A1A1A; }
+  #sqed.cam #edcam { display: block; }
+  #edvideo { width: 100%; height: 100%; object-fit: cover; display: block; }
+  #edcam::after { content: ""; position: absolute; inset: 0; border: 3px dashed rgba(255,255,255,.8); border-radius: var(--radius); pointer-events: none; }
+  .camrow { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; align-items: center; gap: 14px; z-index: 1; }
+  .camrow .tool { width: 52px; height: 52px; }
+  .camrow .tool svg { width: 28px; height: 28px; }
+  #camShot { width: 72px; height: 72px; border-radius: 50%; border: 5px solid #fff; background: var(--orange); }
+  .edtools { display: flex; flex-direction: column; gap: 12px; width: min(350px, 90vw); }
+  .edia .tool { width: 46px; height: 46px; } .edia { gap: 6px; }
+  .edrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .edrow + .edrow { padding-top: 12px; border-top: 1px solid var(--line); }
+  .edrow .tool { width: 50px; height: 50px; }
+  .edrow .tool svg { width: 28px; height: 28px; }
+  .edrow .tool.on { background: var(--gold); }
+  .sw { width: 40px; height: 40px; border-radius: var(--radius); border: 2px solid var(--charcoal); padding: 0; }
+  .sw.on { outline: 4px solid var(--blue); outline-offset: 2px; }
+  #edtext { flex: 1 1 120px; min-width: 0; height: 50px; font: 800 1.5rem "Commissioner", Arial, sans-serif; text-align: center; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 8px; }
+  #edtext:focus { outline: 3px solid var(--blue); }
+  #sqed:not(.txt) #edtext { display: none; }
 </style>
 </head>
 <body>
@@ -304,8 +375,11 @@
   <section id="left">
     <div id="mbpanel" class="panel">
       <div class="mbside l">
+        <button class="tool" id="recBtn" aria-label="Record"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#1A1A1A" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="#F15A24"/></svg></button>
+        <div class="pscol">
         <button class="tool" id="play" aria-label="Play"><svg viewBox="0 0 32 32"><path d="M9 5 L27 16 L9 27Z" fill="#fff" stroke="#1A1A1A" stroke-width="3" stroke-linejoin="round"/></svg></button>
         <button class="tool" id="stop" aria-label="Stop"><svg viewBox="0 0 32 32"><rect x="7" y="7" width="18" height="18" rx="3" fill="#fff" stroke="#1A1A1A" stroke-width="3"/></svg></button>
+        </div>
       </div>
       <svg id="mb" viewBox="0 0 300 240" aria-label="micro:bit"></svg>
       <div class="mbside r">
@@ -330,6 +404,7 @@
       <div class="tgroup bd" id="gBackdrop">
         <button class="tool" id="libBtn" aria-label="Tracks library"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="15" height="15" rx="3"/><rect x="27" y="6" width="15" height="15" rx="3"/><rect x="6" y="27" width="15" height="15" rx="3"/><rect x="27" y="27" width="15" height="15" rx="3"/></svg></button>
         <button class="tool" id="bdLoad" aria-label="Backdrop"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="38" height="30" rx="5"/><circle cx="16" cy="20" r="4"/><path d="M5 34 L17 24 L26 31 L33 25 L43 34"/></svg></button>
+        <button class="tool" id="bdPaint" aria-label="Modify square"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 H9 A3 3 0 0 0 6 9 V39 A3 3 0 0 0 9 42 H39 A3 3 0 0 0 42 39 V24"/><path d="M19 29 L20.5 22.5 L36 7 L41 12 L25.5 27.5 Z"/></svg></button>
         <button class="tool" id="bdClear" aria-label="Remove backdrop"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button>
         <button class="tool" id="bdTemplate" aria-label="Template"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 V30 M14 22 L24 32 L34 22 M8 40 H40"/></svg></button>
         <button class="tool on" id="gridBtn" aria-label="Grid"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6 V42 M32 6 V42 M6 16 H42 M6 32 H42"/></svg></button>
@@ -359,6 +434,19 @@
   </section>
 
   <section id="side">
+    <div id="recpanel" class="panel">
+      <div id="rechead"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#fff" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="#F15A24"/></svg><span id="recCount">0</span>
+        <button class="tool small" id="recClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button></div>
+      <div id="recmem"></div>
+      <div id="recpad">
+        <span></span><button class="rp mv" data-r="fwd" aria-label="Forward"></button><span></span>
+        <button class="rp mv" data-r="left" aria-label="Left"></button>
+        <button class="rp go" id="recGo" aria-label="Go"><svg viewBox="0 0 32 32"><path d="M9 5 L27 16 L9 27Z" fill="#fff" stroke="#1A1A1A" stroke-width="2.5" stroke-linejoin="round"/></svg></button>
+        <button class="rp mv" data-r="right" aria-label="Right"></button>
+        <span></span><button class="rp mv" data-r="back" aria-label="Back"></button>
+        <button class="rp er" id="recErase" aria-label="Erase memory"><svg viewBox="0 0 48 48" fill="none" stroke="#F15A24" stroke-width="6" stroke-linecap="round"><path d="M12 12 L36 36 M36 12 L12 36"/></svg></button>
+      </div>
+    </div>
     <div id="wspanel" class="panel">
       <div id="wshead"><span id="wstitle">Program</span><button class="tool small" id="orient" aria-label="Layout"></button></div>
       <div id="script"><div id="track" class="track"></div><div id="ins"></div></div>
@@ -378,10 +466,67 @@
 
 <div id="library" class="overlay"><div class="box libbox">
   <div class="libhead"><span id="libtitle">Tracks</span>
-    <button class="tool small" id="libShare" aria-label="Save my track to share it" disabled><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 30 V6 M14 16 L24 6 L34 16 M8 40 H40"/></svg></button>
+    <button class="tool small" id="libShare" aria-label="Download my track"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 V30 M14 20 L24 30 L34 20 M8 34 V40 H40 V34"/></svg></button>
     <button class="tool small" id="libClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button></div>
   <div id="libbody"><div id="libgrid"></div><p id="libmsg"></p></div>
-  <div class="libfoot"><a id="libMore" href="../tracks/#add" target="_blank" rel="noopener">Add your own track</a></div>
+</div></div>
+
+<div id="sqed" class="overlay"><div class="box edbox">
+  <div class="libhead"><span id="edtitle">Modify square</span>
+    <button class="tool small" id="edcancel" aria-label="Cancel"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button>
+    <button class="tool small" id="edok" aria-label="OK"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17 L13 24 L26 8"/></svg></button></div>
+  <div class="edmain">
+    <div class="edstage"><canvas id="edcv" width="200" height="200"></canvas>
+      <div id="edcam"><video id="edvideo" playsinline muted autoplay></video>
+        <div class="camrow">
+          <button class="tool" id="camClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12 L36 36 M36 12 L12 36"/></svg></button>
+          <button class="tool" id="camFlip" aria-label="Other camera"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22 A16 16 0 0 1 38 14 M40 6 V14 H32 M40 26 A16 16 0 0 1 10 34 M8 42 V34 H16"/></svg></button>
+          <button class="tool" id="camShot" aria-label="Take photo"></button>
+          <button class="tool" id="camGal" aria-label="Pick a picture"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="38" height="30" rx="5"/><circle cx="16" cy="20" r="4"/><path d="M5 34 L17 24 L26 31 L33 25 L43 34"/></svg></button>
+        </div></div></div>
+    <div class="edtools">
+      <div class="edrow">
+        <button class="tool edt" data-tool="brush" aria-label="Brush"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 7 L41 18 L23 36 L12 25 Z"/><path d="M12 25 C5 28 7 36 4 43 C11 41 19 41 23 36"/></svg></button>
+        <button class="tool edt" data-tool="bucket" aria-label="Fill"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21 L21 7 L37 23 L23 37 Z"/><path d="M7 21 H37"/><path d="M42 29 C40 33 38 35 38 38 A4 4 0 0 0 46 38 C46 35 44 33 42 29 Z"/></svg></button>
+        <button class="tool edt" data-tool="text" aria-label="Letters and numbers"><svg viewBox="0 0 48 48"><text x="24" y="33" text-anchor="middle" font-size="24" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">A1</text></svg></button>
+        <button class="tool" id="edCam" aria-label="Camera"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="13" width="40" height="28" rx="5"/><path d="M16 13 L19 7 H29 L32 13"/><circle cx="24" cy="27" r="8"/></svg></button>
+        <button class="tool" id="edUndo" aria-label="Undo"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 9 L7 19 L17 29"/><path d="M7 19 H30 A10 10 0 0 1 30 39 H20"/></svg></button>
+        <button class="tool" id="edClear" aria-label="Clear"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12 H40 M18 12 V7 H30 V12 M12 12 L14 42 H34 L36 12"/></svg></button>
+      </div>
+      <div class="edrow">
+        <button class="tool edt" data-tool="rect" aria-label="Square"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="32" height="32" rx="2"/></svg></button>
+        <button class="tool edt" data-tool="circle" aria-label="Circle"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/></svg></button>
+        <button class="tool edt" data-tool="tri" aria-label="Triangle"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 L42 40 H6 Z"/></svg></button>
+        <button class="tool edt" data-tool="star" aria-label="Star"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="24.0,7.0 28.4,18.9 41.1,19.4 31.1,27.3 34.6,39.6 24.0,32.5 13.4,39.6 16.9,27.3 6.9,19.4 19.6,18.9"/></svg></button>
+        <button class="tool edt" data-tool="heart" aria-label="Heart"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 41 C14 33 6 27 6 17 A9 9 0 0 1 24 13 A9 9 0 0 1 42 17 C42 27 34 33 24 41 Z"/></svg></button>
+        <button class="tool edt" data-tool="arrow" aria-label="Arrow"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 42 V8 M12 20 L24 8 L36 20"/></svg></button>
+      </div>
+      <div class="edrow" id="edColors"></div>
+      <div class="edrow">
+        <button class="tool eds" data-size="0" aria-label="Thin"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="4" fill="#1A1A1A"/></svg></button>
+        <button class="tool eds" data-size="1" aria-label="Medium"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="8.5" fill="#1A1A1A"/></svg></button>
+        <button class="tool eds" data-size="2" aria-label="Thick"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="14" fill="#1A1A1A"/></svg></button>
+        <button class="tool" id="edFill" aria-label="Filled or outline"></button>
+        <input id="edtext" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="A 1">
+      </div>
+      <div class="edrow edia">
+        <svg class="iaic" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="6" fill="#0071BC"/><path d="M18 13 L36 24 L18 35 Z" fill="#fff"/></svg>
+        <input id="edurl" autocomplete="off" spellcheck="false" inputmode="url" placeholder="https://">
+        <button class="tool" id="edInterFile" aria-label="File"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 A3 3 0 0 1 8 9 H18 L22 14 H40 A3 3 0 0 1 43 17 V37 A3 3 0 0 1 40 40 H8 A3 3 0 0 1 5 37 Z"/></svg></button>
+        <button class="tool" id="edInterTest" aria-label="Try"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24 C10 13 17 9 24 9 C31 9 38 13 44 24 C38 35 31 39 24 39 C17 39 10 35 4 24 Z"/><circle cx="24" cy="24" r="6"/></svg></button>
+        <button class="tool" id="edInterDel" aria-label="Remove"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12 L36 36 M36 12 L12 36"/></svg></button>
+        <div id="edinfo"></div>
+      </div>
+    </div>
+  </div>
+  <input id="edfile" type="file" accept="image/*" hidden>
+  <input id="edmedia" type="file" accept="image/*,video/*" hidden>
+</div></div>
+
+<div id="media" class="overlay"><div class="box mediabox">
+  <div class="libhead"><a class="tool small" id="mediaOpen" target="_blank" rel="noopener" aria-label="Open in a new tab"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8 H8 V40 H40 V26 M28 6 H42 V20 M42 6 L22 26"/></svg></a><span class="grow"></span>
+    <button class="tool small" id="mediaClose" aria-label="OK"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17 L13 24 L26 8"/></svg></button></div>
+  <div id="mediabody"></div>
 </div></div>
 
 <div id="settings" class="overlay"><div class="box">
@@ -403,11 +548,11 @@ const STR = {
   en: { title: 'RoboTrails', lang: 'EL', play: 'Play', stop: 'Stop', conn: 'Connect micro:bit', off: 'micro:bit not connected', on: 'micro:bit connected', busy: 'Connecting…',
         ws: 'Program', settings: 'Settings', cats: { ev: 'When', disp: 'Screen', snd: 'Sound', bot: 'Robot', ctl: 'Control' },
         noBt: 'This browser cannot talk to the micro:bit. Use Chrome or Edge on a computer, a Chromebook or an Android tablet.', err: 'Could not connect: ',
-        lib: 'Tracks', libShare: 'Save my track to share it', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
+        lib: 'Tracks', libShare: 'Download a picture of my track', sqEdit: 'Modify square', rec: 'Record', iaErr: 'The file could not be kept on this device (it may be too big).', iaUrl: 'Link to a video, picture or web page', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
   el: { title: 'RoboTrails', lang: 'EN', play: 'Εκκίνηση', stop: 'Στοπ', conn: 'Σύνδεση micro:bit', off: 'Το micro:bit δεν είναι συνδεδεμένο', on: 'Το micro:bit συνδέθηκε', busy: 'Σύνδεση…',
         ws: 'Πρόγραμμα', settings: 'Ρυθμίσεις', cats: { ev: 'Όταν', disp: 'Οθόνη', snd: 'Ήχος', bot: 'Ρομπότ', ctl: 'Έλεγχος' },
         noBt: 'Αυτός ο browser δεν μπορεί να μιλήσει με το micro:bit. Χρησιμοποίησε Chrome ή Edge σε υπολογιστή, Chromebook ή tablet Android.', err: 'Αποτυχία σύνδεσης: ',
-        lib: 'Πίστες', libShare: 'Αποθήκευση της πίστας μου για κοινοποίηση', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
+        lib: 'Πίστες', libShare: 'Λήψη εικόνας της πίστας μου', sqEdit: 'Αλλαγή τετραγώνου', rec: 'Ηχογράφηση βημάτων', iaErr: 'Το αρχείο δεν αποθηκεύτηκε σε αυτή τη συσκευή (ίσως είναι πολύ μεγάλο).', iaUrl: 'Σύνδεσμος σε βίντεο, εικόνα ή ιστοσελίδα', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
 };
 let LANG = 'en';
 try { LANG = localStorage.getItem('mbblocks:lang') || ((navigator.language || '').startsWith('el') ? 'el' : 'en'); } catch (e) { /* no storage */ }
@@ -460,7 +605,7 @@ const DEFS = {
   picture: { cat: 'disp', pic: true, def: HEART },
   digit: { cat: 'disp', vals: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], def: 1 },
   clear: { cat: 'disp' },
-  note: { cat: 'snd', vals: [1, 2, 3, 4, 5, 6, 7, 8], def: 1 },
+  note: { cat: 'snd', vals: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], def: 1 },
   // a number of 0 shows as an empty oval = keep going until another block changes it
   fwd: { cat: 'bot', inf: true, vals: [1, 2, 3, 4, 5, 0], def: 1 }, back: { cat: 'bot', inf: true, vals: [1, 2, 3, 4, 5, 0], def: 1 },
   left: { cat: 'bot', inf: true, vals: [1, 2, 3, 4, 0], def: 1 }, right: { cat: 'bot', inf: true, vals: [1, 2, 3, 4, 0], def: 1 },
@@ -480,7 +625,20 @@ const TABICON = {
 };
 const numText = (t, v) => (DEFS[t].inf && v === 0 ? '' : String(v));
 const NEAR_CM = 10;       // "something is in front" = the sonar reads less than this (0 means no echo)
-const NOTES = [262, 294, 330, 349, 392, 440, 494, 523];
+// micro:bit V2 built-in sound effects, in the order of the number on the block: 1 giggle, 2 happy, 3 hello, 4 spring, 5 twinkle, 6 soaring, 7 slide, 8 mysterious, 9 sad, 10 yawn.
+// Each has [length in ms, rough tune [freq, ms]... used only for the on-screen micro:bit / tablet speaker].
+const EFFECTS = [
+  [1100, [[880, 80], [1175, 80], [988, 80], [1319, 80], [1047, 80], [1397, 80], [1175, 80], [1568, 140]]],   // giggle
+  [1100, [[523, 140], [659, 140], [784, 140], [1047, 320]]],                                                   // happy
+  [1300, [[392, 200], [523, 200], [659, 200], [523, 320]]],                                                    // hello
+  [1500, [[330, 120], [494, 120], [659, 120], [880, 120], [1175, 220]]],                                       // spring
+  [1300, [[1047, 120], [1319, 120], [1568, 120], [2093, 120], [1568, 120], [2093, 220]]],                      // twinkle
+  [1500, [[392, 200], [523, 200], [659, 200], [784, 200], [1047, 320]]],                                       // soaring
+  [1000, [[1568, 100], [1319, 100], [1047, 100], [784, 100], [523, 100], [392, 200]]],                         // slide
+  [2500, [[330, 400], [349, 400], [311, 400], [330, 400], [262, 600]]],                                        // mysterious
+  [1800, [[392, 300], [349, 300], [311, 300], [262, 700]]],                                                    // sad
+  [2000, [[392, 400], [349, 400], [294, 400], [247, 500]]]                                                     // yawn
+];
 const MAX_BLOCKS = 30;
 
 /* ---------- state ---------- */
@@ -538,14 +696,20 @@ function showLeds(bits) {
   mb.send('L' + hex7(bits));
 }
 let actx = null;
-function beep(freq, ms) {
-  const spk = $('#spk'); spk.setAttribute('fill', '#FBB03B'); setTimeout(() => spk.setAttribute('fill', '#1A1A1A'), ms);
+function tone(freq, ms) {
   try {
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'square'; o.frequency.value = freq; g.gain.value = 0.06; o.connect(g); g.connect(actx.destination); o.start(); o.stop(actx.currentTime + ms / 1000);
   } catch (e) { /* no audio */ }
-  mb.send('T' + freq + ',' + ms);
+}
+let effectTimers = [];
+function playEffect(n) {                                    // n = 1..10; the micro:bit plays the real V2 sound effect, the screen version only imitates it
+  const e = EFFECTS[n - 1]; if (!e) return;
+  effectTimers.forEach(clearTimeout); effectTimers = [];
+  const spk = $('#spk'); spk.setAttribute('fill', '#FBB03B'); effectTimers.push(setTimeout(() => spk.setAttribute('fill', '#1A1A1A'), e[0]));
+  let t = 0; e[1].forEach(([f, ms]) => { effectTimers.push(setTimeout(() => tone(f, ms), t)); t += ms + 20; });
+  mb.send('E' + n);
 }
 
 /* ---------- virtual floor with the robot (turtle style) ---------- */
@@ -565,7 +729,7 @@ function applyGrid() {                                  // size the floor, the g
   $('#trail').setAttribute('viewBox', `0 0 ${grid.cols} ${grid.rows}`); $('#preview').setAttribute('viewBox', `0 0 ${grid.cols} ${grid.rows}`);
   if (!startSaved) Object.assign(start, defaultStart());
   clampStart(); if (typeof botReset === 'function') botReset();
-  if (marks.cols !== grid.cols || marks.rows !== grid.rows) { marks.t.clear(); marks.x.clear(); } marks.cols = grid.cols; marks.rows = grid.rows; saveMarks(); drawMarks(); fitFloor();
+  if (marks.cols !== grid.cols || marks.rows !== grid.rows) { marks.t.clear(); marks.x.clear(); } if (inter.cols !== grid.cols || inter.rows !== grid.rows) clearInter(); marks.cols = grid.cols; marks.rows = grid.rows; saveMarks(); drawMarks(); fitFloor();
 }
 let cont = null;                              // an endless move or turn that is still going on in the simulation
 function botApply(ms) {
@@ -574,7 +738,7 @@ function botApply(ms) {
   el.style.left = (bot.x / grid.cols * 100) + '%'; el.style.top = (bot.y / grid.rows * 100) + '%';
   el.style.transform = `translate(-50%, -50%) rotate(${bot.h}deg)`;
 }
-function botReset() { if (cont) { clearTimeout(cont.timer); (cont.timers || []).forEach(clearTimeout); } cont = null; clearHits(); resetGame(); bot.x = start.x; bot.y = start.y; bot.h = start.h; $('#trail').innerHTML = ''; botApply(0); botLight(0); updatePreview(); }
+function botReset() { interShown = null; if (cont) { clearTimeout(cont.timer); (cont.timers || []).forEach(clearTimeout); } cont = null; clearHits(); resetGame(); bot.x = start.x; bot.y = start.y; bot.h = start.h; $('#trail').innerHTML = ''; botApply(0); botLight(0); updatePreview(); }
 function botLight(v) { ['#hl1', '#hl2'].forEach((s) => $(s).setAttribute('fill', v ? LIGHTS[v][0] : '#fff')); }
 function trailLine(x0, y0, x1, y1, ms) {
   const len = Math.hypot(x1 - x0, y1 - y0); if (len < 0.01) return null;
@@ -658,7 +822,7 @@ $('#stepsBtn').addEventListener('click', () => setStepsOn(!steps.on));
 
 /* ---------- target and trap squares ---------- */
 const marks = { cols: 0, rows: 0, t: new Set(), x: new Set() };      // keys are "column,row"; t = target squares, x = trap squares
-let placing = null;                            // 'target' | 'trap' | null: what a tap on the stage places
+let placing = null;                            // 'target' | 'trap' | 'paint' | null: what a tap on the stage does
 const NSVG = 'http://www.w3.org/2000/svg';
 function saveMarks() { try { localStorage.setItem('mbblocks:marks', JSON.stringify({ cols: grid.cols, rows: grid.rows, t: [...marks.t], x: [...marks.x] })); } catch (e) { /* no storage */ } }
 function loadMarks() { try { const m = JSON.parse(localStorage.getItem('mbblocks:marks') || 'null'); if (m) { marks.cols = m.cols; marks.rows = m.rows; m.t.forEach((k) => marks.t.add(k)); m.x.forEach((k) => marks.x.add(k)); } } catch (e) { /* ignore */ } }
@@ -674,6 +838,7 @@ function drawMarks() {
     svg.appendChild(g);
   });
   add([...marks.t], 'target'); add([...marks.x], 'trap');
+  if (typeof inter !== 'undefined' && inter) drawInterIcons(svg);
 }
 function clearMarks() { marks.t.clear(); marks.x.clear(); saveMarks(); drawMarks(); }
 function toggleMark(kind, c, r) {
@@ -683,7 +848,7 @@ function toggleMark(kind, c, r) {
 }
 function setPlacing(kind) {
   placing = placing === kind ? null : kind;
-  $('#markTarget').classList.toggle('on', placing === 'target'); $('#markTrap').classList.toggle('on', placing === 'trap'); $('#floor').classList.toggle('placing', !!placing);
+  $('#markTarget').classList.toggle('on', placing === 'target'); $('#markTrap').classList.toggle('on', placing === 'trap'); $('#bdPaint').classList.toggle('on', placing === 'paint'); $('#floor').classList.toggle('placing', !!placing);
 }
 $('#markTarget').addEventListener('click', () => setPlacing('target')); $('#markTrap').addEventListener('click', () => setPlacing('trap'));
 function firstMark(x0, y0, x1, y1) {           // the first target/trap square whose middle the robot drives through (the square it starts in does not count)
@@ -698,11 +863,10 @@ function firstMark(x0, y0, x1, y1) {           // the first target/trap square w
   return null;
 }
 const FACE = { win: bitsOf(['00000', '01010', '00000', '10001', '01110']), fall: bitsOf(['00000', '01010', '00000', '01110', '10001']) };
-const TUNE = { win: [[523, 120], [659, 120], [784, 120], [1047, 320]], fall: [[392, 260], [330, 260], [262, 260], [196, 560]] };
-let tuneTimers = [];
-function playTune(list) { let t = 0; list.forEach(([f, ms]) => { tuneTimers.push(setTimeout(() => beep(f, ms), t)); t += ms + 40; }); }
+const TUNE = { win: 2, fall: 9 };                          // win = the happy sound effect, fall = the sad one
+function playTune(n) { playEffect(n); }
 function resetGame() {                         // new try: no result, no reactions, counter at zero
-  tuneTimers.forEach(clearTimeout); tuneTimers = []; st.outcome = null; steps.n = 0; updateSteps();
+  effectTimers.forEach(clearTimeout); effectTimers = []; st.outcome = null; steps.n = 0; updateSteps();
   $('#bot').classList.remove('won', 'fallen'); document.querySelectorAll('#marks .mk').forEach((e) => e.classList.remove('flash'));
   if (steps.on) showCount(0);
 }
@@ -715,6 +879,7 @@ function outcome(kind, cx, cy) {               // the robot reached a target squ
   st.outcome = kind; showLeds(FACE[kind]); playTune(TUNE[kind]);
   $('#bot').classList.add(kind === 'win' ? 'won' : 'fallen');
   const g = document.querySelector(`#marks .mk[data-k="${cx},${cy}"]`); if (g) g.classList.add('flash');
+  if (inter.m[cx + ',' + cy]) setTimeout(() => checkInter(null), 1200);     // an interactive star or trap square shows its content after the reaction
 }
 
 /* ---------- fit the stage into the space that is left, so the page never scrolls ---------- */
@@ -776,6 +941,7 @@ $('#previewBtn').addEventListener('click', () => { pv.on = !pv.on; $('#previewBt
 /* ---------- stage tools ---------- */
 $('#floor').addEventListener('click', (e) => {                 // tap a square = start there; tap the robot = turn it a quarter; with a target/trap tool on = place or remove that square
   if (document.body.classList.contains('playing')) return;
+  if (placing === 'paint') { const r = $('#floor').getBoundingClientRect(); openSquareEditor(clamp(Math.floor((e.clientX - r.left) / r.width * grid.cols), 0, grid.cols - 1), clamp(Math.floor((e.clientY - r.top) / r.height * grid.rows), 0, grid.rows - 1)); return; }
   if (placing) { const r = $('#floor').getBoundingClientRect(); toggleMark(placing, clamp(Math.floor((e.clientX - r.left) / r.width * grid.cols), 0, grid.cols - 1), clamp(Math.floor((e.clientY - r.top) / r.height * grid.rows), 0, grid.rows - 1)); return; }
   if (e.target.closest('#bot')) start.h = (start.h + 90) % 360;
   else {
@@ -785,7 +951,7 @@ $('#floor').addEventListener('click', (e) => {                 // tap a square =
   startSaved = true; try { localStorage.setItem('mbblocks:start', JSON.stringify(start)); } catch (err) { /* no storage */ }
   botReset();
 });
-function showBackdrop(url) { $('#backdrop').style.backgroundImage = url ? `url("${url}")` : ''; $('#floor').classList.toggle('hasimg', !!url); $('#libShare').disabled = !url; }
+function showBackdrop(url) { $('#backdrop').style.backgroundImage = url ? `url("${url}")` : ''; $('#floor').classList.toggle('hasimg', !!url); }
 // A picture that is cols x rows squares of 200 px (within 3 %) sets the grid by itself. Any other picture is cropped from the centre to the shape of the current grid.
 function loadBackdropFile(file) {
   return new Promise((resolve, reject) => {
@@ -800,8 +966,8 @@ function loadBackdropFile(file) {
     g.fillStyle = '#fff'; g.fillRect(0, 0, W, H);
     const k = clean ? 0 : Math.max(W / img.width, H / img.height), w = clean ? W : img.width * k, h = clean ? H : img.height * k;
     g.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
-    const url = c.toDataURL('image/jpeg', 0.85); URL.revokeObjectURL(u);
-    marks.t.clear(); marks.x.clear(); grid.cols = cols; grid.rows = rows; grid.img = url; showBackdrop(url); applyGrid();
+    const url = encodeBackdrop(c); URL.revokeObjectURL(u); bdCanvas = c; bdSrc = url;
+    marks.t.clear(); marks.x.clear(); grid.cols = cols; grid.rows = rows; grid.img = url; clearInter(); showBackdrop(url); applyGrid();
     try { localStorage.setItem('mbblocks:backdrop', JSON.stringify({ url, cols, rows })); } catch (e) { /* too big to keep: it stays until reload */ }
     resolve();
   };
@@ -809,8 +975,8 @@ function loadBackdropFile(file) {
   });
 }
 $('#bdLoad').addEventListener('click', () => $('#bdFile').click());
-$('#bdFile').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) loadBackdropFile(f); e.target.value = ''; });
-$('#bdClear').addEventListener('click', () => { marks.t.clear(); marks.x.clear(); grid.img = null; grid.cols = gridSet.cols; grid.rows = gridSet.rows; showBackdrop(null); applyGrid(); try { localStorage.removeItem('mbblocks:backdrop'); } catch (e) { /* no storage */ } });
+$('#bdFile').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) loadBackdropFile(f).then(() => readPngMeta(f)).then((m) => { if (m) applyTrackMeta(m); }).catch(() => {}); e.target.value = ''; });   // a picture downloaded from RoboTrails brings back its start, target and trap squares
+$('#bdClear').addEventListener('click', () => { marks.t.clear(); marks.x.clear(); clearInter(); grid.img = null; grid.cols = gridSet.cols; grid.rows = gridSet.rows; showBackdrop(null); applyGrid(); try { localStorage.removeItem('mbblocks:backdrop'); } catch (e) { /* no storage */ } });
 $('#bdTemplate').addEventListener('click', () => {            // a printable / paintable sheet for the current grid: 200 px squares, the start square tinted
   const C = grid.cols, R = grid.rows, q = SQUARE_PX, W = C * q, H = R * q, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
   g.fillStyle = '#E6F4FD'; g.fillRect(0, 0, W, H);
@@ -828,20 +994,25 @@ $('#gridBtn').addEventListener('click', () => {
 /* ---------- tracks library: browse the shared tracks on GitHub, open one as the backdrop, save yours to share ---------- */
 const urlParams = new URLSearchParams(location.search);
 const TRACKS_BASE = (() => { try { return new URL(urlParams.get('tracks') || '../tracks/', location.href).href.replace(/\/?$/, '/'); } catch (e) { return null; } })();
-try { if (TRACKS_BASE) document.getElementById('libMore').href = new URL('#add', TRACKS_BASE).href; } catch (e) { /* keep the default link */ }
+const TRACKS_HOME = 'https://robotrails.github.io/tracks/';          // used when the app is opened from a file or another site
+let tracksBase = TRACKS_BASE;
 let libIndex = null;
 async function fetchLibrary() {
   if (libIndex) return libIndex;
-  const r = await fetch(new URL('index.json', TRACKS_BASE), { cache: 'no-cache' }); if (!r.ok) throw new Error('HTTP ' + r.status);
-  libIndex = await r.json(); return libIndex;
+  const bases = [TRACKS_BASE, TRACKS_HOME].filter((x, i, l) => x && l.indexOf(x) === i); let err = null;
+  for (const base of bases) {
+    try { const r = await fetch(new URL('index.json', base), { cache: 'no-cache' }); if (!r.ok) throw new Error('HTTP ' + r.status); libIndex = await r.json(); tracksBase = base; return libIndex; } catch (e) { err = e; }
+  }
+  throw err;
 }
+const officialTracks = (lib) => (lib.tracks || []).filter((t) => t.collection !== 'public');      // community uploads are switched off for now
 const trackText = (o, fallback) => (o && (o[LANG] || o.en || o.el)) || fallback || '';
 function applyTrackMeta(m) {                  // start square, target squares and trap squares that come with a track
   const ok = (c, r) => Number.isInteger(c) && Number.isInteger(r) && c >= 0 && r >= 0 && c < grid.cols && r < grid.rows;
   marks.t.clear(); marks.x.clear();
   (m.targets || []).forEach(([c, r]) => { if (ok(c, r)) marks.t.add(c + ',' + r); });
   (m.traps || []).forEach(([c, r]) => { if (ok(c, r)) marks.x.add(c + ',' + r); });
-  saveMarks(); drawMarks();
+  saveMarks(); drawMarks(); if (m.interactive) applyInterFromTrack(m.interactive);
   if (m.start && ok(m.start.col, m.start.row)) {
     start.x = m.start.col + 0.5; start.y = m.start.row + 0.5; start.h = ((Math.round((m.start.heading || 0) / 90) * 90) % 360 + 360) % 360; startSaved = true;
     try { localStorage.setItem('mbblocks:start', JSON.stringify(start)); } catch (e) { /* no storage */ }
@@ -849,21 +1020,19 @@ function applyTrackMeta(m) {                  // start square, target squares an
   botReset();
 }
 async function openTrack(entry) {
-  const res = await fetch(new URL(entry.image, TRACKS_BASE)); if (!res.ok) throw new Error('HTTP ' + res.status);
+  const res = await fetch(new URL(entry.image, tracksBase)); if (!res.ok) throw new Error('HTTP ' + res.status);
   const blob = await res.blob();
   await loadBackdropFile(new File([blob], entry.image.split('/').pop(), { type: blob.type }));
   applyTrackMeta(entry);
 }
-async function openTrackById(id) { const lib = await fetchLibrary(); const e = (lib.tracks || []).find((t) => t.id === id); if (e) await openTrack(e); return !!e; }
+async function openTrackById(id) { const lib = await fetchLibrary(); const e = officialTracks(lib).find((t) => t.id === id); if (e) await openTrack(e); return !!e; }
 async function showLibrary() {
   const grid_ = $('#libgrid'), msg = $('#libmsg'); grid_.innerHTML = ''; msg.textContent = '…'; $('#library').classList.add('open');
   try {
-    const lib = await fetchLibrary(); msg.textContent = lib.tracks && lib.tracks.length ? '' : T().libEmpty;
-    const two = new Set((lib.tracks || []).map((t) => t.collection)).size > 1; let lastCol = null;
-    (lib.tracks || []).forEach((t) => {
-      if (two && t.collection !== lastCol) { lastCol = t.collection; const hd = document.createElement('h3'); hd.className = 'lhead'; hd.textContent = lastCol === 'public' ? T().libPublic : T().libOfficial; grid_.appendChild(hd); }
+    const list = officialTracks(await fetchLibrary()); msg.textContent = list.length ? '' : T().libEmpty;
+    list.forEach((t) => {
       const b = document.createElement('button'); b.className = 'lcard'; b.type = 'button';
-      const img = document.createElement('img'); img.alt = ''; img.loading = 'lazy'; img.src = new URL(t.thumb || t.image, TRACKS_BASE).href;
+      const img = document.createElement('img'); img.alt = ''; img.loading = 'lazy'; img.src = new URL(t.thumb || t.image, tracksBase).href;
       const title = document.createElement('b'); title.textContent = trackText(t.title, t.id);
       const meta = document.createElement('span'); meta.textContent = `${t.cols} × ${t.rows}` + (t.author ? ' · ' + t.author : '');
       b.append(img, title, meta);
@@ -882,11 +1051,351 @@ function trackMeta() {                         // what the track file says about
   return { title: { el: '', en: 'My track' }, description: { el: '', en: '' }, author: '', license: 'CC-BY-4.0', tags: [],
            start: { col: Math.floor(start.x), row: Math.floor(start.y), heading: ((Math.round(start.h / 90) * 90) % 360 + 360) % 360 }, targets: sq(marks.t), traps: sq(marks.x) };
 }
+/* ---------- the backdrop as one picture: every square is SQUARE_PX x SQUARE_PX ---------- */
+let bdCanvas = null, bdSrc = null;                       // a full-quality copy of the backdrop, so repeated edits do not blur it
+const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+function encodeBackdrop(c) { const png = c.toDataURL('image/png'); return png.length < 2.5e6 ? png : c.toDataURL('image/jpeg', 0.92); }   // drawings stay sharp as PNG, big photos become JPEG
+async function backdropCanvas() {                        // the current backdrop (a white one when there is none yet)
+  const W = grid.cols * SQUARE_PX, H = grid.rows * SQUARE_PX;
+  if (bdCanvas && bdSrc === grid.img && bdCanvas.width === W && bdCanvas.height === H) return bdCanvas;
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, W, H);
+  if (grid.img) g.drawImage(await loadImg(grid.img), 0, 0, W, H);
+  bdCanvas = c; bdSrc = grid.img; return c;
+}
+function storeBackdrop(c) {                              // show the changed backdrop and keep it (start, targets and traps stay as they are)
+  const url = encodeBackdrop(c); bdCanvas = c; bdSrc = url; grid.img = url; showBackdrop(url);
+  try { localStorage.setItem('mbblocks:backdrop', JSON.stringify({ url, cols: grid.cols, rows: grid.rows })); } catch (e) { /* too big to keep: it stays until reload */ }
+}
+
+/* ---------- download a picture of the track; the start, target and trap squares travel inside the PNG ---------- */
+const CRC_T = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const crc32 = (u8) => { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC_T[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+async function pngWithMeta(blob, meta) {
+  const src = new Uint8Array(await blob.arrayBuffer());
+  const json = JSON.stringify(meta).replace(/[\u007f-￿]/g, (ch) => '\\u' + ch.charCodeAt(0).toString(16).padStart(4, '0'));
+  const body = new TextEncoder().encode('RoboTrails\0' + json), ch = new Uint8Array(12 + body.length), dv = new DataView(ch.buffer);
+  dv.setUint32(0, body.length); ch.set([116, 69, 88, 116], 4); ch.set(body, 8); dv.setUint32(8 + body.length, crc32(ch.subarray(4, 8 + body.length)));   // a tEXt chunk
+  const at = 33, out = new Uint8Array(src.length + ch.length);                  // right after the signature and the IHDR chunk
+  out.set(src.subarray(0, at)); out.set(ch, at); out.set(src.subarray(at), at + ch.length);
+  return new Blob([out], { type: 'image/png' });
+}
+async function readPngMeta(file) {
+  try {
+    const u = new Uint8Array(await file.arrayBuffer()); if (u[0] !== 137 || u[1] !== 80 || u[2] !== 78 || u[3] !== 71) return null;
+    const dv = new DataView(u.buffer); let p = 8;
+    while (p + 12 <= u.length) {
+      const n = dv.getUint32(p), type = String.fromCharCode(u[p + 4], u[p + 5], u[p + 6], u[p + 7]);
+      if (type === 'tEXt') { const txt = new TextDecoder('latin1').decode(u.subarray(p + 8, p + 8 + n)), z = txt.indexOf('\0'); if (txt.slice(0, z) === 'RoboTrails') return JSON.parse(txt.slice(z + 1)); }
+      if (type === 'IDAT' || type === 'IEND') break; p += 12 + n;
+    }
+  } catch (e) { /* not ours */ }
+  return null;
+}
 $('#libShare').addEventListener('click', async () => {
-  if (!grid.img) return;
-  const blob = await (await fetch(grid.img)).blob();
-  saveBlob(blob, 'track.jpg'); setTimeout(() => saveBlob(new Blob([JSON.stringify(trackMeta(), null, 2) + '\n'], { type: 'application/json' }), 'track.json'), 500);
+  const bc = await backdropCanvas(), c = document.createElement('canvas'); c.width = bc.width; c.height = bc.height; const g = c.getContext('2d'); g.drawImage(bc, 0, 0);
+  if (!$('#floor').classList.contains('nogrid')) {        // what you see: the grid lines too, so the printed track has its squares
+    g.strokeStyle = '#1A1A1A'; g.lineWidth = 2; g.beginPath();
+    for (let i = 1; i < grid.cols; i++) { g.moveTo(i * SQUARE_PX, 0); g.lineTo(i * SQUARE_PX, c.height); }
+    for (let j = 1; j < grid.rows; j++) { g.moveTo(0, j * SQUARE_PX); g.lineTo(c.width, j * SQUARE_PX); }
+    g.stroke(); g.lineWidth = 4; g.strokeRect(2, 2, c.width - 4, c.height - 4);
+  }
+  c.toBlob(async (blob) => { const meta = trackMeta(); meta.interactive = await interForTrack(); saveBlob(await pngWithMeta(blob, meta), `robotrails-track-${grid.cols}x${grid.rows}.png`); }, 'image/png');
 });
+
+/* ---------- modify a square: brush, bucket, shapes, letters and numbers, a camera photo ---------- */
+const ED_COLORS = ['#1A1A1A', '#FFFFFF', '#9E9E9E', '#E53935', '#F15A24', '#FFD23F', '#3DAA4A', '#0071BC', '#0096EA', '#8E44AD', '#FF5CCB', '#8B5A2B'];
+const ED_SIZE = { brush: [5, 12, 26], line: [4, 9, 16], shape: [56, 96, 150], text: [48, 90, 150] };   // in square pixels (a square is 200)
+const ED = { c: 0, r: 0, tool: 'brush', color: '#1A1A1A', size: 1, fill: true, undo: [], snap: null, down: null, stream: null, facing: 'environment' };
+const edCv = $('#edcv'), edG = edCv.getContext('2d', { willReadFrequently: true }), SQ = SQUARE_PX;
+const SHAPES = ['rect', 'circle', 'tri', 'star', 'heart', 'arrow'];
+ED_COLORS.forEach((col) => { const b = document.createElement('button'); b.className = 'sw'; b.style.background = col; b.dataset.col = col; b.setAttribute('aria-label', col); $('#edColors').appendChild(b); });
+function edSync() {
+  document.querySelectorAll('#sqed .edt').forEach((b) => b.classList.toggle('on', b.dataset.tool === ED.tool));
+  document.querySelectorAll('#sqed .sw').forEach((b) => b.classList.toggle('on', b.dataset.col === ED.color));
+  document.querySelectorAll('#sqed .eds').forEach((b) => b.classList.toggle('on', +b.dataset.size === ED.size));
+  $('#edFill').innerHTML = `<svg viewBox="0 0 48 48"><rect x="9" y="9" width="30" height="30" rx="3" fill="${ED.fill ? '#1A1A1A' : 'none'}" stroke="#1A1A1A" stroke-width="4.5"/></svg>`;
+  $('#edFill').classList.toggle('on', ED.fill);
+  $('#sqed').classList.toggle('txt', ED.tool === 'text'); $('#edUndo').disabled = !ED.undo.length;
+}
+function edPush() { ED.undo.push(edG.getImageData(0, 0, SQ, SQ)); if (ED.undo.length > 30) ED.undo.shift(); edSync(); }
+async function openSquareEditor(c, r) {
+  const host = fsCurrent() || document.body; if ($('#sqed').parentNode !== host) host.appendChild($('#sqed'));   // stays visible in full screen
+  const bc = await backdropCanvas(); ED.c = c; ED.r = r; ED.undo = []; ED.down = null;
+  edG.clearRect(0, 0, SQ, SQ); edG.drawImage(bc, c * SQ, r * SQ, SQ, SQ, 0, 0, SQ, SQ);
+  try { await document.fonts.load('800 60px Commissioner'); } catch (e) { /* the fallback font will do */ }
+  $('#sqed').classList.add('open'); edSync();
+}
+function edClose() { camStop(); $('#sqed').classList.remove('open'); $('#edtext').blur(); }
+$('#edcancel').addEventListener('click', edClose);
+$('#edok').addEventListener('click', async () => {
+  const bc = await backdropCanvas(); bc.getContext('2d').drawImage(edCv, ED.c * SQ, ED.r * SQ); storeBackdrop(bc); edClose();
+});
+$('#sqed').addEventListener('click', (e) => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.dataset.tool) { ED.tool = t.dataset.tool; if (ED.tool === 'text' && !$('#edtext').value) setTimeout(() => $('#edtext').focus(), 30); edSync(); }
+  else if (t.dataset.col) { ED.color = t.dataset.col; edSync(); }
+  else if (t.dataset.size) { ED.size = +t.dataset.size; edSync(); }
+});
+$('#edFill').addEventListener('click', () => { ED.fill = !ED.fill; edSync(); });
+$('#edUndo').addEventListener('click', () => { const im = ED.undo.pop(); if (im) edG.putImageData(im, 0, 0); edSync(); });
+$('#edClear').addEventListener('click', () => { edPush(); edG.fillStyle = '#fff'; edG.fillRect(0, 0, SQ, SQ); });
+$('#edtext').addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') e.target.blur(); });
+const edPt = (e) => { const r = edCv.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width * SQ, y: (e.clientY - r.top) / r.height * SQ }; };
+const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+
+function shapePath(g, kind, x, y, w, h) {             // the shape inside the box x, y, w, h
+  g.beginPath();
+  if (kind === 'rect') g.rect(x, y, w, h);
+  else if (kind === 'circle') g.ellipse(x + w / 2, y + h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+  else if (kind === 'tri') { g.moveTo(x + w / 2, y); g.lineTo(x + w, y + h); g.lineTo(x, y + h); g.closePath(); }
+  else if (kind === 'star') { for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, R = k % 2 ? 0.4 : 1; g[k ? 'lineTo' : 'moveTo'](x + w / 2 + Math.cos(a) * R * w / 2, y + h * 0.52 + Math.sin(a) * R * h / 2); } g.closePath(); }
+  else if (kind === 'heart') {
+    g.moveTo(x + w / 2, y + h); g.bezierCurveTo(x + w * 0.1, y + h * 0.72, x, y + h * 0.5, x, y + h * 0.3);
+    g.bezierCurveTo(x, y + h * 0.05, x + w * 0.38, y - h * 0.04, x + w / 2, y + h * 0.22);
+    g.bezierCurveTo(x + w * 0.62, y - h * 0.04, x + w, y + h * 0.05, x + w, y + h * 0.3);
+    g.bezierCurveTo(x + w, y + h * 0.5, x + w * 0.9, y + h * 0.72, x + w / 2, y + h); g.closePath();
+  }
+}
+function drawArrow(g, x0, y0, x1, y1) {                 // a thick arrow from x0,y0 to x1,y1
+  const lw = ED_SIZE.line[ED.size] * 1.4, len = Math.hypot(x1 - x0, y1 - y0); if (len < 2) return;
+  const ux = (x1 - x0) / len, uy = (y1 - y0) / len, head = Math.min(len * 0.45, lw * 3.2), bx = x1 - ux * head, by = y1 - uy * head;
+  g.lineCap = 'round'; g.lineWidth = lw; g.strokeStyle = ED.color; g.beginPath(); g.moveTo(x0, y0); g.lineTo(bx, by); g.stroke();
+  g.fillStyle = ED.color; g.beginPath(); g.moveTo(x1, y1); g.lineTo(bx - uy * head * 0.75, by + ux * head * 0.75); g.lineTo(bx + uy * head * 0.75, by - ux * head * 0.75); g.closePath(); g.fill();
+}
+function edPreview() {                                   // the shape or text that follows the finger, before it is let go
+  const d = ED.down; edG.putImageData(ED.snap, 0, 0); edG.fillStyle = ED.color; edG.strokeStyle = ED.color; edG.lineJoin = 'round';
+  if (ED.tool === 'text') {
+    const txt = $('#edtext').value.trim(); if (!txt) return;
+    edG.font = `800 ${ED_SIZE.text[ED.size]}px Commissioner, Arial, sans-serif`; edG.textAlign = 'center'; edG.textBaseline = 'middle';
+    let k = 1; const w = edG.measureText(txt).width; if (w > SQ * 0.95) k = SQ * 0.95 / w;                 // long words shrink to fit the square
+    if (k < 1) edG.font = `800 ${Math.floor(ED_SIZE.text[ED.size] * k)}px Commissioner, Arial, sans-serif`;
+    if (ED.fill) edG.fillText(txt, d.x, d.y); else { edG.lineWidth = ED_SIZE.line[ED.size]; edG.strokeText(txt, d.x, d.y); }
+    return;
+  }
+  const S = ED_SIZE.shape[ED.size];
+  if (ED.tool === 'arrow') { if (d.moved) drawArrow(edG, d.x0, d.y0, d.x, d.y); else drawArrow(edG, d.x0, d.y0 + S / 2, d.x0, d.y0 - S / 2); return; }
+  const [x, y, w, h] = d.moved ? [Math.min(d.x0, d.x), Math.min(d.y0, d.y), Math.abs(d.x - d.x0), Math.abs(d.y - d.y0)] : [d.x0 - S / 2, d.y0 - S / 2, S, S];
+  shapePath(edG, ED.tool, x, y, w, h);
+  if (ED.fill) edG.fill(); else { edG.lineWidth = ED_SIZE.line[ED.size]; edG.stroke(); }
+}
+function edDot(a, b) {
+  edG.strokeStyle = ED.color; edG.lineWidth = ED_SIZE.brush[ED.size]; edG.lineCap = 'round'; edG.lineJoin = 'round';
+  edG.beginPath(); edG.moveTo(a.x, a.y); edG.lineTo(b.x + 0.01, b.y); edG.stroke();
+}
+function flood(x, y, hex) {                              // the bucket: fill the area of similar colour around x, y
+  const im = edG.getImageData(0, 0, SQ, SQ), d = im.data, i0 = (y * SQ + x) * 4, t = [d[i0], d[i0 + 1], d[i0 + 2]], [R, G, B] = hexRgb(hex);
+  const diff = (i) => Math.abs(d[i] - t[0]) + Math.abs(d[i + 1] - t[1]) + Math.abs(d[i + 2] - t[2]);
+  if (Math.abs(t[0] - R) + Math.abs(t[1] - G) + Math.abs(t[2] - B) < 6) return false;
+  const TOL = 96, inA = new Uint8Array(SQ * SQ), stack = [x, y]; inA[y * SQ + x] = 1;
+  while (stack.length) {
+    const yy = stack.pop(), xx = stack.pop();
+    [[xx + 1, yy], [xx - 1, yy], [xx, yy + 1], [xx, yy - 1]].forEach(([a, b]) => {
+      if (a < 0 || b < 0 || a >= SQ || b >= SQ) return; const k = b * SQ + a; if (inA[k] || diff(k * 4) > TOL) return; inA[k] = 1; stack.push(a, b);
+    });
+  }
+  const paint = (k) => { d[k * 4] = R; d[k * 4 + 1] = G; d[k * 4 + 2] = B; d[k * 4 + 3] = 255; };
+  for (let k = 0; k < inA.length; k++) {                // also the soft edge pixels next to the area, so no pale rim stays around lines
+    if (!inA[k]) continue;
+    const a = k % SQ, b = (k - a) / SQ;
+    [[a + 1, b], [a - 1, b], [a, b + 1], [a, b - 1]].forEach(([p, q]) => { if (p < 0 || q < 0 || p >= SQ || q >= SQ) return; const n = q * SQ + p; if (!inA[n] && diff(n * 4) <= TOL * 2.6) inA[n] = 2; });
+  }
+  for (let k = 0; k < inA.length; k++) if (inA[k]) paint(k);
+  edG.putImageData(im, 0, 0); return true;
+}
+edCv.addEventListener('pointerdown', (e) => {
+  if (e.button > 0) return; e.preventDefault(); const p = edPt(e);
+  if (ED.tool === 'text' && !$('#edtext').value.trim()) { $('#edtext').focus(); return; }
+  edPush();
+  if (ED.tool === 'bucket') { if (!flood(clamp(Math.floor(p.x), 0, SQ - 1), clamp(Math.floor(p.y), 0, SQ - 1), ED.color)) { ED.undo.pop(); edSync(); } return; }
+  try { edCv.setPointerCapture(e.pointerId); } catch (err) { /* fine */ }
+  ED.down = { x0: p.x, y0: p.y, x: p.x, y: p.y, last: p, moved: false };
+  if (ED.tool === 'brush') edDot(p, p); else { ED.snap = edG.getImageData(0, 0, SQ, SQ); edPreview(); }
+});
+edCv.addEventListener('pointermove', (e) => {
+  const d = ED.down; if (!d) return; const p = edPt(e);
+  if (Math.hypot(p.x - d.x0, p.y - d.y0) > 6) d.moved = true;
+  if (ED.tool === 'brush') { edDot(d.last, p); d.last = p; return; }
+  d.x = p.x; d.y = p.y; edPreview();
+});
+const edUp = () => { ED.down = null; ED.snap = null; };
+edCv.addEventListener('pointerup', edUp); edCv.addEventListener('pointercancel', edUp);
+
+/* the camera: a square photo becomes the square (and can be drawn on) */
+function camStop() { if (ED.stream) ED.stream.getTracks().forEach((t) => t.stop()); ED.stream = null; $('#edvideo').srcObject = null; $('#sqed').classList.remove('cam'); }
+async function camStart() {
+  camStop();
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { $('#edfile').click(); return; }
+  try { ED.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: ED.facing, width: { ideal: 1280 }, height: { ideal: 1280 } }, audio: false }); }
+  catch (e) { $('#edfile').click(); return; }                           // no camera or not allowed: pick a picture instead (tablets also offer the camera there)
+  const v = $('#edvideo'); v.srcObject = ED.stream; $('#sqed').classList.add('cam'); try { await v.play(); } catch (e) { /* autoplay */ }
+}
+function edPutSquare(src, w, h) { edPush(); const s = Math.min(w, h); edG.drawImage(src, (w - s) / 2, (h - s) / 2, s, s, 0, 0, SQ, SQ); }   // the middle square of the picture
+$('#edCam').addEventListener('click', camStart);
+$('#camClose').addEventListener('click', camStop);
+$('#camFlip').addEventListener('click', () => { ED.facing = ED.facing === 'environment' ? 'user' : 'environment'; camStart(); });
+$('#camGal').addEventListener('click', () => $('#edfile').click());
+$('#camShot').addEventListener('click', () => { const v = $('#edvideo'); if (!v.videoWidth) return; edPutSquare(v, v.videoWidth, v.videoHeight); camStop(); });
+$('#edfile').addEventListener('change', async (e) => {
+  const f = e.target.files[0]; e.target.value = ''; if (!f) return;
+  const u = URL.createObjectURL(f); try { const img = await loadImg(u); edPutSquare(img, img.naturalWidth, img.naturalHeight); camStop(); } catch (err) { /* not a picture */ } URL.revokeObjectURL(u);
+});
+$('#bdPaint').addEventListener('click', () => setPlacing('paint'));
+
+
+/* ---------- interactive squares: a picture, an animation, a video or a web page that opens when the robot stops on the square ---------- */
+// inter.m["c,r"] = { url } for a web address, or { id, name, mime } for a file kept on this device (the file itself lives in IndexedDB)
+var inter = { cols: 0, rows: 0, m: {} };       // var: drawMarks may look at it early
+var interShown = null;                                 // the square whose content was shown last: it opens again only after the robot has left it
+const IDB = {
+  db: null,
+  open() { if (this.db) return Promise.resolve(this.db); return new Promise((res, rej) => { const r = indexedDB.open('robotrails', 1); r.onupgradeneeded = () => r.result.createObjectStore('media'); r.onsuccess = () => { this.db = r.result; res(this.db); }; r.onerror = () => rej(r.error); }); },
+  async put(id, blob) { const db = await this.open(); return new Promise((res, rej) => { const t = db.transaction('media', 'readwrite'); t.objectStore('media').put(blob, id); t.oncomplete = () => res(); t.onerror = () => rej(t.error); }); },
+  async get(id) { const db = await this.open(); return new Promise((res, rej) => { const q = db.transaction('media').objectStore('media').get(id); q.onsuccess = () => res(q.result || null); q.onerror = () => rej(q.error); }); },
+  async del(id) { try { const db = await this.open(); db.transaction('media', 'readwrite').objectStore('media').delete(id); } catch (e) { /* nothing to delete */ } }
+};
+function saveInter() { try { localStorage.setItem('mbblocks:inter', JSON.stringify({ cols: grid.cols, rows: grid.rows, m: inter.m })); } catch (e) { /* no storage */ } }
+function loadInter() { try { const v = JSON.parse(localStorage.getItem('mbblocks:inter') || 'null'); if (v && v.cols === grid.cols && v.rows === grid.rows) inter.m = v.m || {}; } catch (e) { /* ignore */ } inter.cols = grid.cols; inter.rows = grid.rows; }
+function setInter(key, entry) { const old = inter.m[key]; if (old && old.id && (!entry || entry.id !== old.id)) IDB.del(old.id); if (entry) inter.m[key] = entry; else delete inter.m[key]; saveInter(); drawMarks(); }
+function clearInter() { Object.values(inter.m).forEach((e) => { if (e.id) IDB.del(e.id); }); inter.m = {}; inter.cols = grid.cols; inter.rows = grid.rows; saveInter(); drawMarks(); }
+function drawInterIcons(svg) {                         // a small play sign in the top-left corner of each interactive square, above any star or trap
+  Object.keys(inter.m).forEach((key) => {
+    const [c, r] = key.split(',').map(Number); if (c >= grid.cols || r >= grid.rows) return;
+    const g = document.createElementNS(NSVG, 'g'); g.setAttribute('class', 'ia'); const x = c + 0.05, y = r + 0.05, s = 0.15;
+    g.innerHTML = `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="0.03" fill="#0071BC" stroke="#fff" stroke-width="0.015"/><path d="M${x + s * 0.36} ${y + s * 0.26} L${x + s * 0.74} ${y + s / 2} L${x + s * 0.36} ${y + s * 0.74} Z" fill="#fff"/>`;
+    svg.appendChild(g);
+  });
+}
+const blobToDataUrl = (b) => new Promise((res) => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(b); });
+async function interForTrack() {                       // what goes into a downloaded track: web addresses, and files up to 10 MB inside the picture
+  const out = [];
+  for (const [key, e] of Object.entries(inter.m)) {
+    const [col, row] = key.split(',').map(Number);
+    if (e.url) out.push({ col, row, url: e.url });
+    else { const b = await IDB.get(e.id).catch(() => null); if (b && b.size <= 10e6) out.push({ col, row, name: e.name, data: await blobToDataUrl(b) }); }
+  }
+  return out;
+}
+async function applyInterFromTrack(list) {
+  clearInter(); if (!Array.isArray(list)) return;
+  for (const it of list) {
+    if (!Number.isInteger(it.col) || !Number.isInteger(it.row) || it.col >= grid.cols || it.row >= grid.rows) continue;
+    const key = it.col + ',' + it.row;
+    if (it.url) inter.m[key] = { url: String(it.url) };
+    else if (it.data) { try { const b = await (await fetch(it.data)).blob(), id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); await IDB.put(id, b); inter.m[key] = { id, name: it.name || 'file', mime: b.type }; } catch (e) { /* skip this one */ } }
+  }
+  saveInter(); drawMarks();
+}
+
+/* showing the content */
+const WEB = /^https?:$/.test(location.protocol);      // YouTube plays inside the app only on a web address (it needs to know the page); from a saved file it opens in a new tab
+const ytId = (u) => { const m = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{6,})/i); return m ? m[1] : null; };
+const IMG_RE = /\.(png|jpe?g|gif|webp|svg|bmp|avif)(\?|#|$)/i, VID_RE = /\.(mp4|webm|ogv|ogg|mov|m4v)(\?|#|$)/i;
+function embedFor(url) {                               // video sites have a page made for showing inside another page
+  let m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{6,})/i);
+  if (m) return `https://www.youtube-nocookie.com/embed/${m[1]}?autoplay=1&rel=0` + (WEB ? '&origin=' + encodeURIComponent(location.origin) : '');
+  m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/i); if (m) return `https://player.vimeo.com/video/${m[1]}?autoplay=1`;
+  m = url.match(/drive\.google\.com\/file\/d\/([\w-]+)/i); if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+  return null;
+}
+let mediaUrl = null, mediaDone = null;
+function closeMedia() {
+  const box = $('#mediabody'); box.querySelectorAll('video').forEach((v) => v.pause()); box.innerHTML = '';
+  if (mediaUrl) { URL.revokeObjectURL(mediaUrl); mediaUrl = null; }
+  $('#media').classList.remove('open'); const d = mediaDone; mediaDone = null; if (d) d();
+}
+async function showMedia(entry) {                      // resolves when the person closes it
+  closeMedia();
+  const host = fsCurrent() || document.body; if ($('#media').parentNode !== host) host.appendChild($('#media'));
+  const box = $('#mediabody'); let src = entry.url || '', kind = 'page';
+  if (entry.id) {
+    const b = await IDB.get(entry.id).catch(() => null); if (!b) return;
+    src = mediaUrl = URL.createObjectURL(b); kind = /^video\//.test(b.type) ? 'video' : 'img';
+  } else if (ytId(src) && !WEB) kind = 'yt';
+  else if (embedFor(src)) { kind = 'embed'; src = embedFor(src); }
+  else if (IMG_RE.test(src)) kind = 'img'; else if (VID_RE.test(src)) kind = 'video';
+  if (kind === 'yt') {                                // a picture of the video that opens it on YouTube
+    const a = document.createElement('a'); a.className = 'ytcard'; a.href = src; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = `<img alt="" src="https://img.youtube.com/vi/${ytId(src)}/hqdefault.jpg"><span><svg viewBox="0 0 68 48"><path d="M66.5 7.7c-.8-2.9-2.5-5.4-5.4-6.2C55.8.1 34 0 34 0S12.2.1 6.9 1.6C4 2.4 2.3 4.8 1.5 7.7.1 13 0 24 0 24s.1 11 1.5 16.3c.8 2.9 2.5 5.4 5.4 6.2C12.2 47.9 34 48 34 48s21.8-.1 27.1-1.6c2.9-.8 4.6-3.2 5.4-6.2C67.9 35 68 24 68 24s-.1-11-1.5-16.3z" fill="#f00"/><path d="M45 24 27 14v20" fill="#fff"/></svg></span>`;
+    box.appendChild(a);
+  }
+  else if (kind === 'img') { const i = document.createElement('img'); i.src = src; i.alt = ''; box.appendChild(i); }
+  else if (kind === 'video') { const v = document.createElement('video'); v.src = src; v.controls = true; v.autoplay = true; v.playsInline = true; box.appendChild(v); v.play().catch(() => {}); }
+  else { const f = document.createElement('iframe'); f.src = src; f.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture'; f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin'; box.appendChild(f); }
+  const ext = $('#mediaOpen'); ext.hidden = !entry.url; if (entry.url) ext.href = entry.url;     // pages that refuse to be shown inside the app open in a new tab
+  $('#media').classList.add('open');
+  return new Promise((res) => { mediaDone = res; });
+}
+$('#mediaClose').addEventListener('click', closeMedia);
+async function checkInter(tok) {                       // after a move: did the robot stop on an interactive square?
+  const key = Math.floor(bot.x) + ',' + Math.floor(bot.y);
+  if (key !== interShown) interShown = null;
+  const e = inter.m[key]; if (!e || interShown === key || (tok && !tok.alive)) return;
+  interShown = key;
+  const p = showMedia(e); if (!tok) return p;
+  const w = () => closeMedia(); tok.wake.add(w); await p; tok.wake.delete(w);      // Stop closes it too
+}
+
+/* the square editor part */
+ED.inter = null;                                      // what the square will have after OK: undefined = unchanged
+function edInterShow() {
+  const e = ED.inter, info = $('#edinfo');
+  info.textContent = !e ? '—' : e.url ? e.url : '\u{1F4CE} ' + e.name;
+  $('#edurl').value = e && e.url ? e.url : ''; $('#edInterDel').disabled = !e;
+  $('#edInterTest').disabled = !e || !!e.file;
+}
+const _openSquareEditor = openSquareEditor;
+openSquareEditor = async function (c, r) { ED.inter = inter.m[c + ',' + r] || null; edInterShow(); return _openSquareEditor(c, r); };
+$('#edurl').addEventListener('keydown', (e) => e.stopPropagation());
+$('#edurl').addEventListener('change', () => { const u = $('#edurl').value.trim(); if (!u) return; ED.inter = { url: /^[a-z]+:/i.test(u) ? u : 'https://' + u }; edInterShow(); });
+$('#edInterFile').addEventListener('click', () => $('#edmedia').click());
+$('#edmedia').addEventListener('change', (e) => { const f = e.target.files[0]; e.target.value = ''; if (!f) return; ED.inter = { file: f, name: f.name, mime: f.type }; edInterShow(); });
+$('#edInterDel').addEventListener('click', () => { ED.inter = null; edInterShow(); });
+$('#edInterTest').addEventListener('click', () => { if (ED.inter && !ED.inter.file) showMedia(ED.inter); });
+$('#edok').addEventListener('click', async () => {    // keep the interactive content of this square (the picture is kept by the other OK handler)
+  const key = ED.c + ',' + ED.r, e = ED.inter, cur = inter.m[key] || null;
+  if (e && e.file) { const id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); try { await IDB.put(id, e.file); setInter(key, { id, name: e.name, mime: e.mime }); } catch (err) { alert(T().iaErr); } }
+  else if (e !== cur) setInter(key, e);
+});
+
+/* ---------- record mode: press arrows to store steps, GO runs them one square at a time with a short pause, like a floor robot ---------- */
+const REC_MAX = 40;
+let recMem = [];
+try { recMem = JSON.parse(localStorage.getItem('mbblocks:rec') || '[]').filter((t) => ['fwd', 'back', 'left', 'right'].includes(t)); } catch (e) { /* no storage */ }
+const recSave = () => { try { localStorage.setItem('mbblocks:rec', JSON.stringify(recMem)); } catch (e) { /* no storage */ } };
+function recDraw(now) {
+  const box = $('#recmem'); box.innerHTML = '';
+  recMem.forEach((t, i) => { const d = document.createElement('div'); d.className = 'rchip' + (i === now ? ' now' : ''); d.innerHTML = ICON[t]; box.appendChild(d); });
+  if (now >= 0 && box.children[now]) box.children[now].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  $('#recCount').textContent = recMem.length;
+}
+function recOpen(on) {
+  document.body.classList.toggle('rec', on); $('#recBtn').classList.toggle('on', on);
+  if (on) recDraw(-1); else if (st.rec) stopAll();
+}
+$('#recBtn').addEventListener('click', () => recOpen(!document.body.classList.contains('rec')));
+$('#recClose').addEventListener('click', () => recOpen(false));
+document.querySelectorAll('#recpad [data-r]').forEach((b) => b.addEventListener('click', () => {
+  if (st.rec) return;                                 // while it moves, the arrows do nothing (like the real floor robots)
+  if (recMem.length >= REC_MAX) { b.classList.remove('full'); void b.offsetWidth; b.classList.add('full'); return; }
+  recMem.push(b.dataset.r); recSave(); recDraw(-1); tone(660, 70);
+}));
+$('#recErase').addEventListener('click', () => { if (st.rec) stopAll(); recMem = []; recSave(); recDraw(-1); tone(330, 120); setTimeout(() => tone(220, 160), 140); });
+$('#recGo').addEventListener('click', async () => {
+  if (st.rec || !recMem.length) return;
+  stopAll(); if (st.outcome) botReset();              // after the target or a trap, GO starts a fresh try from the start square; otherwise it goes on from where the robot is
+  clearHits(); if (robot().precise) { eduSpeed = edu.spd; recalcCal(); mb.send('P' + eduSpeed); }
+  const tok = { alive: true, wake: new Set() }; st.toks.push(tok); st.rec = true; document.body.classList.add('playing', 'recrun'); updatePreview();
+  await sleep(300, tok);
+  for (let i = 0; i < recMem.length && tok.alive; i++) {
+    recDraw(i); await moveBlock({ t: recMem[i], v: 1 }, tok);
+    if (tok.alive && i < recMem.length - 1) await sleep(500, tok);      // the pause between steps
+  }
+  if (tok.alive) { st.toks = st.toks.filter((t) => t !== tok); document.body.classList.remove('playing'); mb.send('W0,0'); simStop(); updatePreview(); }
+  st.rec = false; document.body.classList.remove('recrun'); recDraw(-1);
+});
+
+document.querySelectorAll('#recpad [data-r]').forEach((b) => { b.innerHTML = ICON[b.dataset.r]; });
 
 const FS_IN = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 V6 H18 M30 6 H42 V18 M42 30 V42 H30 M18 42 H6 V30"/></svg>';
 const FS_OUT = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 V18 H6 M30 6 V18 H42 M42 30 H30 V42 M6 30 H18 V42"/></svg>';
@@ -912,7 +1421,7 @@ $('#resetPos').addEventListener('click', resetPosition);
 $('#fsplay').addEventListener('click', () => play()); $('#fsstop').addEventListener('click', () => stopAll());
 try {
   const bd = JSON.parse(localStorage.getItem('mbblocks:backdrop') || 'null'); if (bd && bd.url) { grid.cols = bd.cols; grid.rows = bd.rows; grid.img = bd.url; showBackdrop(bd.url); }
-  loadMarks();
+  loadMarks(); loadInter();
   if (localStorage.getItem('mbblocks:steps') === '1') { steps.on = true; document.body.classList.add('counting'); $('#stepsBtn').classList.add('on'); }
   if (localStorage.getItem('mbblocks:preview') === '1') { pv.on = true; $('#previewBtn').classList.add('on'); }
   if (localStorage.getItem('mbblocks:grid') === '0') { $('#floor').classList.add('nogrid'); $('#gridBtn').classList.remove('on'); }
@@ -1160,7 +1669,8 @@ async function drive(l, r, ms, tok, sim) {
   await sleep(ms, tok);
   mb.send('W0,0');
 }
-async function moveBlock(b, tok) {
+async function moveBlock(b, tok) { await moveOnce(b, tok); if (b.v !== 0 && tok.alive) await checkInter(tok); }   // after a move: an interactive square shows its content
+async function moveOnce(b, tok) {
   const turn = b.t === 'left' || b.t === 'right';
   if (robot().precise) {                                                   // TPBot Edu: exact centimetres and degrees, the robot reports when it is there
     const sp = eduSpeed, w = { fwd: [sp, sp], back: [-sp, -sp], left: [-sp, sp], right: [sp, -sp] }[b.t];
@@ -1188,7 +1698,7 @@ async function act(b, tok) {
     case 'picture': showLeds(b.v); return sleep(60, tok);
     case 'digit': showLeds(DIGIT[b.v]); return sleep(60, tok);
     case 'clear': showLeds(0); return sleep(60, tok);
-    case 'note': beep(NOTES[b.v - 1], 400); return sleep(450, tok);
+    case 'note': playEffect(b.v); return sleep(EFFECTS[b.v - 1][0] + 100, tok);
     case 'fwd': case 'back': case 'left': case 'right': return moveBlock(b, tok);
     case 'stop': st.endless = false; simStop(); mb.send('W0,0'); return sleep(60, tok);
     case 'speed': if (robot().precise) { eduSpeed = SPEEDS[b.v - 1]; recalcCal(); mb.send('P' + eduSpeed); } return sleep(60, tok);
@@ -1249,7 +1759,7 @@ const mb = {
 function ui() { const b = $('#conn'); b.className = mb.status === 'on' ? 'on' : mb.status === 'busy' ? 'busy' : ''; b.title = mb.status === 'on' ? T().on : mb.status === 'busy' ? T().busy : T().off; }
 function texts() {
   document.documentElement.lang = LANG; document.title = T().title; $('#title').textContent = T().title; $('#wstitle').textContent = T().ws;
-  $('#libtitle').textContent = T().lib; $('#libMore').textContent = T().libMore; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
+  $('#libtitle').textContent = T().lib; $('#edtitle').textContent = T().sqEdit; $('#recBtn').setAttribute('aria-label', T().rec); $('#recBtn').title = T().rec; $('#edurl').placeholder = T().iaUrl; $('#bdPaint').setAttribute('aria-label', T().sqEdit); $('#bdPaint').title = T().sqEdit; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
   $('#lang').textContent = T().lang; $('#play').setAttribute('aria-label', T().play); $('#stop').setAttribute('aria-label', T().stop); $('#conn').setAttribute('aria-label', T().conn); $('#cog').setAttribute('aria-label', T().settings);
   renderTabs(); ui();
 }
