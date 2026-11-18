@@ -308,6 +308,17 @@
   .rp:active { transform: scale(.94); }
   body.recrun .rp.mv { opacity: .45; }
   .rp.full { animation: shk .4s; }
+  /* photo of the whole track */
+  #trcam { z-index: 120; }
+  .trcambox { width: min(1100px, 96vw); height: min(92vh, 900px); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .trcammain { flex: 1 1 auto; min-height: 0; display: grid; place-items: center; background: #1A1A1A; padding: 10px; container-type: size; }
+  #trframe { position: relative; aspect-ratio: var(--ratio, 1); width: min(100cqw, calc(100cqh * var(--ratio, 1))); overflow: hidden; background: #000; }
+  #trvideo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #trgrid { position: absolute; inset: 0; pointer-events: none; border: 3px solid #FBB03B;
+    background-image: linear-gradient(to right, rgba(255,255,255,.75) 2px, transparent 2px), linear-gradient(to bottom, rgba(255,255,255,.75) 2px, transparent 2px);
+    background-size: calc(100% / var(--cols, 7)) 100%, 100% calc(100% / var(--rows, 7)); background-position: -1px 0, 0 -1px; }
+  .trcamfoot { flex: none; display: flex; justify-content: center; padding: 10px; background: var(--alt); }
+  #trShot { width: 72px; height: 72px; border-radius: 50%; border: 5px solid #fff; background: var(--orange); box-shadow: 0 0 0 2px var(--charcoal); }
   /* content of an interactive square */
   #media { z-index: 130; }
   .mediabox { width: min(1100px, 94vw); height: min(86vh, 820px); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
@@ -404,6 +415,7 @@
       <div class="tgroup bd" id="gBackdrop">
         <button class="tool" id="libBtn" aria-label="Tracks library"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="15" height="15" rx="3"/><rect x="27" y="6" width="15" height="15" rx="3"/><rect x="6" y="27" width="15" height="15" rx="3"/><rect x="27" y="27" width="15" height="15" rx="3"/></svg></button>
         <button class="tool" id="bdLoad" aria-label="Backdrop"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="38" height="30" rx="5"/><circle cx="16" cy="20" r="4"/><path d="M5 34 L17 24 L26 31 L33 25 L43 34"/></svg></button>
+        <button class="tool" id="bdCam" aria-label="Photo of the track"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="13" width="40" height="28" rx="5"/><path d="M16 13 L19 7 H29 L32 13"/><circle cx="24" cy="27" r="8"/></svg></button>
         <button class="tool" id="bdPaint" aria-label="Modify square"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 H9 A3 3 0 0 0 6 9 V39 A3 3 0 0 0 9 42 H39 A3 3 0 0 0 42 39 V24"/><path d="M19 29 L20.5 22.5 L36 7 L41 12 L25.5 27.5 Z"/></svg></button>
         <button class="tool" id="bdClear" aria-label="Remove backdrop"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button>
         <button class="tool" id="bdTemplate" aria-label="Template"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 V30 M14 22 L24 32 L34 22 M8 40 H40"/></svg></button>
@@ -523,6 +535,14 @@
   <input id="edmedia" type="file" accept="image/*,video/*" hidden>
 </div></div>
 
+<div id="trcam" class="overlay"><div class="box trcambox">
+  <div class="libhead"><span class="grow" id="trcamTitle">Photo of the track</span>
+    <button class="tool small" id="trFlip" aria-label="Other camera"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22 A16 16 0 0 1 38 14 M40 6 V14 H32 M40 26 A16 16 0 0 1 10 34 M8 42 V34 H16"/></svg></button>
+    <button class="tool small" id="trClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button></div>
+  <div class="trcammain"><div id="trframe"><video id="trvideo" playsinline muted autoplay></video><div id="trgrid"></div></div></div>
+  <div class="trcamfoot"><button class="tool" id="trShot" aria-label="Take photo"></button></div>
+</div></div>
+
 <div id="media" class="overlay"><div class="box mediabox">
   <div class="libhead"><a class="tool small" id="mediaOpen" target="_blank" rel="noopener" aria-label="Open in a new tab"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 8 H8 V40 H40 V26 M28 6 H42 V20 M42 6 L22 26"/></svg></a><span class="grow"></span>
     <button class="tool small" id="mediaClose" aria-label="OK"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17 L13 24 L26 8"/></svg></button></div>
@@ -548,11 +568,11 @@ const STR = {
   en: { title: 'RoboTrails', lang: 'EL', play: 'Play', stop: 'Stop', conn: 'Connect micro:bit', off: 'micro:bit not connected', on: 'micro:bit connected', busy: 'Connecting…',
         ws: 'Program', settings: 'Settings', cats: { ev: 'When', disp: 'Screen', snd: 'Sound', bot: 'Robot', ctl: 'Control' },
         noBt: 'This browser cannot talk to the micro:bit. Use Chrome or Edge on a computer, a Chromebook or an Android tablet.', err: 'Could not connect: ',
-        lib: 'Tracks', libShare: 'Download a picture of my track', sqEdit: 'Modify square', rec: 'Record', iaErr: 'The file could not be kept on this device (it may be too big).', iaUrl: 'Link to a video, picture or web page', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
+        lib: 'Tracks', libShare: 'Download a picture of my track', sqEdit: 'Modify square', trCam: 'Photo of the track', rec: 'Record', iaErr: 'The file could not be kept on this device (it may be too big).', iaUrl: 'Link to a video, picture or web page', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
   el: { title: 'RoboTrails', lang: 'EN', play: 'Εκκίνηση', stop: 'Στοπ', conn: 'Σύνδεση micro:bit', off: 'Το micro:bit δεν είναι συνδεδεμένο', on: 'Το micro:bit συνδέθηκε', busy: 'Σύνδεση…',
         ws: 'Πρόγραμμα', settings: 'Ρυθμίσεις', cats: { ev: 'Όταν', disp: 'Οθόνη', snd: 'Ήχος', bot: 'Ρομπότ', ctl: 'Έλεγχος' },
         noBt: 'Αυτός ο browser δεν μπορεί να μιλήσει με το micro:bit. Χρησιμοποίησε Chrome ή Edge σε υπολογιστή, Chromebook ή tablet Android.', err: 'Αποτυχία σύνδεσης: ',
-        lib: 'Πίστες', libShare: 'Λήψη εικόνας της πίστας μου', sqEdit: 'Αλλαγή τετραγώνου', rec: 'Ηχογράφηση βημάτων', iaErr: 'Το αρχείο δεν αποθηκεύτηκε σε αυτή τη συσκευή (ίσως είναι πολύ μεγάλο).', iaUrl: 'Σύνδεσμος σε βίντεο, εικόνα ή ιστοσελίδα', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
+        lib: 'Πίστες', libShare: 'Λήψη εικόνας της πίστας μου', sqEdit: 'Αλλαγή τετραγώνου', trCam: 'Φωτογραφία της πίστας', rec: 'Ηχογράφηση βημάτων', iaErr: 'Το αρχείο δεν αποθηκεύτηκε σε αυτή τη συσκευή (ίσως είναι πολύ μεγάλο).', iaUrl: 'Σύνδεσμος σε βίντεο, εικόνα ή ιστοσελίδα', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
 };
 let LANG = 'en';
 try { LANG = localStorage.getItem('mbblocks:lang') || ((navigator.language || '').startsWith('el') ? 'el' : 'en'); } catch (e) { /* no storage */ }
@@ -1397,6 +1417,76 @@ $('#recGo').addEventListener('click', async () => {
 
 document.querySelectorAll('#recpad [data-r]').forEach((b) => { b.innerHTML = ICON[b.dataset.r]; });
 
+
+/* ---------- a photo of the whole track: the camera view has the shape of the grid, with the grid lines on top to line up the mat ---------- */
+const TRC = { stream: null, facing: 'environment' };
+function trStop() { if (TRC.stream) TRC.stream.getTracks().forEach((t) => t.stop()); TRC.stream = null; $('#trvideo').srcObject = null; $('#trcam').classList.remove('open'); }
+async function trStart() {
+  if (TRC.stream) TRC.stream.getTracks().forEach((t) => t.stop()); TRC.stream = null;
+  const noCam = () => { trStop(); const f = $('#bdFile'); f.setAttribute('capture', 'environment'); f.click(); setTimeout(() => f.removeAttribute('capture'), 1000); };   // no camera here: the tablet's own camera app
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { noCam(); return; }
+  try { TRC.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: TRC.facing, width: { ideal: 1920 }, height: { ideal: 1920 } }, audio: false }); }
+  catch (e) { noCam(); return; }
+  const host = fsCurrent() || document.body; if ($('#trcam').parentNode !== host) host.appendChild($('#trcam'));
+  const fr = $('#trframe'); fr.style.setProperty('--ratio', grid.cols / grid.rows); fr.style.setProperty('--cols', grid.cols); fr.style.setProperty('--rows', grid.rows);
+  const v = $('#trvideo'); v.srcObject = TRC.stream; $('#trcam').classList.add('open'); try { await v.play(); } catch (e) { /* autoplay */ }
+}
+$('#bdCam').addEventListener('click', trStart);
+$('#trClose').addEventListener('click', trStop);
+$('#trFlip').addEventListener('click', () => { TRC.facing = TRC.facing === 'environment' ? 'user' : 'environment'; trStart(); });
+$('#trShot').addEventListener('click', () => {
+  const v = $('#trvideo'), vw = v.videoWidth, vh = v.videoHeight; if (!vw) return;
+  const C = grid.cols, R = grid.rows, a = C / R, w = Math.min(vw, vh * a), h = w / a;           // the middle part with the shape of the grid, as seen in the frame
+  const c = document.createElement('canvas'); c.width = C * SQUARE_PX; c.height = R * SQUARE_PX;
+  c.getContext('2d').drawImage(v, (vw - w) / 2, (vh - h) / 2, w, h, 0, 0, c.width, c.height);
+  trStop(); c.toBlob((b) => loadBackdropFile(new File([b], 'track-photo.jpg', { type: 'image/jpeg' })).catch(() => {}), 'image/jpeg', 0.92);
+});
+
+
+/* ---------- tooltips: every button says what it does (in the chosen language) when the mouse rests on it ---------- */
+const TIPS = {
+  'OK': 'Εντάξει', 'Close': 'Κλείσιμο', 'Cancel': 'Ακύρωση', 'Take photo': 'Λήψη φωτογραφίας', 'Stop': 'Στοπ', 'Play': 'Εκκίνηση', 'Other camera': 'Άλλη κάμερα',
+  'Full screen': 'Πλήρης οθόνη', 'Clear': 'Καθάρισμα', 'micro:bit': 'micro:bit', 'Undo': 'Αναίρεση', 'Try': 'Δοκιμή', 'Triangle': 'Τρίγωνο',
+  'Trap square': 'Τετράγωνο παγίδα', 'Tracks library': 'Βιβλιοθήκη πιστών', 'Thin': 'Λεπτό', 'Medium': 'Μεσαίο', 'Thick': 'Χοντρό',
+  'Template': 'Πρότυπο πίστας για εκτύπωση', 'Target square': 'Τετράγωνο στόχος', 'Step counter': 'Μετρητής βημάτων', 'Star': 'Αστέρι', 'Square': 'Τετράγωνο',
+  'Shake': 'Κούνημα', 'Settings': 'Ρυθμίσεις', 'Sensors': 'Αισθητήρες', 'Robot': 'Ρομπότ', 'Right': 'Δεξιά', 'Left': 'Αριστερά', 'Forward': 'Μπροστά', 'Back': 'Πίσω',
+  'Reset position': 'Επιστροφή στην αρχή', 'Remove': 'Αφαίρεση', 'Remove backdrop': 'Αφαίρεση φόντου', 'Record': 'Ηχογράφηση βημάτων', 'Preview route': 'Προεπισκόπηση διαδρομής',
+  'Pick a picture': 'Επιλογή εικόνας', 'Photo of the track': 'Φωτογραφία της πίστας', 'Open in a new tab': 'Άνοιγμα σε νέα καρτέλα', 'Obstacle': 'Εμπόδιο',
+  'Modify square': 'Αλλαγή τετραγώνου', 'Letters and numbers': 'Γράμματα και αριθμοί', 'Line': 'Γραμμή', 'Layout': 'Διάταξη', 'Language': 'Γλώσσα', 'Heart': 'Καρδιά',
+  'Grid': 'Πλέγμα', 'Go': 'Πάμε!', 'Filled or outline': 'Γεμάτο ή περίγραμμα', 'Fill': 'Κουβάς (γέμισμα)', 'File': 'Αρχείο', 'Erase memory': 'Σβήσιμο μνήμης',
+  'Download my track': 'Λήψη εικόνας της πίστας μου', 'Connect': 'Σύνδεση', 'Circle': 'Κύκλος', 'Camera': 'Κάμερα', 'Brush': 'Πινέλο', 'Backdrop': 'Φόντο από εικόνα',
+  'Arrow': 'Βέλος', 'Less': 'Λιγότερο', 'More': 'Περισσότερο'
+};
+const TIPS_EN = { 'Fill': 'Bucket (fill)', 'Go': 'Go!', 'Backdrop': 'Backdrop from a picture', 'Template': 'Printable track template', 'Record': 'Record steps', 'Download my track': 'Download a picture of my track', 'Reset position': 'Back to the start' };
+const tipText = (en) => (LANG === 'el' ? TIPS[en] : TIPS_EN[en]) || en;
+const BLOCK_TIPS = {
+  evA: ['When button A is pressed', 'Όταν πατηθεί το κουμπί A'], evB: ['When button B is pressed', 'Όταν πατηθεί το κουμπί B'], evShake: ['When shaken', 'Όταν κουνηθεί'],
+  picture: ['Show a picture', 'Δείξε μια εικόνα'], digit: ['Show a number', 'Δείξε έναν αριθμό'], clear: ['Clear the screen', 'Καθάρισε την οθόνη'], note: ['Play a sound', 'Παίξε έναν ήχο'],
+  fwd: ['Forward', 'Μπροστά'], back: ['Back', 'Πίσω'], left: ['Turn left', 'Στρίψε αριστερά'], right: ['Turn right', 'Στρίψε δεξιά'], stop: ['Stop the robot', 'Σταμάτα το ρομπότ'],
+  near: ['Wait for an obstacle', 'Περίμενε ένα εμπόδιο'], line: ['Wait for a black line', 'Περίμενε μια μαύρη γραμμή'], speed: ['Speed', 'Ταχύτητα'], light: ['Lights', 'Φώτα'],
+  wait: ['Wait (seconds)', 'Περίμενε (δευτερόλεπτα)'], repeat: ['Repeat', 'Επανάλαβε'], forever: ['Repeat forever', 'Επανάλαβε για πάντα']
+};
+const COLOR_TIPS = { '#1A1A1A': ['Black', 'Μαύρο'], '#FFFFFF': ['White', 'Άσπρο'], '#9E9E9E': ['Grey', 'Γκρι'], '#E53935': ['Red', 'Κόκκινο'], '#F15A24': ['Orange', 'Πορτοκαλί'], '#FFD23F': ['Yellow', 'Κίτρινο'],
+  '#3DAA4A': ['Green', 'Πράσινο'], '#0071BC': ['Blue', 'Μπλε'], '#0096EA': ['Light blue', 'Γαλάζιο'], '#8E44AD': ['Purple', 'Μωβ'], '#FF5CCB': ['Pink', 'Ροζ'], '#8B5A2B': ['Brown', 'Καφέ'] };
+const SET_TIPS = { sq: ['Length of one square (cm)', 'Μήκος ενός τετραγώνου (cm)'], spd: ['Speed (cm/s)', 'Ταχύτητα (cm/s)'], speed: ['Motor power', 'Ισχύς κινητήρων'],
+  step: ['Time for one square', 'Χρόνος για ένα τετράγωνο'], turn: ['Time for a quarter turn', 'Χρόνος για ένα τέταρτο στροφής'], cols: ['Columns', 'Στήλες'], rows: ['Rows', 'Γραμμές'] };
+const L2 = (pair) => pair[LANG === 'el' ? 1 : 0];
+function blockTip(cell) { const p = BLOCK_TIPS[cell.dataset.t]; if (p) cell.title = L2(p); }
+function applyTips() {
+  document.querySelectorAll('#settings .step').forEach((b) => { if (!b.dataset.tip) b.dataset.tip = +b.dataset.d < 0 ? 'Less' : 'More'; });
+  document.querySelectorAll('[aria-label]').forEach((el) => { if (!el.dataset.tip) el.dataset.tip = el.getAttribute('aria-label'); });
+  document.querySelectorAll('[data-tip]').forEach((el) => {
+    const fixed = ['play', 'stop', 'conn', 'cog', 'libBtn', 'libShare', 'libClose', 'bdPaint', 'bdCam', 'recBtn'].includes(el.id);      // these get their words from the main texts
+    const t = fixed && el.getAttribute('aria-label') && el.getAttribute('aria-label') !== el.dataset.tip ? el.getAttribute('aria-label') : tipText(el.dataset.tip);
+    if (el.id !== 'conn') el.title = t; el.setAttribute('aria-label', t);      // the connect button's tooltip tells whether the micro:bit is connected
+  });
+  document.querySelectorAll('#sqed .sw').forEach((b) => { const p = COLOR_TIPS[b.dataset.col]; if (p) { b.title = L2(p); b.setAttribute('aria-label', L2(p)); } });
+  document.querySelectorAll('#settings .setrow').forEach((r) => { const p = SET_TIPS[r.dataset.k], ic = r.querySelector('.ic'); if (p && ic) ic.title = L2(p); });
+  document.querySelectorAll('.cell[data-t]').forEach(blockTip);
+  document.querySelectorAll('#tabs .tab').forEach((t) => { t.title = t.textContent.trim(); });
+  [['#btnA', ['Button A', 'Κουμπί A']], ['#btnB', ['Button B', 'Κουμπί B']]].forEach(([sel, pr]) => { const g = $(sel); if (!g) return; let ti = g.querySelector('title'); if (!ti) { ti = document.createElementNS(NSVG, 'title'); g.prepend(ti); } ti.textContent = L2(pr); });
+}
+
 const FS_IN = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 V6 H18 M30 6 H42 V18 M42 30 V42 H30 M18 42 H6 V30"/></svg>';
 const FS_OUT = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 V18 H6 M30 6 V18 H42 M42 30 H30 V42 M6 30 H18 V42"/></svg>';
 const fsCurrent = () => document.fullscreenElement || document.webkitFullscreenElement || null;
@@ -1454,7 +1544,7 @@ function cellEl(b, isPal, path) {
   const blk = document.createElement('div'); blk.className = 'blk ' + d.cat; blk.innerHTML = iconOf(b); blk.tabIndex = 0; blk.setAttribute('role', 'button');
   if (d.pic && !isPal) blk.insertAdjacentHTML('beforeend', `<span class="pen"><svg viewBox="0 0 16 16" fill="none" stroke="${NAVY}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14 L3 10 L11 2 L14 5 L6 13Z"/></svg></span>`);
   const num = document.createElement('button'); num.className = 'num' + (d.vals ? '' : ' none'); num.textContent = d.vals ? numText(b.t, b.v) : '0';
-  cell.append(blk, num); return cell;
+  cell.append(blk, num); if (typeof blockTip === 'function') blockTip(cell); return cell;
 }
 function renderTabs() {
   const tabs = $('#tabs'); tabs.innerHTML = '';
@@ -1759,9 +1849,9 @@ const mb = {
 function ui() { const b = $('#conn'); b.className = mb.status === 'on' ? 'on' : mb.status === 'busy' ? 'busy' : ''; b.title = mb.status === 'on' ? T().on : mb.status === 'busy' ? T().busy : T().off; }
 function texts() {
   document.documentElement.lang = LANG; document.title = T().title; $('#title').textContent = T().title; $('#wstitle').textContent = T().ws;
-  $('#libtitle').textContent = T().lib; $('#edtitle').textContent = T().sqEdit; $('#recBtn').setAttribute('aria-label', T().rec); $('#recBtn').title = T().rec; $('#edurl').placeholder = T().iaUrl; $('#bdPaint').setAttribute('aria-label', T().sqEdit); $('#bdPaint').title = T().sqEdit; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
+  $('#libtitle').textContent = T().lib; $('#edtitle').textContent = T().sqEdit; $('#trcamTitle').textContent = T().trCam; $('#bdCam').setAttribute('aria-label', T().trCam); $('#bdCam').title = T().trCam; $('#recBtn').setAttribute('aria-label', T().rec); $('#recBtn').title = T().rec; $('#edurl').placeholder = T().iaUrl; $('#bdPaint').setAttribute('aria-label', T().sqEdit); $('#bdPaint').title = T().sqEdit; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
   $('#lang').textContent = T().lang; $('#play').setAttribute('aria-label', T().play); $('#stop').setAttribute('aria-label', T().stop); $('#conn').setAttribute('aria-label', T().conn); $('#cog').setAttribute('aria-label', T().settings);
-  renderTabs(); ui();
+  renderTabs(); ui(); applyTips();
 }
 $('#play').addEventListener('click', play); $('#stop').addEventListener('click', stopAll);
 $('#conn').addEventListener('click', () => { if (mb.isOn()) mb.dev.gatt.disconnect(); else if (mb.status !== 'busy') mb.connect(); });
