@@ -27,7 +27,7 @@ What the program does:
 | `RL` / `RR` + degrees | TPBot Edu: turn on the spot by an exact angle |
 | `V` + left + `,` + right | TPBot Edu: drive at a speed in cm/s until told otherwise |
 | `P` + cm/s | TPBot Edu: speed of the exact moves (20–50) |
-| `Z` + servo + `,` + degrees | Add-ons: turn a 180° servo (the grabber) on S1–S4, e.g. `Z1,90` |
+| `Z` + servo + `,` + degrees | Add-ons: turn the grabber's 0–360° servo on S1–S4 to an angle, e.g. `Z1,90` |
 
 The micro:bit sends back `A`, `B` (buttons), `H` (shake), `K` (an exact move is finished) and `Q` (sensors).
 

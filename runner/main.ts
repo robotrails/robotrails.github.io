@@ -13,7 +13,7 @@
 //   - drives until told otherwise                   "V" + left + "," + right      (cm/s, 20..50, negative = backwards)
 //   - sets the speed of the exact moves             "P" + cm/s (20..50)
 //   add-ons (both robots):
-//   - turns a 180° servo (the grabber) to an angle   "Z" + servo + "," + degrees   e.g. Z1,90  (servo 1..4 = S1..S4)
+//   - turns the grabber servo (0-360°) to an angle   "Z" + servo + "," + degrees   e.g. Z1,90  (servo 1..4 = S1..S4)
 //   - tells the app about button A, button B and shake  ("A", "B", "H" + newline)
 // Make it once in https://makecode.microbit.org:
 //   Extensions -> bluetooth, and Extensions -> paste https://github.com/elecfreaks/pxt-TPBot
@@ -130,7 +130,7 @@ bluetooth.onUartDataReceived(NL, function () {
         const parts = line.substr(1).split(",")
         const s = parseInt(parts[0])
         const servo = s == 2 ? TPBot.ServoList.S2 : s == 3 ? TPBot.ServoList.S3 : s == 4 ? TPBot.ServoList.S4 : TPBot.ServoList.S1
-        TPBot.setServo(TPBot.ServoTypeList.S180, servo, Math.max(0, Math.min(180, parseInt(parts[1]))))
+        TPBot.setServo(TPBot.ServoTypeList.S360, servo, Math.max(0, Math.min(360, parseInt(parts[1]))))   // a 0-360° positional servo
     } else if (cmd == "H") {
         TPBot.headlightColor(parseInt(line.substr(1, 6), 16))
     } else if (cmd == "S") {
