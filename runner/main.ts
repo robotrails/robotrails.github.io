@@ -1,7 +1,8 @@
 // micro:bit "runner" for the picture-block app (screen, sound, buttons and the Elecfreaks TPBot / TPBot Edu).
 // The app does all the thinking; this program only
 //   - shows the LED picture the app sends          "L" + 7 hex digits   e.g. L00a2a8c
-//   - plays a tone the app sends                    "T" + frequency + "," + milliseconds
+//   - plays a built-in micro:bit V2 sound effect    "E" + number 1..10  (1 giggle, 2 happy, 3 hello, 4 spring, 5 twinkle, 6 soaring, 7 slide, 8 mysterious, 9 sad, 10 yawn)
+//     (needs a micro:bit V2 - the V1 has no speaker)
 //   - sets the TPBot headlights                     "H" + rrggbb (hex)
 //   - starts/stops sending the robot's sensors      "S1" / "S0"  ->  the app gets "Q" + distance_cm + "," + line  (line = 1 when both floor sensors see black; distance 0 = no echo)
 //   plain TPBot (timed moves):
@@ -11,6 +12,8 @@
 //   - turns on the spot by an exact angle           "RL" / "RR" + degrees         e.g. RR90
 //   - drives until told otherwise                   "V" + left + "," + right      (cm/s, 20..50, negative = backwards)
 //   - sets the speed of the exact moves             "P" + cm/s (20..50)
+//   add-ons (both robots):
+//   - turns a 180° servo (the grabber) to an angle   "Z" + servo + "," + degrees   e.g. Z1,90  (servo 1..4 = S1..S4)
 //   - tells the app about button A, button B and shake  ("A", "B", "H" + newline)
 // Make it once in https://makecode.microbit.org:
 //   Extensions -> bluetooth, and Extensions -> paste https://github.com/elecfreaks/pxt-TPBot
@@ -61,18 +64,40 @@ function showBits(bits: number) {
     }
 }
 
+// Sound effects: ONE background worker plays them one after another ("until done"), so sounds never pile up
+// (many overlapping tones were the likely cause of the 070 panic). Only the newest request waits; older ones are dropped.
+const EFFECTS = [
+    soundExpression.giggle, soundExpression.happy, soundExpression.hello, soundExpression.spring, soundExpression.twinkle,
+    soundExpression.soaring, soundExpression.slide, soundExpression.mysterious, soundExpression.sad, soundExpression.yawn
+]
+let pendingEffect = 0
+let soundBusy = false
+function playEffect(n: number) {
+    if (n < 1 || n > EFFECTS.length) {
+        return
+    }
+    pendingEffect = n
+    if (soundBusy) {
+        return
+    }
+    soundBusy = true
+    control.inBackground(function () {
+        while (pendingEffect > 0) {
+            const e = pendingEffect
+            pendingEffect = 0
+            music.play(music.builtinPlayableSoundEffect(EFFECTS[e - 1]), music.PlaybackMode.UntilDone)
+        }
+        soundBusy = false
+    })
+}
+
 bluetooth.onUartDataReceived(NL, function () {
     const line = bluetooth.uartReadUntil(NL)
     const cmd = line.charAt(0)
     if (cmd == "L") {
         showBits(parseInt(line.substr(1, 7), 16))
-    } else if (cmd == "T") {
-        const parts = line.substr(1).split(",")
-        const freq = parseInt(parts[0])
-        const ms = parseInt(parts[1])
-        control.inBackground(function () {
-            music.playTone(freq, ms)
-        })
+    } else if (cmd == "E") {
+        playEffect(parseInt(line.substr(1)))
     } else if (cmd == "W") {
         const parts = line.substr(1).split(",")
         const l = parseInt(parts[0])
@@ -101,6 +126,11 @@ bluetooth.onUartDataReceived(NL, function () {
         TPBot.pidSpeedControl(parseInt(parts[0]), parseInt(parts[1]), TPBot.SpeedUnit.Cm_s)
     } else if (cmd == "P") {
         TPBot.pidSetSpeed(parseInt(line.substr(1)), TPBot.SpeedUnit.Cm_s)
+    } else if (cmd == "Z") {
+        const parts = line.substr(1).split(",")
+        const s = parseInt(parts[0])
+        const servo = s == 2 ? TPBot.ServoList.S2 : s == 3 ? TPBot.ServoList.S3 : s == 4 ? TPBot.ServoList.S4 : TPBot.ServoList.S1
+        TPBot.setServo(TPBot.ServoTypeList.S180, servo, Math.max(0, Math.min(180, parseInt(parts[1]))))
     } else if (cmd == "H") {
         TPBot.headlightColor(parseInt(line.substr(1, 6), 16))
     } else if (cmd == "S") {

@@ -19,7 +19,7 @@ What the program does:
 | The app sends | Meaning |
 | --- | --- |
 | `L` + 7 hex digits | show an LED picture |
-| `T` + frequency + `,` + milliseconds | play a tone |
+| `E` + number 1..10 | play a built-in V2 sound effect (1 giggle, 2 happy, 3 hello, 4 spring, 5 twinkle, 6 soaring, 7 slide, 8 mysterious, 9 sad, 10 yawn) – needs a micro:bit V2 |
 | `H` + rrggbb | set the robot's headlights |
 | `S1` / `S0` | start / stop sending the sensors (`Q` + distance + `,` + line) |
 | `W` + left + `,` + right | TPBot: set the wheel power (`W0,0` = stop) |
@@ -27,6 +27,7 @@ What the program does:
 | `RL` / `RR` + degrees | TPBot Edu: turn on the spot by an exact angle |
 | `V` + left + `,` + right | TPBot Edu: drive at a speed in cm/s until told otherwise |
 | `P` + cm/s | TPBot Edu: speed of the exact moves (20–50) |
+| `Z` + servo + `,` + degrees | Add-ons: turn a 180° servo (the grabber) on S1–S4, e.g. `Z1,90` |
 
 The micro:bit sends back `A`, `B` (buttons), `H` (shake), `K` (an exact move is finished) and `Q` (sensors).
 
