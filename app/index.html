@@ -289,6 +289,7 @@
   #mbpanel #recBtn { width: 70px; height: 70px; }
   #mbpanel #recBtn svg { width: 42px; height: 42px; }
   #recBtn.on { background: var(--gold); }
+  #rechead #recNow.on { background: #fff; } #rechead #recNow.on path { stroke: #1A1A1A; }
   @media (min-width: 801px) and (max-height: 760px) { #mbpanel #recBtn { width: 58px; height: 58px; } #mbpanel #recBtn svg { width: 34px; height: 34px; } }
   #side { position: relative; }
   #recpanel { position: absolute; inset: 0; z-index: 30; display: none; flex-direction: column; }
@@ -319,6 +320,29 @@
     background-size: calc(100% / var(--cols, 7)) 100%, 100% calc(100% / var(--rows, 7)); background-position: -1px 0, 0 -1px; }
   .trcamfoot { flex: none; display: flex; justify-content: center; padding: 10px; background: var(--alt); }
   #trShot { width: 72px; height: 72px; border-radius: 50%; border: 5px solid #fff; background: var(--orange); box-shadow: 0 0 0 2px var(--charcoal); }
+  /* spelling board */
+  #spell { z-index: 130; }
+  .spellbox { width: min(1100px, 96vw); height: min(92vh, 860px); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .spmain { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 16px; overflow: auto; }
+  .sptop { display: flex; align-items: center; gap: 24px; }
+  #sppic { width: min(26vh, 220px); height: min(26vh, 220px); border: 1px solid var(--line); border-radius: var(--radius); }
+  #spmodel { font: 800 clamp(2.2rem, 7vw, 4.5rem) "Commissioner", Arial, sans-serif; letter-spacing: .12em; color: var(--blue); }
+  #spboxes { width: 100%; display: flex; justify-content: center; gap: 10px; flex-wrap: nowrap; }
+  .spbox { flex: none; aspect-ratio: 4 / 5; border: 3px solid var(--line); border-radius: var(--radius); background: #fff; position: relative; display: grid; place-items: center;
+    font: 800 clamp(2rem, 6vw, 4rem) "Commissioner", Arial, sans-serif; color: #3DAA4A; }
+  .spbox canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+  .spbox.on { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0,113,188,.25); }
+  .spbox.ok { border-color: #3DAA4A; }
+  .spbox.gap { border: 0; background: transparent; color: var(--ink); }
+  .spbox.shake, .sptile.shake { animation: shk .4s; }
+  #sptiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 900px; }
+  .sptile { width: 76px; height: 76px; border-radius: var(--radius); border: 2px solid var(--charcoal); background: var(--gold); font: 800 2.4rem "Commissioner", Arial, sans-serif; color: var(--ink); }
+  .sptile[hidden] { display: none; }
+  .sptile.pulse { animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(61,170,74,.5); } }
+  #spell.won .spellbox { box-shadow: 0 0 0 8px #3DAA4A; }
+  #spell.tiles .spbox { width: 76px !important; }
+  .spl.on { background: var(--gold); } .spl:disabled { opacity: .35; }
   /* content of an interactive square */
   #media { z-index: 130; }
   .mediabox { width: min(1100px, 94vw); height: min(86vh, 820px); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
@@ -329,12 +353,18 @@
   .ytcard span { position: absolute; inset: 0; display: grid; place-items: center; }
   .ytcard svg { width: 120px; height: 85px; }
   #mediabody iframe { width: 100%; height: 100%; border: 0; background: #fff; }
+  #spSay[hidden] { display: none; }
   #mediaOpen { display: grid; place-items: center; } #mediaOpen[hidden] { display: none; }
   #mediaClose { background: var(--orange) !important; border-color: var(--orange) !important; }
   .grow { margin-right: auto; }
-  .edia .iaic { width: 36px; height: 36px; flex: none; }
+  .edia .iaic, .edspell .iaic { width: 36px; height: 36px; flex: none; }
   #edurl { flex: 1 1 90px; min-width: 0; height: 50px; font: 600 1rem "Commissioner", Arial, sans-serif; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 10px; }
   #edurl:focus { outline: 3px solid var(--blue); }
+  #edword { flex: 1 1 calc(100% - 52px); min-width: 0; height: 46px; font: 800 1.2rem "Commissioner", Arial, sans-serif; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 10px; }
+  #edword::placeholder, #edurl::placeholder { font: 600 1rem "Commissioner", Arial, sans-serif; color: #8A8C8E; }
+  #edword:focus { outline: 3px solid var(--blue); }
+  .edspell .tool { width: 46px; height: 46px; } .edspell { gap: 6px; }
+  #edCase.on, #edAcc.on { background: var(--gold); } #edAcc:disabled { opacity: .35; }
   #edinfo { flex: 1 1 100%; font-size: .85rem; color: var(--charcoal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   /* modify a square */
   #sqed { z-index: 120; }
@@ -361,6 +391,8 @@
   .edrow .tool.on { background: var(--gold); }
   .sw { width: 40px; height: 40px; border-radius: var(--radius); border: 2px solid var(--charcoal); padding: 0; }
   .sw.on { outline: 4px solid var(--blue); outline-offset: 2px; }
+  #edEye { width: 40px !important; height: 40px !important; } #edEye svg { width: 24px !important; height: 24px !important; }
+  #edcv.pick { cursor: copy; }
   #edtext { flex: 1 1 120px; min-width: 0; height: 50px; font: 800 1.5rem "Commissioner", Arial, sans-serif; text-align: center; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 8px; }
   #edtext:focus { outline: 3px solid var(--blue); }
   #sqed:not(.txt) #edtext { display: none; }
@@ -448,6 +480,7 @@
   <section id="side">
     <div id="recpanel" class="panel">
       <div id="rechead"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#fff" stroke-width="4"/><circle cx="24" cy="24" r="10" fill="#F15A24"/></svg><span id="recCount">0</span>
+        <button class="tool small" id="recNow" aria-label="Move at once (remote control)"><svg viewBox="0 0 48 48"><path d="M27 4 L10 27 H22 L19 44 L38 19 H26 Z" fill="#FBB03B" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg></button>
         <button class="tool small" id="recClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button></div>
       <div id="recmem"></div>
       <div id="recpad">
@@ -499,7 +532,7 @@
     <div class="edtools">
       <div class="edrow">
         <button class="tool edt" data-tool="brush" aria-label="Brush"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 7 L41 18 L23 36 L12 25 Z"/><path d="M12 25 C5 28 7 36 4 43 C11 41 19 41 23 36"/></svg></button>
-        <button class="tool edt" data-tool="bucket" aria-label="Fill"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21 L21 7 L37 23 L23 37 Z"/><path d="M7 21 H37"/><path d="M42 29 C40 33 38 35 38 38 A4 4 0 0 0 46 38 C46 35 44 33 42 29 Z"/></svg></button>
+        <button class="tool edt" data-tool="bucket" aria-label="Fill"><svg viewBox="0 0 48 48" stroke-linecap="round" stroke-linejoin="round"><path d="M5 24 L36 26 L21 41 Z" fill="#F15A24"/><path d="M5 24 L20 9 L36 26 L21 41 Z" fill="none" stroke="#1A1A1A" stroke-width="4"/><path d="M12 17 C5 9 10 2 17 6 L21.5 11" fill="none" stroke="#1A1A1A" stroke-width="3.5"/><path d="M36 26 C40 27 42 29 42 32" fill="none" stroke="#F15A24" stroke-width="4"/><path d="M42 31 C40 35 38 37.5 38 40.5 A4 4 0 0 0 46 40.5 C46 37.5 44 35 42 31 Z" fill="#F15A24"/></svg></button>
         <button class="tool edt" data-tool="text" aria-label="Letters and numbers"><svg viewBox="0 0 48 48"><text x="24" y="33" text-anchor="middle" font-size="24" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">A1</text></svg></button>
         <button class="tool" id="edCam" aria-label="Camera"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="13" width="40" height="28" rx="5"/><path d="M16 13 L19 7 H29 L32 13"/><circle cx="24" cy="27" r="8"/></svg></button>
         <button class="tool" id="edUndo" aria-label="Undo"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 9 L7 19 L17 29"/><path d="M7 19 H30 A10 10 0 0 1 30 39 H20"/></svg></button>
@@ -522,12 +555,22 @@
         <input id="edtext" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="A 1">
       </div>
       <div class="edrow edia">
-        <svg class="iaic" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="6" fill="#0071BC"/><path d="M18 13 L36 24 L18 35 Z" fill="#fff"/></svg>
+        <svg class="iaic" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="6" fill="#0071BC"/><path d="M18.5 14 L34.5 24 L18.5 34 Z" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
         <input id="edurl" autocomplete="off" spellcheck="false" inputmode="url" placeholder="https://">
         <button class="tool" id="edInterFile" aria-label="File"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 A3 3 0 0 1 8 9 H18 L22 14 H40 A3 3 0 0 1 43 17 V37 A3 3 0 0 1 40 40 H8 A3 3 0 0 1 5 37 Z"/></svg></button>
         <button class="tool" id="edInterTest" aria-label="Try"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24 C10 13 17 9 24 9 C31 9 38 13 44 24 C38 35 31 39 24 39 C17 39 10 35 4 24 Z"/><circle cx="24" cy="24" r="6"/></svg></button>
         <button class="tool" id="edInterDel" aria-label="Remove"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12 L36 36 M36 12 L12 36"/></svg></button>
         <div id="edinfo"></div>
+      </div>
+      <div class="edrow edspell">
+        <svg class="iaic" viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="6" fill="#3DAA4A"/><path d="M12 35 L18 15 L24 35 M14 28 H22" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M27 34 L28 29 L37 20 L40 23 L31 32 Z" fill="#fff"/></svg>
+        <input id="edword" maxlength="24" autocomplete="off" spellcheck="false">
+        <button class="tool spl" data-lv="tiles" aria-label="Letter tiles"><svg viewBox="0 0 48 48"><rect x="4" y="12" width="18" height="22" rx="3" fill="#FBB03B" stroke="#1A1A1A" stroke-width="2.5"/><rect x="26" y="12" width="18" height="22" rx="3" fill="#FBB03B" stroke="#1A1A1A" stroke-width="2.5"/><text x="13" y="29" text-anchor="middle" font-size="14" font-weight="800" fill="#1A1A1A">A</text><text x="35" y="29" text-anchor="middle" font-size="14" font-weight="800" fill="#1A1A1A">B</text></svg></button>
+        <button class="tool spl" data-lv="trace" aria-label="Trace the letters"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 7"><path d="M10 40 L24 8 L38 40 M15 29 H33"/></svg></button>
+        <button class="tool spl" data-lv="copy" aria-label="Copy the word"><svg viewBox="0 0 48 48"><text x="12" y="22" text-anchor="middle" font-size="18" font-weight="800" fill="#0071BC">A</text><path d="M20 16 H30 M26 12 L30 16 L26 20" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="28" y="22" width="16" height="20" rx="3" fill="none" stroke="#1A1A1A" stroke-width="3"/></svg></button>
+        <button class="tool" id="edCase" aria-label="Capitals or lowercase"></button>
+        <button class="tool" id="edAcc" aria-label="Write the accents too"><svg viewBox="0 0 48 48"><text x="24" y="38" text-anchor="middle" font-size="30" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">ά</text></svg></button>
+        <button class="tool spl" data-lv="memory" aria-label="From memory"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 H14 L24 9 V39 L14 30 H6 Z"/><path d="M31 17 A9 9 0 0 1 31 31 M36 11 A17 17 0 0 1 36 37"/></svg></button>
       </div>
     </div>
   </div>
@@ -541,6 +584,19 @@
     <button class="tool small" id="trClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button></div>
   <div class="trcammain"><div id="trframe"><video id="trvideo" playsinline muted autoplay></video><div id="trgrid"></div></div></div>
   <div class="trcamfoot"><button class="tool" id="trShot" aria-label="Take photo"></button></div>
+</div></div>
+
+<div id="spell" class="overlay"><div class="box spellbox">
+  <div class="libhead">
+    <button class="tool small" id="spSay" aria-label="Say the word"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 H14 L24 9 V39 L14 30 H6 Z"/><path d="M31 17 A9 9 0 0 1 31 31 M36 11 A17 17 0 0 1 36 37"/></svg></button>
+    <button class="tool small" id="spHint" aria-label="Show how to write it"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 33 A12 12 0 1 1 31 33 V38 H17 Z M19 43 H29"/></svg></button>
+    <span class="grow"></span>
+    <button class="tool small" id="spSkip" aria-label="Skip" hidden><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10 L24 24 L8 38 Z M24 10 L40 24 L24 38 Z"/></svg></button></div>
+  <div class="spmain">
+    <div class="sptop"><canvas id="sppic" width="200" height="200"></canvas><div id="spmodel"></div></div>
+    <div id="spboxes"></div>
+    <div id="sptiles"></div>
+  </div>
 </div></div>
 
 <div id="media" class="overlay"><div class="box mediabox">
@@ -568,11 +624,11 @@ const STR = {
   en: { title: 'RoboTrails', lang: 'EL', play: 'Play', stop: 'Stop', conn: 'Connect micro:bit', off: 'micro:bit not connected', on: 'micro:bit connected', busy: 'Connecting…',
         ws: 'Program', settings: 'Settings', cats: { ev: 'When', disp: 'Screen', snd: 'Sound', bot: 'Robot', ctl: 'Control' },
         noBt: 'This browser cannot talk to the micro:bit. Use Chrome or Edge on a computer, a Chromebook or an Android tablet.', err: 'Could not connect: ',
-        lib: 'Tracks', libShare: 'Download a picture of my track', sqEdit: 'Modify square', trCam: 'Photo of the track', rec: 'Record', iaErr: 'The file could not be kept on this device (it may be too big).', iaUrl: 'Link to a video, picture or web page', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
+        lib: 'Tracks', libShare: 'Download a picture of my track', sqEdit: 'Modify square', trCam: 'Photo of the track', spWord: 'Word to write', spLv: { tiles: 'letter tiles', trace: 'trace', copy: 'copy', memory: 'from memory' }, rec: 'Record', iaErr: 'The file could not be kept on this device (it may be too big).', iaUrl: 'Video link', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
   el: { title: 'RoboTrails', lang: 'EN', play: 'Εκκίνηση', stop: 'Στοπ', conn: 'Σύνδεση micro:bit', off: 'Το micro:bit δεν είναι συνδεδεμένο', on: 'Το micro:bit συνδέθηκε', busy: 'Σύνδεση…',
         ws: 'Πρόγραμμα', settings: 'Ρυθμίσεις', cats: { ev: 'Όταν', disp: 'Οθόνη', snd: 'Ήχος', bot: 'Ρομπότ', ctl: 'Έλεγχος' },
         noBt: 'Αυτός ο browser δεν μπορεί να μιλήσει με το micro:bit. Χρησιμοποίησε Chrome ή Edge σε υπολογιστή, Chromebook ή tablet Android.', err: 'Αποτυχία σύνδεσης: ',
-        lib: 'Πίστες', libShare: 'Λήψη εικόνας της πίστας μου', sqEdit: 'Αλλαγή τετραγώνου', trCam: 'Φωτογραφία της πίστας', rec: 'Ηχογράφηση βημάτων', iaErr: 'Το αρχείο δεν αποθηκεύτηκε σε αυτή τη συσκευή (ίσως είναι πολύ μεγάλο).', iaUrl: 'Σύνδεσμος σε βίντεο, εικόνα ή ιστοσελίδα', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
+        lib: 'Πίστες', libShare: 'Λήψη εικόνας της πίστας μου', sqEdit: 'Αλλαγή τετραγώνου', trCam: 'Φωτογραφία της πίστας', spWord: 'Λέξη για γράψιμο', spLv: { tiles: 'πλακίδια γραμμάτων', trace: 'ξεσήκωμα', copy: 'αντιγραφή', memory: 'από μνήμης' }, rec: 'Ηχογράφηση βημάτων', iaErr: 'Το αρχείο δεν αποθηκεύτηκε σε αυτή τη συσκευή (ίσως είναι πολύ μεγάλο).', iaUrl: 'Σύνδεσμος βίντεο', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
 };
 let LANG = 'en';
 try { LANG = localStorage.getItem('mbblocks:lang') || ((navigator.language || '').startsWith('el') ? 'el' : 'en'); } catch (e) { /* no storage */ }
@@ -601,8 +657,8 @@ const hex7 = (n) => (n >>> 0).toString(16).padStart(7, '0');
 const ico = (inner) => `<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
 const LIGHTS = [['#3D3D3D', '000000'], ['#F15A24', 'ff0000'], ['#3DDC84', '00ff00'], ['#4D8DFF', '0000ff'], ['#FBB03B', 'ffff00'], ['#FFFFFF', 'ffffff'], ['#FF5CCB', 'ff00ff']];
 const ICON = {
-  evA: ico('<circle cx="24" cy="24" r="17"/><path d="M16 33 L24 13 L32 33 M19 27 H29" stroke-width="4.5"/>'),
-  evB: ico('<circle cx="24" cy="24" r="17"/><path d="M18 14 V34 H25 A5.5 5.5 0 0 0 25 24 H18 M18 24 H24 A5 5 0 0 0 24 14 H18" stroke-width="4"/>'),
+  evA: ico('<circle cx="24" cy="24" r="20" stroke-width="4"/><path d="M16 34 L24 13 L32 34 M19 27.5 H29" stroke-width="4"/>'),
+  evB: ico('<circle cx="24" cy="24" r="20" stroke-width="4"/><path d="M18 13 V35 M18 13 H25 A5.1 5.1 0 0 1 25 23.2 H18 M18 23.2 H26.2 A5.9 5.9 0 0 1 26.2 35 H18" stroke-width="4"/>'),
   evShake: ico('<rect x="15" y="9" width="18" height="30" rx="4"/><path d="M5 17 Q2 24 5 31 M43 17 Q46 24 43 31 M9 20 Q7 24 9 28 M39 20 Q41 24 39 28" stroke-width="4"/>'),
   note: ico('<path d="M18 36 V9 L38 5 V32"/><circle cx="13" cy="36" r="6" fill="#fff"/><circle cx="33" cy="32" r="6" fill="#fff"/>'),
   fwd: ico('<path d="M24 41 V9 M11 22 L24 9 L37 22"/>'),
@@ -1130,13 +1186,17 @@ const ED = { c: 0, r: 0, tool: 'brush', color: '#1A1A1A', size: 1, fill: true, u
 const edCv = $('#edcv'), edG = edCv.getContext('2d', { willReadFrequently: true }), SQ = SQUARE_PX;
 const SHAPES = ['rect', 'circle', 'tri', 'star', 'heart', 'arrow'];
 ED_COLORS.forEach((col) => { const b = document.createElement('button'); b.className = 'sw'; b.style.background = col; b.dataset.col = col; b.setAttribute('aria-label', col); $('#edColors').appendChild(b); });
+{ const pk = document.createElement('button'); pk.className = 'sw'; pk.id = 'edPicked'; pk.hidden = true; pk.setAttribute('aria-label', 'Picked colour'); $('#edColors').appendChild(pk);     // the colour taken with the eyedropper
+  const ey = document.createElement('button'); ey.className = 'tool edt'; ey.id = 'edEye'; ey.dataset.tool = 'pick'; ey.setAttribute('aria-label', 'Eyedropper');
+  ey.innerHTML = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M29 9 A5 5 0 0 1 39 19 L35 23 L25 13 Z" fill="#1A1A1A"/><path d="M23 15 L33 25"/><path d="M28 20 L13 35 L9 39 L13 39 L28 24"/></svg>';
+  $('#edColors').appendChild(ey); }
 function edSync() {
   document.querySelectorAll('#sqed .edt').forEach((b) => b.classList.toggle('on', b.dataset.tool === ED.tool));
   document.querySelectorAll('#sqed .sw').forEach((b) => b.classList.toggle('on', b.dataset.col === ED.color));
   document.querySelectorAll('#sqed .eds').forEach((b) => b.classList.toggle('on', +b.dataset.size === ED.size));
   $('#edFill').innerHTML = `<svg viewBox="0 0 48 48"><rect x="9" y="9" width="30" height="30" rx="3" fill="${ED.fill ? '#1A1A1A' : 'none'}" stroke="#1A1A1A" stroke-width="4.5"/></svg>`;
   $('#edFill').classList.toggle('on', ED.fill);
-  $('#sqed').classList.toggle('txt', ED.tool === 'text'); $('#edUndo').disabled = !ED.undo.length;
+  $('#sqed').classList.toggle('txt', ED.tool === 'text'); edCv.classList.toggle('pick', ED.tool === 'pick'); $('#edUndo').disabled = !ED.undo.length;
 }
 function edPush() { ED.undo.push(edG.getImageData(0, 0, SQ, SQ)); if (ED.undo.length > 30) ED.undo.shift(); edSync(); }
 async function openSquareEditor(c, r) {
@@ -1153,7 +1213,7 @@ $('#edok').addEventListener('click', async () => {
 });
 $('#sqed').addEventListener('click', (e) => {
   const t = e.target.closest('button'); if (!t) return;
-  if (t.dataset.tool) { ED.tool = t.dataset.tool; if (ED.tool === 'text' && !$('#edtext').value) setTimeout(() => $('#edtext').focus(), 30); edSync(); }
+  if (t.dataset.tool) { if (t.dataset.tool === 'pick' && ED.tool !== 'pick') ED.prevTool = ED.tool; ED.tool = t.dataset.tool; if (ED.tool === 'text' && !$('#edtext').value) setTimeout(() => $('#edtext').focus(), 30); edSync(); }
   else if (t.dataset.col) { ED.color = t.dataset.col; edSync(); }
   else if (t.dataset.size) { ED.size = +t.dataset.size; edSync(); }
 });
@@ -1225,6 +1285,13 @@ function flood(x, y, hex) {                              // the bucket: fill the
 }
 edCv.addEventListener('pointerdown', (e) => {
   if (e.button > 0) return; e.preventDefault(); const p = edPt(e);
+  if (ED.tool === 'pick') {                           // the eyedropper: take the colour under the finger, then back to the tool before
+    const d = edG.getImageData(clamp(Math.floor(p.x), 0, SQ - 1), clamp(Math.floor(p.y), 0, SQ - 1), 1, 1).data;
+    const hex = '#' + [d[0], d[1], d[2]].map((v) => v.toString(16).padStart(2, '0')).join('').toUpperCase();
+    const known = ED_COLORS.includes(hex), pk = $('#edPicked');
+    if (!known) { pk.hidden = false; pk.dataset.col = hex; pk.style.background = hex; }
+    ED.color = hex; ED.tool = ED.prevTool || 'brush'; edSync(); return;
+  }
   if (ED.tool === 'text' && !$('#edtext').value.trim()) { $('#edtext').focus(); return; }
   edPush();
   if (ED.tool === 'bucket') { if (!flood(clamp(Math.floor(p.x), 0, SQ - 1), clamp(Math.floor(p.y), 0, SQ - 1), ED.color)) { ED.undo.pop(); edSync(); } return; }
@@ -1291,7 +1358,8 @@ async function interForTrack() {                       // what goes into a downl
   const out = [];
   for (const [key, e] of Object.entries(inter.m)) {
     const [col, row] = key.split(',').map(Number);
-    if (e.url) out.push({ col, row, url: e.url });
+    if (e.spell) out.push({ col, row, spell: e.spell });
+    else if (e.url) out.push({ col, row, url: e.url });
     else { const b = await IDB.get(e.id).catch(() => null); if (b && b.size <= 10e6) out.push({ col, row, name: e.name, data: await blobToDataUrl(b) }); }
   }
   return out;
@@ -1301,7 +1369,8 @@ async function applyInterFromTrack(list) {
   for (const it of list) {
     if (!Number.isInteger(it.col) || !Number.isInteger(it.row) || it.col >= grid.cols || it.row >= grid.rows) continue;
     const key = it.col + ',' + it.row;
-    if (it.url) inter.m[key] = { url: String(it.url) };
+    if (it.spell && it.spell.word) inter.m[key] = { spell: { word: String(it.spell.word).slice(0, 24), level: SPELL_LEVELS.includes(it.spell.level) ? it.spell.level : 'copy', case: it.spell.case === 'lower' ? 'lower' : 'upper', accents: !!it.spell.accents } };
+    else if (it.url) inter.m[key] = { url: String(it.url) };
     else if (it.data) { try { const b = await (await fetch(it.data)).blob(), id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); await IDB.put(id, b); inter.m[key] = { id, name: it.name || 'file', mime: b.type }; } catch (e) { /* skip this one */ } }
   }
   saveInter(); drawMarks();
@@ -1320,12 +1389,14 @@ function embedFor(url) {                               // video sites have a pag
 }
 let mediaUrl = null, mediaDone = null;
 function closeMedia() {
+  if (typeof SP !== 'undefined' && SP.done) spClose();
   const box = $('#mediabody'); box.querySelectorAll('video').forEach((v) => v.pause()); box.innerHTML = '';
   if (mediaUrl) { URL.revokeObjectURL(mediaUrl); mediaUrl = null; }
   $('#media').classList.remove('open'); const d = mediaDone; mediaDone = null; if (d) d();
 }
-async function showMedia(entry) {                      // resolves when the person closes it
+async function showMedia(entry, pic) {                 // resolves when the person closes it
   closeMedia();
+  if (entry.spell) return showSpell(entry, pic || null);
   const host = fsCurrent() || document.body; if ($('#media').parentNode !== host) host.appendChild($('#media'));
   const box = $('#mediabody'); let src = entry.url || '', kind = 'page';
   if (entry.id) {
@@ -1352,7 +1423,7 @@ async function checkInter(tok) {                       // after a move: did the 
   if (key !== interShown) interShown = null;
   const e = inter.m[key]; if (!e || interShown === key || (tok && !tok.alive)) return;
   interShown = key;
-  const p = showMedia(e); if (!tok) return p;
+  const [c, r] = key.split(',').map(Number), p = showMedia(e, e.spell ? await squarePic(c, r) : null); if (!tok) return p;
   const w = () => closeMedia(); tok.wake.add(w); await p; tok.wake.delete(w);      // Stop closes it too
 }
 
@@ -1360,7 +1431,14 @@ async function checkInter(tok) {                       // after a move: did the 
 ED.inter = null;                                      // what the square will have after OK: undefined = unchanged
 function edInterShow() {
   const e = ED.inter, info = $('#edinfo');
-  info.textContent = !e ? '—' : e.url ? e.url : '\u{1F4CE} ' + e.name;
+  info.textContent = !e ? '—' : e.spell ? '\u270E ' + (e.spell.case === 'lower' ? e.spell.word : SPL.norm(e.spell.word)) + ' \u00B7 ' + T().spLv[e.spell.level] : e.url ? e.url : '\u{1F4CE} ' + e.name;
+  if (document.activeElement !== $('#edword')) $('#edword').value = e && e.spell ? e.spell.word : '';
+  ED.spLevel = e && e.spell ? e.spell.level : ED.spLevel || 'copy';
+  ED.spCase = e && e.spell ? e.spell.case || 'upper' : ED.spCase || 'upper'; ED.spAcc = e && e.spell ? !!e.spell.accents : !!ED.spAcc;
+  $('#edCase').innerHTML = `<svg viewBox="0 0 48 48"><text x="24" y="33" text-anchor="middle" font-size="22" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">${ED.spCase === 'lower' ? 'αβ' : 'ΑΒ'}</text></svg>`;
+  $('#edAcc').classList.toggle('on', ED.spAcc); $('#edAcc').disabled = ED.spCase !== 'lower';
+  $('#sqed .spl[data-lv="memory"]').disabled = !(ED.spCase === 'lower' && ED.spAcc);       // the voice only for lowercase words with their accents (capitals are read wrongly)
+  document.querySelectorAll('#sqed .spl').forEach((b) => b.classList.toggle('on', b.dataset.lv === ED.spLevel));
   $('#edurl').value = e && e.url ? e.url : ''; $('#edInterDel').disabled = !e;
   $('#edInterTest').disabled = !e || !!e.file;
 }
@@ -1371,7 +1449,19 @@ $('#edurl').addEventListener('change', () => { const u = $('#edurl').value.trim(
 $('#edInterFile').addEventListener('click', () => $('#edmedia').click());
 $('#edmedia').addEventListener('change', (e) => { const f = e.target.files[0]; e.target.value = ''; if (!f) return; ED.inter = { file: f, name: f.name, mime: f.type }; edInterShow(); });
 $('#edInterDel').addEventListener('click', () => { ED.inter = null; edInterShow(); });
-$('#edInterTest').addEventListener('click', () => { if (ED.inter && !ED.inter.file) showMedia(ED.inter); });
+$('#edInterTest').addEventListener('click', () => { if (ED.inter && !ED.inter.file) showMedia(ED.inter, edCv); });
+$('#edword').addEventListener('keydown', (e) => e.stopPropagation());
+function edSpellSet() {                               // the spelling word and its options, from the editor
+  if (ED.spLevel === 'memory' && !(ED.spCase === 'lower' && ED.spAcc)) ED.spLevel = 'copy';
+  const w = $('#edword').value.trim().slice(0, 24);
+  if (w && [...SPL.norm(w)].some((ch) => SPL.writable(ch))) ED.inter = { spell: { word: w, level: ED.spLevel || 'copy', case: ED.spCase || 'upper', accents: !!ED.spAcc } };
+  else if (ED.inter && ED.inter.spell) ED.inter = null;
+  edInterShow();
+}
+$('#edword').addEventListener('input', edSpellSet);
+document.querySelectorAll('#sqed .spl').forEach((b) => b.addEventListener('click', () => { ED.spLevel = b.dataset.lv; edSpellSet(); }));
+$('#edCase').addEventListener('click', () => { ED.spCase = ED.spCase === 'lower' ? 'upper' : 'lower'; edSpellSet(); });
+$('#edAcc').addEventListener('click', () => { ED.spAcc = !ED.spAcc; edSpellSet(); });
 $('#edok').addEventListener('click', async () => {    // keep the interactive content of this square (the picture is kept by the other OK handler)
   const key = ED.c + ',' + ED.r, e = ED.inter, cur = inter.m[key] || null;
   if (e && e.file) { const id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); try { await IDB.put(id, e.file); setInter(key, { id, name: e.name, mime: e.mime }); } catch (err) { alert(T().iaErr); } }
@@ -1395,24 +1485,44 @@ function recOpen(on) {
 }
 $('#recBtn').addEventListener('click', () => recOpen(!document.body.classList.contains('rec')));
 $('#recClose').addEventListener('click', () => recOpen(false));
+let recNow = false; try { recNow = localStorage.getItem('mbblocks:recnow') === '1'; } catch (e) { /* no storage */ }
+const recQ = [];
+$('#recNow').classList.toggle('on', recNow);
+$('#recNow').addEventListener('click', () => { recNow = !recNow; $('#recNow').classList.toggle('on', recNow); try { localStorage.setItem('mbblocks:recnow', recNow ? '1' : '0'); } catch (e) { /* no storage */ } });
+function recBegin() {                                 // start moving: a fresh try after a star or trap, otherwise from where the robot is
+  stopAll(); if (st.outcome) botReset();
+  clearHits(); if (robot().precise) { eduSpeed = edu.spd; recalcCal(); mb.send('P' + eduSpeed); }
+  const tok = { alive: true, wake: new Set() }; st.toks.push(tok); st.rec = true; document.body.classList.add('playing'); updatePreview(); return tok;
+}
+function recEnd(tok) {
+  if (tok.alive) { st.toks = st.toks.filter((t) => t !== tok); document.body.classList.remove('playing'); mb.send('W0,0'); simStop(); updatePreview(); }
+  st.rec = false; document.body.classList.remove('recrun'); recDraw(-1);
+}
+async function recPump() {                            // immediate mode: each pressed arrow moves the robot at once (a short queue, so no press is lost)
+  if (st.rec) return; const tok = recBegin();
+  while (recQ.length && tok.alive) { const t = recQ.shift(); await moveBlock({ t, v: 1 }, tok); if (recQ.length && tok.alive) await sleep(120, tok); }
+  recQ.length = 0; recEnd(tok);
+}
 document.querySelectorAll('#recpad [data-r]').forEach((b) => b.addEventListener('click', () => {
+  if (recNow && !document.body.classList.contains('recrun')) {
+    if (recQ.length >= 2) return;                     // at most two presses wait their turn
+    if (recMem.length < REC_MAX) { recMem.push(b.dataset.r); recSave(); recDraw(-1); }
+    tone(660, 70); recQ.push(b.dataset.r); recPump(); return;
+  }
   if (st.rec) return;                                 // while it moves, the arrows do nothing (like the real floor robots)
   if (recMem.length >= REC_MAX) { b.classList.remove('full'); void b.offsetWidth; b.classList.add('full'); return; }
   recMem.push(b.dataset.r); recSave(); recDraw(-1); tone(660, 70);
 }));
-$('#recErase').addEventListener('click', () => { if (st.rec) stopAll(); recMem = []; recSave(); recDraw(-1); tone(330, 120); setTimeout(() => tone(220, 160), 140); });
+$('#recErase').addEventListener('click', () => { recQ.length = 0; if (st.rec) stopAll(); recMem = []; recSave(); recDraw(-1); tone(330, 120); setTimeout(() => tone(220, 160), 140); });
 $('#recGo').addEventListener('click', async () => {
   if (st.rec || !recMem.length) return;
-  stopAll(); if (st.outcome) botReset();              // after the target or a trap, GO starts a fresh try from the start square; otherwise it goes on from where the robot is
-  clearHits(); if (robot().precise) { eduSpeed = edu.spd; recalcCal(); mb.send('P' + eduSpeed); }
-  const tok = { alive: true, wake: new Set() }; st.toks.push(tok); st.rec = true; document.body.classList.add('playing', 'recrun'); updatePreview();
+  const tok = recBegin(); document.body.classList.add('recrun');
   await sleep(300, tok);
   for (let i = 0; i < recMem.length && tok.alive; i++) {
     recDraw(i); await moveBlock({ t: recMem[i], v: 1 }, tok);
     if (tok.alive && i < recMem.length - 1) await sleep(500, tok);      // the pause between steps
   }
-  if (tok.alive) { st.toks = st.toks.filter((t) => t !== tok); document.body.classList.remove('playing'); mb.send('W0,0'); simStop(); updatePreview(); }
-  st.rec = false; document.body.classList.remove('recrun'); recDraw(-1);
+  recEnd(tok);
 });
 
 document.querySelectorAll('#recpad [data-r]').forEach((b) => { b.innerHTML = ICON[b.dataset.r]; });
@@ -1455,9 +1565,10 @@ const TIPS = {
   'Modify square': 'Αλλαγή τετραγώνου', 'Letters and numbers': 'Γράμματα και αριθμοί', 'Line': 'Γραμμή', 'Layout': 'Διάταξη', 'Language': 'Γλώσσα', 'Heart': 'Καρδιά',
   'Grid': 'Πλέγμα', 'Go': 'Πάμε!', 'Filled or outline': 'Γεμάτο ή περίγραμμα', 'Fill': 'Κουβάς (γέμισμα)', 'File': 'Αρχείο', 'Erase memory': 'Σβήσιμο μνήμης',
   'Download my track': 'Λήψη εικόνας της πίστας μου', 'Connect': 'Σύνδεση', 'Circle': 'Κύκλος', 'Camera': 'Κάμερα', 'Brush': 'Πινέλο', 'Backdrop': 'Φόντο από εικόνα',
-  'Arrow': 'Βέλος', 'Less': 'Λιγότερο', 'More': 'Περισσότερο'
+  'Arrow': 'Βέλος', 'Less': 'Λιγότερο', 'More': 'Περισσότερο', 'Say the word': 'Πες τη λέξη', 'Show how to write it': 'Δείξε πώς γράφεται', 'Skip': 'Παράλειψη',
+  'Letter tiles': 'Πλακίδια γραμμάτων', 'Capitals or lowercase': 'Κεφαλαία ή πεζά', 'Eyedropper': 'Σταγονόμετρο (πάρε χρώμα)', 'Picked colour': 'Χρώμα που πήρες', 'Move at once (remote control)': 'Άμεση κίνηση (τηλεχειριστήριο)', 'Write the accents too': 'Γράφει και τον τόνο', 'Trace the letters': 'Ξεσήκωμα γραμμάτων', 'Copy the word': 'Αντιγραφή της λέξης', 'From memory': 'Από μνήμης (εικόνα και ήχος)'
 };
-const TIPS_EN = { 'Fill': 'Bucket (fill)', 'Go': 'Go!', 'Backdrop': 'Backdrop from a picture', 'Template': 'Printable track template', 'Record': 'Record steps', 'Download my track': 'Download a picture of my track', 'Reset position': 'Back to the start' };
+const TIPS_EN = { 'From memory': 'From memory (picture and sound)',  'Fill': 'Bucket (fill)', 'Go': 'Go!', 'Backdrop': 'Backdrop from a picture', 'Template': 'Printable track template', 'Record': 'Record steps', 'Download my track': 'Download a picture of my track', 'Reset position': 'Back to the start' };
 const tipText = (en) => (LANG === 'el' ? TIPS[en] : TIPS_EN[en]) || en;
 const BLOCK_TIPS = {
   evA: ['When button A is pressed', 'Όταν πατηθεί το κουμπί A'], evB: ['When button B is pressed', 'Όταν πατηθεί το κουμπί B'], evShake: ['When shaken', 'Όταν κουνηθεί'],
@@ -1485,6 +1596,350 @@ function applyTips() {
   document.querySelectorAll('.cell[data-t]').forEach(blockTip);
   document.querySelectorAll('#tabs .tab').forEach((t) => { t.title = t.textContent.trim(); });
   [['#btnA', ['Button A', 'Κουμπί A']], ['#btnB', ['Button B', 'Κουμπί B']]].forEach(([sel, pr]) => { const g = $(sel); if (!g) return; let ti = g.querySelector('title'); if (!ti) { ti = document.createElementNS(NSVG, 'title'); g.prepend(ti); } ti.textContent = L2(pr); });
+}
+
+/* ---------- spelling board: letter shapes and the $P point-cloud checker (Vatavu, Anthony & Wobbrock 2012) ---------- */
+// Each letter is one or more strokes in a box 1 high (x to the right, y down), in the usual writing order and direction.
+const SPL = (() => {
+  const arc = (cx, cy, rx, ry, a0, a1, n) => { n = n || Math.max(8, Math.round(Math.abs(a1 - a0) / 12)); const o = []; for (let i = 0; i <= n; i++) { const a = (a0 + (a1 - a0) * i / n) * Math.PI / 180; o.push([cx + rx * Math.cos(a), cy + ry * Math.sin(a)]); } return o; };
+  const cat = (...parts) => [].concat(...parts);
+  const O = (w) => [arc(w / 2, 0.5, w / 2, 0.5, -90, 270, 36)];
+  const B = [[[0, 0], [0, 1]], cat([[0, 0], [0.3, 0]], arc(0.3, 0.25, 0.3, 0.25, -90, 90), [[0.3, 0.5], [0, 0.5]]), cat([[0, 0.5], [0.35, 0.5]], arc(0.35, 0.75, 0.32, 0.25, -90, 90), [[0.35, 1], [0, 1]])];
+  const P = [[[0, 0], [0, 1]], cat([[0, 0], [0.35, 0]], arc(0.35, 0.27, 0.3, 0.27, -90, 90), [[0.35, 0.54], [0, 0.54]])];
+  const L = {
+    A: [[[[0.4, 0], [0, 1]], [[0.4, 0], [0.8, 1]], [[0.15, 0.62], [0.65, 0.62]]]],
+    B: [B],
+    C: [[arc(0.45, 0.5, 0.45, 0.5, -45, -315)]],
+    D: [[[[0, 0], [0, 1]], cat([[0, 0], [0.25, 0]], arc(0.25, 0.5, 0.45, 0.5, -90, 90), [[0.25, 1], [0, 1]])]],
+    E: [[[[0, 0], [0, 1]], [[0, 0], [0.6, 0]], [[0, 0.5], [0.5, 0.5]], [[0, 1], [0.6, 1]]]],
+    F: [[[[0, 0], [0, 1]], [[0, 0], [0.6, 0]], [[0, 0.5], [0.5, 0.5]]]],
+    G: [[cat(arc(0.45, 0.5, 0.45, 0.5, -45, -360), [[0.9, 0.55], [0.5, 0.55]])]],
+    H: [[[[0, 0], [0, 1]], [[0.7, 0], [0.7, 1]], [[0, 0.5], [0.7, 0.5]]]],
+    I: [[[[0, 0], [0, 1]]], [[[0, 0], [0, 1]], [[-0.2, 0], [0.2, 0]], [[-0.2, 1], [0.2, 1]]]],
+    J: [[cat([[0.5, 0], [0.5, 0.72]], arc(0.25, 0.72, 0.25, 0.28, 0, 180))], [[[0.15, 0], [0.75, 0]], cat([[0.5, 0], [0.5, 0.72]], arc(0.25, 0.72, 0.25, 0.28, 0, 180))]],
+    K: [[[[0, 0], [0, 1]], [[0.65, 0], [0, 0.55]], [[0.2, 0.4], [0.7, 1]]], [[[0, 0], [0, 1]], [[0.65, 0], [0, 0.5], [0.7, 1]]]],
+    L: [[[[0, 0], [0, 1], [0.6, 1]]]],
+    M: [[[[0, 1], [0, 0], [0.4, 0.6], [0.8, 0], [0.8, 1]]], [[[0, 1], [0.12, 0], [0.4, 0.75], [0.68, 0], [0.8, 1]]]],
+    N: [[[[0, 1], [0, 0], [0.7, 1], [0.7, 0]]]],
+    O: [O(0.8)],
+    P: [P],
+    Q: [[...O(0.8), [[0.5, 0.75], [0.85, 1.05]]]],
+    R: [[...P, [[0.3, 0.54], [0.7, 1]]]],
+    S: [[cat(arc(0.35, 0.25, 0.35, 0.25, -20, -270), arc(0.35, 0.75, 0.35, 0.25, -90, 160))]],
+    T: [[[[0, 0], [0.7, 0]], [[0.35, 0], [0.35, 1]]]],
+    U: [[cat([[0, 0], [0, 0.62]], arc(0.35, 0.62, 0.35, 0.38, 180, 0), [[0.7, 0.62], [0.7, 0]])]],
+    V: [[[[0, 0], [0.4, 1], [0.8, 0]]]],
+    W: [[[[0, 0], [0.25, 1], [0.5, 0.3], [0.75, 1], [1, 0]]]],
+    X: [[[[0, 0], [0.7, 1]], [[0.7, 0], [0, 1]]]],
+    Y: [[[[0, 0], [0.4, 0.5]], [[0.8, 0], [0.4, 0.5], [0.4, 1]]]],
+    Z: [[[[0, 0], [0.7, 0], [0, 1], [0.7, 1]]]],
+    '0': [O(0.6)],
+    '1': [[[[0.05, 0.25], [0.35, 0], [0.35, 1]]], [[[0.35, 0], [0.35, 1]]]],
+    '2': [[cat(arc(0.35, 0.3, 0.35, 0.3, -165, 20), [[0.62, 0.45], [0, 1], [0.7, 1]])]],
+    '3': [[cat(arc(0.33, 0.25, 0.33, 0.25, -160, 90), arc(0.33, 0.75, 0.37, 0.25, -90, 160))]],
+    '4': [[[[0.55, 1], [0.55, 0], [0, 0.68], [0.8, 0.68]]], [[[0.45, 0], [0, 0.68], [0.8, 0.68]], [[0.6, 0.3], [0.6, 1]]]],
+    '5': [[cat([[0.65, 0], [0.1, 0], [0.05, 0.45]], arc(0.35, 0.68, 0.35, 0.32, -150, 160))]],
+    '6': [[cat([[0.55, 0], [0.2, 0.3], [0.05, 0.7]], arc(0.38, 0.7, 0.33, 0.3, 180, 540))]],
+    '7': [[[[0, 0], [0.7, 0], [0.25, 1]]]],
+    '8': [[cat(arc(0.35, 0.25, 0.28, 0.25, 90, -270), arc(0.35, 0.75, 0.35, 0.25, -90, 270))]],
+    '9': [[cat(arc(0.35, 0.3, 0.33, 0.3, 0, -360), [[0.68, 0.3], [0.55, 1]])]]
+  };
+  // Greek capitals: the shared shapes plus the Greek ones
+  const G = { 'Α': L.A, 'Β': L.B, 'Ε': L.E, 'Ζ': L.Z, 'Η': L.H, 'Ι': L.I, 'Κ': L.K, 'Μ': L.M, 'Ν': L.N, 'Ο': L.O, 'Ρ': L.P, 'Τ': L.T, 'Υ': L.Y, 'Χ': L.X,
+    'Γ': [[[[0, 0], [0, 1]], [[0, 0], [0.6, 0]]]],
+    'Δ': [[[[0.4, 0], [0, 1], [0.8, 1], [0.4, 0]]], [[[0.4, 0], [0, 1]], [[0.4, 0], [0.8, 1]], [[0, 1], [0.8, 1]]]],
+    'Θ': [[...O(0.8), [[0.2, 0.5], [0.6, 0.5]]]],
+    'Λ': [[[[0.4, 0], [0, 1]], [[0.4, 0], [0.8, 1]]]],
+    'Ξ': [[[[0, 0], [0.7, 0]], [[0.12, 0.5], [0.58, 0.5]], [[0, 1], [0.7, 1]]]],
+    'Π': [[[[0, 0], [0, 1]], [[0, 0], [0.7, 0], [0.7, 1]]]],
+    'Σ': [[[[0.7, 0], [0, 0], [0.4, 0.5], [0, 1], [0.7, 1]]]],
+    'Φ': [[[[0.4, 0], [0.4, 1]], arc(0.4, 0.5, 0.4, 0.3, -90, 270, 30)]],
+    'Ψ': [[[[0.4, 0], [0.4, 1]], cat([[0, 0.05], [0, 0.35]], arc(0.4, 0.35, 0.4, 0.3, 180, 0), [[0.8, 0.35], [0.8, 0.05]])]],
+    'Ω': [[arc(0.45, 0.45, 0.42, 0.45, 120, 420), [[0, 0.95], [0.25, 0.95]], [[0.65, 0.95], [0.9, 0.95]]], [cat([[0, 0.95], [0.24, 0.95]], arc(0.45, 0.45, 0.42, 0.45, 120, 420), [[0.66, 0.95], [0.9, 0.95]])]]
+  };
+
+  // lowercase: y = 0 top line, 0.5 middle line, 1 base line, 1.5 bottom line (capitals use 0 - 1, so they sit on the same lines)
+  const ca = (a0, a1) => arc(0.25, 0.75, 0.25, 0.25, a0, a1);
+  const LL = {
+    a: [[ca(-30, -330), [[0.5, 0.5], [0.5, 1]]]],
+    b: [[[[0, 0], [0, 1]], arc(0.25, 0.75, 0.25, 0.25, -160, 180)]],
+    c: [[ca(-40, -320)]],
+    d: [[ca(-30, -330), [[0.5, 0], [0.5, 1]]]],
+    e: [[cat([[0.02, 0.75], [0.5, 0.75]], ca(0, -310))]],
+    f: [[cat(arc(0.35, 0.13, 0.15, 0.13, -20, -180), [[0.2, 0.13], [0.2, 1]]), [[0.02, 0.5], [0.42, 0.5]]]],
+    g: [[ca(-30, -330), cat([[0.5, 0.5], [0.5, 1.3]], arc(0.27, 1.3, 0.23, 0.2, 0, 160))]],
+    h: [[[[0, 0], [0, 1]], cat(arc(0.25, 0.75, 0.25, 0.25, -180, 0), [[0.5, 0.75], [0.5, 1]])]],
+    i: [[[[0, 0.5], [0, 1]]]],
+    j: [[cat([[0.25, 0.5], [0.25, 1.3]], arc(0.05, 1.3, 0.2, 0.2, 0, 150))]],
+    k: [[[[0, 0], [0, 1]], [[0.4, 0.5], [0.02, 0.8], [0.42, 1]]]],
+    l: [[[[0, 0], [0, 1]]]],
+    m: [[[[0, 0.5], [0, 1]], cat(arc(0.15, 0.72, 0.15, 0.2, -180, 0), [[0.3, 0.72], [0.3, 1], [0.3, 0.72]], arc(0.45, 0.72, 0.15, 0.2, -180, 0), [[0.6, 0.72], [0.6, 1]])]],
+    n: [[[[0, 0.5], [0, 1]], cat(arc(0.22, 0.72, 0.22, 0.22, -180, 0), [[0.44, 0.72], [0.44, 1]])]],
+    o: [[ca(-80, -440)]],
+    p: [[[[0, 0.5], [0, 1.5]], arc(0.25, 0.75, 0.25, 0.25, -170, 170)]],
+    q: [[ca(-30, -330), [[0.5, 0.5], [0.5, 1.35], [0.62, 1.45]]]],
+    r: [[[[0, 0.5], [0, 1]], arc(0.22, 0.72, 0.22, 0.2, -180, -50)]],
+    s: [[cat(arc(0.2, 0.62, 0.2, 0.12, -20, -270), arc(0.2, 0.87, 0.2, 0.13, -90, 160))]],
+    t: [[[[0.15, 0.15], [0.15, 1]], [[0, 0.5], [0.32, 0.5]]]],
+    u: [[cat([[0, 0.5], [0, 0.78]], arc(0.22, 0.78, 0.22, 0.22, 180, 0)), [[0.44, 0.5], [0.44, 1]]]],
+    v: [[[[0, 0.5], [0.25, 1], [0.5, 0.5]]]],
+    w: [[[[0, 0.5], [0.18, 1], [0.36, 0.55], [0.54, 1], [0.72, 0.5]]]],
+    x: [[[[0, 0.5], [0.45, 1]], [[0.45, 0.5], [0, 1]]]],
+    y: [[[[0, 0.5], [0.25, 1]], [[0.5, 0.5], [0.1, 1.5]]]],
+    z: [[[[0, 0.5], [0.45, 0.5], [0, 1], [0.45, 1]]]]
+  };
+  const GL = {
+    'α': [[[[0.6, 0.5], [0.47, 0.78], [0.32, 0.97], [0.14, 0.98], [0.03, 0.82], [0.05, 0.62], [0.2, 0.5], [0.36, 0.55], [0.5, 0.8], [0.62, 1]]], LL.a[0]],
+    'β': [[cat([[0, 1.5], [0, 0.25]], arc(0.2, 0.25, 0.2, 0.23, 180, 450), arc(0.2, 0.74, 0.27, 0.26, -90, 90), [[0.2, 1], [0, 0.92]])]],
+    'γ': [[[[0, 0.5], [0.15, 0.55], [0.28, 0.9], [0.3, 1.3], [0.24, 1.47], [0.18, 1.3], [0.3, 0.9], [0.45, 0.6], [0.55, 0.5]]], [[[0, 0.5], [0.27, 1], [0.27, 1.5]], [[0.55, 0.5], [0.27, 1]]]],
+    'δ': [[cat([[0.45, 0.04], [0.1, 0.04], [0.25, 0.48]], arc(0.25, 0.75, 0.25, 0.27, -80, 280))]],
+    'ε': [[cat(arc(0.25, 0.62, 0.22, 0.12, -30, -270), arc(0.25, 0.87, 0.25, 0.13, -90, -330))], [ca(-40, -320), [[0.02, 0.75], [0.35, 0.75]]]],
+    'ζ': [[[[0.05, 0.04], [0.45, 0.04], [0.15, 0.5], [0.02, 0.8], [0.15, 1.05], [0.35, 1.15], [0.4, 1.35], [0.28, 1.48]]]],
+    'η': [[[[0, 0.5], [0, 1]], cat(arc(0.22, 0.72, 0.22, 0.22, -180, 0), [[0.44, 0.72], [0.44, 1.5]])]],
+    'θ': [[arc(0.2, 0.5, 0.2, 0.5, -90, 270, 32), [[0, 0.5], [0.4, 0.5]]]],
+    'ι': [[[[0, 0.5], [0, 0.9], [0.08, 1], [0.2, 0.97]]], [[[0, 0.5], [0, 1]]]],
+    'κ': [[[[0, 0.5], [0, 1]], [[0.38, 0.5], [0.02, 0.78], [0.4, 1]]]],
+    'λ': [[[[0.05, 0.04], [0.2, 0.2], [0.45, 1]], [[0.28, 0.55], [0, 1]]]],
+    'μ': [[[[0, 0.5], [0, 1.5]], cat([[0, 0.5], [0, 0.8]], arc(0.2, 0.8, 0.2, 0.2, 180, 0), [[0.4, 0.8], [0.4, 0.5]]), [[0.4, 0.5], [0.42, 1]]]],
+    'ν': [[[[0, 0.52], [0.07, 0.6], [0.22, 1], [0.5, 0.5]]], LL.v[0]],
+    'ξ': [[[[0.1, 0.04], [0.45, 0.04]], [[0.38, 0.04], [0.1, 0.18], [0.06, 0.34], [0.25, 0.47], [0.4, 0.5], [0.15, 0.56], [0.02, 0.76], [0.15, 0.98], [0.35, 1.1], [0.4, 1.3], [0.28, 1.45]]]],
+    'ο': LL.o,
+    'π': [[[[0, 0.5], [0.6, 0.5]], [[0.15, 0.5], [0.15, 1]], [[0.45, 0.5], [0.45, 1]]]],
+    'ρ': [[arc(0.25, 0.75, 0.25, 0.25, -150, 210), [[0, 0.75], [0, 1.5]]], [cat([[0, 1.5], [0, 0.75]], arc(0.25, 0.75, 0.25, 0.25, 180, 540))]],
+    'σ': [[ca(-90, -450), [[0.25, 0.5], [0.6, 0.5]]]],
+    'ς': [LL.s[0], [[[0.42, 0.5], [0.15, 0.52], [0.02, 0.7], [0.08, 0.9], [0.3, 1.05], [0.33, 1.25], [0.2, 1.4]]]],
+    'τ': [[[[0, 0.5], [0.45, 0.5]], [[0.22, 0.5], [0.22, 0.92], [0.32, 1]]]],
+    'υ': [[cat([[0, 0.55], [0.05, 0.5], [0.08, 0.6], [0.08, 0.8]], arc(0.25, 0.8, 0.17, 0.2, 180, 0), [[0.42, 0.8], [0.42, 0.5]])]],
+    'φ': [[[[0.3, 0.3], [0.3, 1.5]], arc(0.3, 0.75, 0.28, 0.25, -90, 270, 30)]],
+    'χ': [[[[0, 0.5], [0.5, 1.5]], [[0.5, 0.5], [0, 1.5]]]],
+    'ψ': [[cat([[0, 0.5], [0, 0.75]], arc(0.3, 0.75, 0.3, 0.25, 180, 0), [[0.6, 0.75], [0.6, 0.5]]), [[0.3, 0.3], [0.3, 1.5]]]],
+    'ω': [[[[0.15, 0.5], [0.02, 0.75], [0.1, 0.98], [0.25, 0.98], [0.32, 0.8], [0.39, 0.98], [0.54, 0.98], [0.62, 0.75], [0.5, 0.5]]]]
+  };
+  const DIG = '0123456789'.split('');
+  const LAT = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''), GRK = 'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'.split('');
+  const LATL = Object.keys(LL), GRKL = Object.keys(GL);
+  const SHAPES = {}; LAT.concat(DIG).forEach((k) => { SHAPES[k] = L[k]; }); GRK.forEach((k) => { SHAPES[k] = G[k]; }); LATL.forEach((k) => { SHAPES[k] = LL[k]; }); GRKL.forEach((k) => { SHAPES[k] = GL[k]; });
+
+  /* $P */
+  const N = 32;
+  function cloud(strokes) {                             // strokes: [[[x, y], ...], ...] -> N points, scaled and centred
+    let pts = []; strokes.forEach((s, id) => s.forEach((p) => pts.push({ x: p[0], y: p[1], id })));
+    if (pts.length < 2) return null;
+    let len = 0; for (let i = 1; i < pts.length; i++) if (pts[i].id === pts[i - 1].id) len += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+    if (len <= 0) return null;
+    const I = len / (N - 1), out = [{ ...pts[0] }]; let D = 0;
+    for (let i = 1; i < pts.length; i++) {
+      if (pts[i].id !== pts[i - 1].id) continue;
+      const d = Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+      if (D + d >= I && d > 0) {
+        const t = (I - D) / d, q = { x: pts[i - 1].x + t * (pts[i].x - pts[i - 1].x), y: pts[i - 1].y + t * (pts[i].y - pts[i - 1].y), id: pts[i].id };
+        out.push(q); pts.splice(i, 0, q); D = 0;
+      } else D += d;
+    }
+    while (out.length < N) out.push({ ...pts[pts.length - 1] });
+    out.length = N;
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity; out.forEach((p) => { minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x); minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y); });
+    const size = Math.max(maxX - minX, maxY - minY) || 1; out.forEach((p) => { p.x = (p.x - minX) / size; p.y = (p.y - minY) / size; });
+    let cx = 0, cy = 0; out.forEach((p) => { cx += p.x; cy += p.y; }); cx /= N; cy /= N; out.forEach((p) => { p.x -= cx; p.y -= cy; });
+    return out;
+  }
+  function cloudDist(a, b, start) {
+    const used = new Uint8Array(N); let sum = 0, i = start;
+    do {
+      let min = Infinity, idx = -1;
+      for (let j = 0; j < N; j++) if (!used[j]) { const d = Math.hypot(a[i].x - b[j].x, a[i].y - b[j].y); if (d < min) { min = d; idx = j; } }
+      used[idx] = 1; const w = 1 - ((i - start + N) % N) / N; sum += w * min; i = (i + 1) % N;
+    } while (i !== start);
+    return sum;
+  }
+  function match(a, b) { const step = Math.floor(Math.pow(N, 0.5)); let m = Infinity; for (let i = 0; i < N; i += step) m = Math.min(m, cloudDist(a, b, i), cloudDist(b, a, i)); return m; }
+  const TPL = {}; Object.keys(SHAPES).forEach((k) => { TPL[k] = SHAPES[k].map(cloud); });
+  const isGreek = (ch) => /[Ͱ-Ͽ]/.test(ch);
+  const OPTS = { ratio: 1.25, abs: 2.3 };             // tuned on distorted letters: lenient for young children, still refusing scribbles
+  function check(strokes, ch) {                        // did the child write the letter ch?  -> { ok, best, d }
+    const c = cloud(strokes); if (!c || !TPL[ch]) return { ok: false, best: null, d: Infinity };
+    const low = ch !== ch.toUpperCase(), set = (isGreek(ch) ? (low ? GRKL : GRK) : (low ? LATL : LAT)).concat(DIG);
+    let best = Infinity, bestCh = null, dExp = Infinity;
+    set.forEach((k) => TPL[k].forEach((t) => { const d = match(c, t); if (d < best) { best = d; bestCh = k; } if (k === ch && d < dExp) dExp = d; }));
+    return { ok: dExp <= best * OPTS.ratio && dExp < OPTS.abs, best: bestCh, d: dExp };
+  }
+  const norm = (w) => w.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase();
+  const ext = {}; Object.keys(SHAPES).forEach((k) => { let t = Infinity, b = -Infinity, l = Infinity, r = -Infinity; SHAPES[k][0].forEach((st) => st.forEach((p) => { t = Math.min(t, p[1]); b = Math.max(b, p[1]); l = Math.min(l, p[0]); r = Math.max(r, p[0]); })); ext[k] = { t, b, l, r }; });
+  return { SHAPES, ext, check, norm, isGreek, LAT, GRK, LATL, GRKL, DIG, OPTS, cloud, match, writable: (ch) => !!SHAPES[ch] };
+})();
+
+/* ---------- the spelling board: the robot stops on a square with a word, and the child writes it (or puts the letter tiles in order) ---------- */
+const SPELL_LEVELS = ['tiles', 'trace', 'copy', 'memory'];
+const SP = { entry: null, letters: [], i: 0, tries: [], boxes: [], timer: 0, ink: [], cur: null, hint: false, done: null, low: false, acc: false };
+const MARK_N = { acute: 1, diaer: 2, both: 3 };
+function spSplit(word, low) {                          // the boxes: each letter with its accent marks (lowercase), or plain capitals without accents
+  if (!low) return [...SPL.norm(word)].map((c) => ({ ch: c, full: c, marks: null }));
+  return [...word.normalize('NFC')].map((c) => {
+    const d = c.normalize('NFD'), rest = d.slice(1), a = rest.includes('\u0301') || rest.includes('\u0344'), u = rest.includes('\u0308') || rest.includes('\u0344');
+    return { ch: d[0], full: c, marks: a && u ? 'both' : a ? 'acute' : u ? 'diaer' : d[0] === 'i' || d[0] === 'j' ? 'dot' : null };
+  });
+}
+const spU = (b) => b.cv.height * 0.25;                // lowercase: one unit = from the top line to the middle line
+const spTop = (b) => b.cv.height * 0.12;
+function spSay() {
+  if (!SP.entry || !SP.voice || !('speechSynthesis' in window)) return;
+  const w = SP.entry.spell.word, lang = SPL.isGreek(w) ? 'el' : 'en', u = new SpeechSynthesisUtterance(w.toLowerCase());
+  u.lang = lang === 'el' ? 'el-GR' : 'en-US'; u.rate = 0.8;
+  const v = speechSynthesis.getVoices().find((x) => x.lang && x.lang.toLowerCase().startsWith(lang)); if (v) u.voice = v;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+function spLayout() {                                 // the size of the letter boxes, so the whole word fits
+  const n = SP.letters.length || 1, W = $('#spboxes').clientWidth || 600, gap = 10;
+  const w = clamp(Math.floor((W - gap * (n - 1)) / n), 54, 150);
+  SP.boxes.forEach((b) => { b.el.style.width = w + 'px'; if (b.cv) { b.cv.width = w * 2; b.cv.height = Math.round(w * 1.25) * 2; spDrawBox(b); } });
+}
+function spModelStrokes(b) {                          // the letter's shape, placed in the box between the top line and the base line
+  const S = SPL.SHAPES[b.ch][0], H = b.cv.height, W = b.cv.width;
+  if (SP.low) { const u = spU(b) * 2, e = SPL.ext[b.ch], off = W / 2 - (e.l + e.r) / 2 * u; return S.map((s) => s.map((p) => [off + p[0] * u, spTop(b) + p[1] * u])); }
+  const top = H * 0.16, h = H * 0.62;
+  let minX = Infinity, maxX = -Infinity; S.forEach((s) => s.forEach((p) => { minX = Math.min(minX, p[0]); maxX = Math.max(maxX, p[0]); }));
+  const k = Math.min(h, (W * 0.8) / Math.max(maxX - minX, 0.01)), off = (W - (maxX - minX) * k) / 2 - minX * k;
+  return S.map((s) => s.map((p) => [off + p[0] * k, top + p[1] * k]));
+}
+function spMarkStrokes(b) {                          // the accent and the two dots, above the letter
+  if (!b.marks) return [];
+  const u = spU(b) * 2, e = SPL.ext[b.ch], cx = b.cv.width / 2, y = (v) => spTop(b) + v * u, dot = (x) => [[x, y(0.33)], [x + 1, y(0.33)]];
+  const acute = (x) => [[x - 0.05 * u, y(0.43)], [x + 0.09 * u, y(0.2)]];
+  if (b.marks === 'dot') { const x0 = b.cv.width / 2 + (SPL.SHAPES[b.ch][0][0][0][0] - (e.l + e.r) / 2) * u; return [dot(x0)]; }      // the dot of i and j
+  return b.marks === 'acute' ? [acute(cx)] : b.marks === 'diaer' ? [dot(cx - 0.11 * u), dot(cx + 0.11 * u)] : [dot(cx - 0.17 * u), acute(cx), dot(cx + 0.17 * u)];
+}
+function spLine(g, s) { g.beginPath(); s.forEach((p, j) => g[j ? 'lineTo' : 'moveTo'](p[0], p[1])); if (s.length === 1) g.lineTo(s[0][0] + 0.1, s[0][1]); g.stroke(); }
+function spDrawBox(b) {
+  const g = b.cv.getContext('2d'), W = b.cv.width, H = b.cv.height; g.clearRect(0, 0, W, H);
+  g.lineWidth = 2; g.strokeStyle = '#B9C7D3'; g.setLineDash([]);
+  if (SP.low) {                                        // four lines, like a lowercase notebook: the base line is darker
+    const L = [0.12, 0.37, 0.62, 0.87];
+    [0, 3].forEach((k) => { g.beginPath(); g.moveTo(0, H * L[k]); g.lineTo(W, H * L[k]); g.stroke(); });
+    g.strokeStyle = '#7F95A8'; g.beginPath(); g.moveTo(0, H * L[2]); g.lineTo(W, H * L[2]); g.stroke();
+    g.strokeStyle = '#B9C7D3'; g.setLineDash([6, 8]); g.beginPath(); g.moveTo(0, H * L[1]); g.lineTo(W, H * L[1]); g.stroke(); g.setLineDash([]);
+  } else {
+    [0.16, 0.78].forEach((f) => { g.beginPath(); g.moveTo(0, H * f); g.lineTo(W, H * f); g.stroke(); });          // top line and base line
+    g.setLineDash([6, 8]); g.beginPath(); g.moveTo(0, H * 0.47); g.lineTo(W, H * 0.47); g.stroke(); g.setLineDash([]);
+  }
+  const lw = Math.max(6, W * 0.07);
+  if (b.marks && (!SP.acc || b.ok || b.marks === 'dot')) { g.strokeStyle = b.ok ? '#3DAA4A' : '#6D6E71'; g.lineWidth = lw; g.lineCap = 'round'; spMarkStrokes(b).forEach((s) => spLine(g, s)); }   // accents already in place
+  else if (b.marks && (SP.entry.spell.level === 'trace' || (b.hint && b === SP.boxes[SP.i]))) { g.strokeStyle = '#9BB3C8'; g.lineWidth = lw * 0.7; g.lineCap = 'round'; g.setLineDash([2, lw * 1.1]); spMarkStrokes(b).forEach((s) => spLine(g, s)); g.setLineDash([]); }
+  if (!b.ok && (SP.entry.spell.level === 'trace' || (b.hint && b === SP.boxes[SP.i]))) {              // the dotted letter, with a green dot where each stroke starts
+    const M = spModelStrokes(b); g.strokeStyle = '#9BB3C8'; g.lineWidth = lw * 0.7; g.lineCap = 'round'; g.lineJoin = 'round'; g.setLineDash([2, lw * 1.1]);
+    M.forEach((s) => { g.beginPath(); s.forEach((p, j) => g[j ? 'lineTo' : 'moveTo'](p[0], p[1])); g.stroke(); });
+    g.setLineDash([]); g.fillStyle = '#3DAA4A'; M.forEach((s) => { g.beginPath(); g.arc(s[0][0], s[0][1], lw * 0.75, 0, Math.PI * 2); g.fill(); });
+  }
+  g.strokeStyle = b.ok ? '#3DAA4A' : b.bad ? '#E53935' : '#1A1A1A'; g.lineWidth = lw; g.lineCap = 'round'; g.lineJoin = 'round';
+  b.strokes.forEach((s) => spLine(g, s));
+}
+function spActive() {
+  SP.boxes.forEach((b, j) => { b.el.classList.toggle('on', j === SP.i && !b.ok); });
+  $('#spHint').disabled = SP.i >= SP.letters.length;
+}
+function spTry(ok) {                                   // after each try at the current letter or tile
+  const b = SP.boxes[SP.i];
+  if (ok) {
+    b.ok = true; b.el.classList.add('ok'); tone(880, 90); if (b.cv) spDrawBox(b); else b.el.textContent = b.full;
+    SP.i++; while (SP.i < SP.boxes.length && SP.boxes[SP.i].ok) SP.i++;
+    SP.boxes.forEach((x) => { x.hint = false; }); spActive(); SP.boxes.forEach((x) => x.cv && spDrawBox(x));
+    if (SP.i >= SP.boxes.length) spWin(); else if (!SP.boxes[SP.i].cv) spTilesHint();
+    return;
+  }
+  SP.tries[SP.i] = (SP.tries[SP.i] || 0) + 1; tone(220, 160);
+  b.el.classList.remove('shake'); void b.el.offsetWidth; b.el.classList.add('shake');
+  if (SP.tries[SP.i] >= 3) { $('#spSkip').hidden = false; b.hint = true; if (!b.cv) spTilesHint(); }                     // after 3 tries: show how, and let the child skip
+}
+function spWin() {
+  [523, 659, 784, 1047].forEach((f, k) => setTimeout(() => tone(f, 140), k * 150));
+  $('#spell').classList.add('won'); SP.winT = setTimeout(() => spClose(), 1800);
+}
+function spClose() {
+  clearTimeout(SP.timer); clearTimeout(SP.winT); $('#spell').classList.remove('open', 'won'); if ('speechSynthesis' in window) speechSynthesis.cancel();
+  const d = SP.done; SP.done = null; SP.entry = null; if (d) d();
+}
+/* writing in a box: the letter is checked when the child stops for a moment */
+function spBoxEvents(b) {
+  const pt = (e) => { const r = b.cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * b.cv.width, (e.clientY - r.top) / r.height * b.cv.height]; };
+  b.cv.addEventListener('pointerdown', (e) => {
+    if (SP.boxes[SP.i] !== b || b.ok) return; e.preventDefault(); clearTimeout(SP.timer);
+    if (b.bad) { b.bad = false; b.strokes = []; }
+    try { b.cv.setPointerCapture(e.pointerId); } catch (err) { /* fine */ }
+    SP.cur = [pt(e)]; b.strokes.push(SP.cur); spDrawBox(b);
+  });
+  b.cv.addEventListener('pointermove', (e) => { if (!SP.cur || SP.boxes[SP.i] !== b) return; const p = pt(e), q = SP.cur[SP.cur.length - 1]; if (Math.hypot(p[0] - q[0], p[1] - q[1]) < 2) return; SP.cur.push(p); spDrawBox(b); });
+  const up = () => {
+    if (!SP.cur) return; SP.cur = null; clearTimeout(SP.timer);
+    SP.timer = setTimeout(() => {                     // a short pause: the letter is finished
+      const len = (s) => { let L = 0; for (let k = 1; k < s.length; k++) L += Math.hypot(s[k][0] - s[k - 1][0], s[k][1] - s[k - 1][1]); return L; };
+      const W = b.cv.width, e = SPL.ext[b.ch];
+      let body = b.strokes, marks = [];
+      if (SP.low) {                                    // small strokes above the middle line of a short letter are accents (or the dot of i and j)
+        const yu = (y) => (y - spTop(b)) / (spU(b) * 2);
+        const isMark = (s) => e.t > 0.35 && Math.max(...s.map((p) => yu(p[1]))) < 0.55 && len(s) < W * 0.35;
+        marks = b.strokes.filter(isMark); body = b.strokes.filter((s) => !isMark(s) && len(s) > W * 0.03);
+      } else body = b.strokes.filter((s) => len(s) > W * 0.06);
+      if (!body.length) { if (!marks.length) { b.strokes = []; spDrawBox(b); } return; }
+      let ok = SPL.check(body, b.ch).ok;
+      if (ok && SP.low) {                              // the letter must also sit on the right lines (ο is not Ο, i is not l)
+        const yu = (y) => (y - spTop(b)) / (spU(b) * 2); let t = Infinity, bt = -Infinity; body.forEach((s) => s.forEach((p) => { t = Math.min(t, yu(p[1])); bt = Math.max(bt, yu(p[1])); }));
+        if (e.t < 0.2 && t > 0.33) ok = false; if (e.t >= 0.45 && t < 0.2) ok = false;
+        if (e.b > 1.35 && bt < 1.15) ok = false; if (e.b < 1.1 && bt > 1.3) ok = false;
+      }
+      if (ok && SP.low && SP.acc && MARK_N[b.marks] && marks.length !== MARK_N[b.marks]) ok = false;     // the accent marks, when the teacher asked for them
+      if (ok) { b.strokes = SP.low && !SP.acc ? body : body.concat(marks); spTry(true); }
+      else { b.bad = true; spDrawBox(b); spTry(false); setTimeout(() => { if (b.bad) { b.bad = false; b.strokes = []; spDrawBox(b); } }, 900); }
+    }, 1300);
+  };
+  b.cv.addEventListener('pointerup', up); b.cv.addEventListener('pointercancel', up);
+}
+/* letter tiles: tap the letters in the right order */
+function spTilesHint() { document.querySelectorAll('#sptiles .sptile').forEach((t) => t.classList.toggle('pulse', SP.boxes[SP.i] && SP.boxes[SP.i].hint && t.dataset.ch === SP.boxes[SP.i].full && !t.hidden)); }
+function spTiles() {
+  const word = SP.boxes.filter((b) => !b.el.classList.contains('gap')).map((b) => b.full), base = SP.boxes.map((b) => b.ch).join('');
+  const set = SPL.isGreek(base) ? (SP.low ? SPL.GRKL : SPL.GRK) : (SP.low ? SPL.LATL : SPL.LAT), extra = set.filter((c) => !word.includes(c) && c !== 'ς');
+  const pool = word.slice(); for (let k = 0; k < 3 && extra.length; k++) pool.push(extra.splice(Math.floor(Math.random() * extra.length), 1)[0]);
+  for (let k = pool.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [pool[k], pool[j]] = [pool[j], pool[k]]; }
+  const box = $('#sptiles'); box.innerHTML = '';
+  pool.forEach((ch) => {
+    const t = document.createElement('button'); t.className = 'sptile'; t.textContent = ch; t.dataset.ch = ch;
+    t.addEventListener('click', () => {
+      const b = SP.boxes[SP.i]; if (!b) return;
+      if (ch === b.full) { t.hidden = true; t.classList.remove('pulse'); spTry(true); }
+      else { t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); spTry(false); }
+    });
+    box.appendChild(t);
+  });
+}
+async function showSpell(entry, pic) {               // pic: a canvas with the square's picture (or null); resolves when the board closes
+  const sp = entry.spell; let lv = SPELL_LEVELS.includes(sp.level) ? sp.level : 'copy'; if (lv === 'memory' && !(sp.case === 'lower' && sp.accents)) lv = 'copy';
+  SP.low = sp.case === 'lower'; SP.acc = SP.low && !!sp.accents; SP.voice = SP.acc; const parts = spSplit(sp.word, SP.low), word = parts.map((x) => x.full);
+  SP.entry = { spell: { word: sp.word, level: lv } }; SP.letters = word; SP.tries = []; SP.i = 0; SP.hint = false;
+  const host = fsCurrent() || document.body; if ($('#spell').parentNode !== host) host.appendChild($('#spell'));
+  const pc = $('#sppic'), g = pc.getContext('2d'); g.clearRect(0, 0, pc.width, pc.height); pc.hidden = !pic; if (pic) g.drawImage(pic, 0, 0, pc.width, pc.height);
+  $('#spmodel').textContent = lv === 'copy' ? word.join('') : ''; $('#spmodel').style.letterSpacing = SP.low ? '.06em' : ''; $('#spmodel').hidden = lv !== 'copy';
+  $('#spSkip').hidden = true; $('#spell').classList.toggle('tiles', lv === 'tiles');
+  const boxes = $('#spboxes'); boxes.innerHTML = ''; SP.boxes = [];
+  parts.forEach(({ ch, full, marks }) => {
+    const el = document.createElement('div'); el.className = 'spbox';
+    if (!SPL.writable(ch)) { el.classList.add('gap'); el.textContent = full.trim(); boxes.appendChild(el); SP.boxes.push({ ch, full, el, ok: true, strokes: [] }); return; }   // a space or a punctuation mark: already written
+    const b = { ch, full, marks, el, ok: false, bad: false, hint: false, strokes: [] };
+    if (lv !== 'tiles') { b.cv = document.createElement('canvas'); el.appendChild(b.cv); spBoxEvents(b); }
+    boxes.appendChild(el); SP.boxes.push(b);
+  });
+  while (SP.i < SP.boxes.length && SP.boxes[SP.i].ok) SP.i++;
+  if (lv === 'tiles') spTiles(); else $('#sptiles').innerHTML = '';
+  $('#spell').classList.toggle('low', SP.low); $('#spSay').hidden = !SP.voice;
+  $('#spell').classList.add('open'); spLayout(); spActive(); setTimeout(spSay, 350);
+  return new Promise((res) => { SP.done = res; });
+}
+$('#spSay').addEventListener('click', spSay);
+$('#spHint').addEventListener('click', () => { const b = SP.boxes[SP.i]; if (!b) return; b.hint = !b.hint; if (b.cv) spDrawBox(b); else spTilesHint(); });
+$('#spSkip').addEventListener('click', spClose);
+window.addEventListener('resize', () => { if ($('#spell').classList.contains('open')) spLayout(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('#spell').classList.contains('open')) spClose(); });     // a way out for the teacher
+async function squarePic(c, r) {                      // the picture of one square of the backdrop
+  if (!grid.img) return null; const bc = await backdropCanvas(), cv = document.createElement('canvas'); cv.width = cv.height = SQUARE_PX;
+  cv.getContext('2d').drawImage(bc, c * SQUARE_PX, r * SQUARE_PX, SQUARE_PX, SQUARE_PX, 0, 0, SQUARE_PX, SQUARE_PX); return cv;
 }
 
 const FS_IN = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 V6 H18 M30 6 H42 V18 M42 30 V42 H30 M18 42 H6 V30"/></svg>';
@@ -1849,7 +2304,7 @@ const mb = {
 function ui() { const b = $('#conn'); b.className = mb.status === 'on' ? 'on' : mb.status === 'busy' ? 'busy' : ''; b.title = mb.status === 'on' ? T().on : mb.status === 'busy' ? T().busy : T().off; }
 function texts() {
   document.documentElement.lang = LANG; document.title = T().title; $('#title').textContent = T().title; $('#wstitle').textContent = T().ws;
-  $('#libtitle').textContent = T().lib; $('#edtitle').textContent = T().sqEdit; $('#trcamTitle').textContent = T().trCam; $('#bdCam').setAttribute('aria-label', T().trCam); $('#bdCam').title = T().trCam; $('#recBtn').setAttribute('aria-label', T().rec); $('#recBtn').title = T().rec; $('#edurl').placeholder = T().iaUrl; $('#bdPaint').setAttribute('aria-label', T().sqEdit); $('#bdPaint').title = T().sqEdit; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
+  $('#libtitle').textContent = T().lib; $('#edtitle').textContent = T().sqEdit; $('#trcamTitle').textContent = T().trCam; $('#bdCam').setAttribute('aria-label', T().trCam); $('#bdCam').title = T().trCam; $('#recBtn').setAttribute('aria-label', T().rec); $('#recBtn').title = T().rec; $('#edurl').placeholder = T().iaUrl; $('#edword').placeholder = T().spWord; $('#bdPaint').setAttribute('aria-label', T().sqEdit); $('#bdPaint').title = T().sqEdit; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
   $('#lang').textContent = T().lang; $('#play').setAttribute('aria-label', T().play); $('#stop').setAttribute('aria-label', T().stop); $('#conn').setAttribute('aria-label', T().conn); $('#cog').setAttribute('aria-label', T().settings);
   renderTabs(); ui(); applyTips();
 }
