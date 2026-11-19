@@ -305,6 +305,9 @@
   #recpad { --rp: clamp(70px, min(14vh, 10vw), 140px); flex: 1 1 auto; display: grid; grid-template-columns: repeat(3, var(--rp)); grid-template-rows: repeat(3, var(--rp)); gap: 14px; place-content: center; padding: 14px; }
   .rp { width: 100%; height: 100%; padding: 0; border-radius: var(--radius); border: 2px solid var(--charcoal); display: grid; place-items: center; }
   .rp svg { width: 62%; height: 62%; }
+  .rpgrab { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
+  .rp.gr { background: var(--addon, #3DAA4A); } .rp.gr svg { width: 46%; height: 70%; }
+  .rchip.gr { background: var(--addon, #3DAA4A); }
   .rp.mv { background: var(--bot); } .rp.go { background: var(--go); } .rp.er { background: #fff; }
   .rp:active { transform: scale(.94); }
   body.recrun .rp.mv { opacity: .45; }
@@ -343,6 +346,79 @@
   #spell.won .spellbox { box-shadow: 0 0 0 8px #3DAA4A; }
   #spell.tiles .spbox { width: 76px !important; }
   .spl.on { background: var(--gold); } .spl:disabled { opacity: .35; }
+  /* add-ons category */
+  #bot #grabber { overflow: visible; position: absolute; left: 50%; bottom: 91%; width: 78%; transform: translateX(-50%); display: none; pointer-events: none; }
+  #bot.grab #grabber { display: block; }
+  #grabber .jaw { transition: transform .45s ease; }
+  #grabber .jl { transform-origin: 17px 33px; transform: rotate(-28deg); } #grabber .jr { transform-origin: 23px 33px; transform: rotate(28deg); }   /* open */
+  #bot.grabc #grabber .jl, #bot.grabc #grabber .jr { transform: none; }                                                                          /* closed: the jaws make a ring */
+  :root { --addon: #3DAA4A; }
+  .tab[data-c="addon"] i { background: var(--addon); } .tab[data-c="addon"][aria-selected="true"] { background: var(--addon); }
+  #palrow.addon { background: #E3F3E5; } .blk.addon { background: var(--addon); }
+  /* numbers board */
+  .binst { color: #fff; font-weight: 800; font-size: clamp(1rem, 2.4vw, 1.35rem); padding: 0 10px; }
+  #mathb { z-index: 130; }
+  #mathb.won .spellbox { box-shadow: 0 0 0 8px #3DAA4A; }
+  #mbpic { display: flex; align-items: center; justify-content: center; gap: 10px; max-width: 100%; min-height: 40px; }
+  #mbpic svg { max-height: 30vh; }
+  .mgap { width: 40px; flex: none; }
+  .mside { background: #fff; border: 3px solid var(--line); border-radius: var(--radius); padding: 12px; cursor: pointer; }
+  .mside:active { border-color: var(--blue); }
+  #mbq { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; font: 800 clamp(2.4rem, 7vw, 4.4rem) "Commissioner", Arial, sans-serif; color: var(--ink); }
+  .mhole { display: inline-flex; gap: 8px; align-items: flex-end; }
+  .mhole.shake { animation: shk .4s; }
+  .mslotw { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+  .mslotw i { font: 800 1.1rem "Commissioner", Arial, sans-serif; font-style: normal; color: var(--blue); }
+  .mslot { display: inline-grid; place-items: center; width: 1.25em; height: 1.45em; border: 3px solid var(--blue); border-radius: var(--radius); background: #fff; color: var(--blue); position: relative; }
+  .mslot.sign { width: 1.3em; }
+  .mslot.wr { width: 2.1em; height: 2.6em; }
+  .mslot canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+  .mslot.ok { border-color: #3DAA4A; color: #3DAA4A; }
+  .mslot.shake { animation: shk .4s; }
+  #mbkeys { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 760px; }
+  .mkey { min-width: 68px; height: 68px; padding: 0 10px; border-radius: var(--radius); border: 2px solid var(--charcoal); background: var(--gold); font: 800 2.2rem "Commissioner", Arial, sans-serif; color: var(--ink); }
+  .mkey.wide { min-width: 120px; }
+  .mkey.back { background: #fff; }
+  .mkey.ok { background: #3DAA4A; color: #fff; }
+  .mkey.sm { min-width: 52px; height: 52px; font-size: 1.8rem; background: #fff; }
+  .mkey.shake { animation: shk .4s; }
+  .mbuild { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 2px solid var(--line); border-radius: var(--radius); }
+  .mbk { display: inline-block; border: 1.5px solid #1A1A1A; }
+  .mbk.k100 { width: 44px; height: 44px; background: #F15A24; } .mbk.k10 { width: 10px; height: 44px; background: #0096EA; } .mbk.k1 { width: 12px; height: 12px; background: #FBB03B; }
+  #mathed { z-index: 120; }
+  #mUnit { font-weight: 800; color: var(--charcoal); }
+  #mList { flex: 1 1 100%; width: auto !important; text-align: left !important; padding: 0 10px; font-weight: 700 !important; }
+  #mListInfo { flex: 1 1 100%; font-size: .85rem; color: var(--charcoal); }
+  #mathed.fixed #mmin, #mathed.fixed #mmax { opacity: .35; }
+  #mStep { height: 48px; font: 700 1rem "Commissioner", Arial, sans-serif; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 6px; background: #fff; }
+  #mStep[hidden] { display: none; }
+  #mOp[hidden], #mMiss[hidden] { display: none; }
+  .mtok.comma { margin-left: -12px; }
+  .mtok.shp, .mslot.shp { display: inline-grid; place-items: center; }
+  .mslot.shp { width: 64px; height: 64px; }
+  .mkey.shp { width: 76px; height: 76px; padding: 0; display: grid; place-items: center; background: #fff; }
+  .mtable { min-height: 90px; min-width: 300px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; padding: 10px; border: 3px dashed var(--line); border-radius: var(--radius); background: #F4F8FB; }
+  .mcoin { background: transparent; border: 0; padding: 0; }
+  .mkey.mcoin { background: transparent; border: 0; height: auto; min-width: 0; }
+  .mkey.mcoin svg { height: 62px; width: auto; }
+  .medbox { width: min(560px, 96vw); max-height: 94vh; padding: 0; display: flex; flex-direction: column; overflow: hidden; text-align: left; }
+  .medmain { padding: 14px 16px; overflow: auto; display: flex; flex-direction: column; gap: 12px; }
+  .medrow { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 10px; }
+  .medrow b { font-size: .95rem; color: var(--charcoal); }
+  .medrow .edrow { gap: 6px; }
+  .medrow .tool { width: 48px; height: 48px; } .medrow .tool svg { width: 30px; height: 30px; }
+  .medrow input { width: 64px; height: 48px; font: 700 1.1rem "Commissioner", Arial, sans-serif; text-align: center; border: 2px solid var(--charcoal); border-radius: var(--radius); }
+  .medrow .tool:disabled { opacity: .3; }
+  .medfoot { display: flex; align-items: center; gap: 8px; padding-top: 10px; border-top: 1px solid var(--line); }
+  #medInfo { flex: 1; font-size: .85rem; color: var(--charcoal); }
+  #medOk { background: var(--orange) !important; border-color: var(--orange) !important; }
+  .edmath input { width: 46px; height: 46px; font: 700 1.05rem "Commissioner", Arial, sans-serif; text-align: center; border: 2px solid var(--charcoal); border-radius: var(--radius); }
+  .mdash { font-weight: 800; }
+  .edmath .tool, .edmath2 .tool { width: 46px; height: 46px; } .edmath, .edmath2 { gap: 6px; }
+  .edrow.sub { border-top: 0 !important; padding-top: 0 !important; }
+  .edmath .mg { font: 800 1rem "Commissioner", Arial, sans-serif; color: var(--ink); }
+  .mt.on, .mp.on, .ma.on, #mOp.on, #mMiss.on, #mMove.on { background: var(--gold); }
+  .edmath2 .tool:disabled { opacity: .3; }
   /* content of an interactive square */
   #media { z-index: 130; }
   .mediabox { width: min(1100px, 94vw); height: min(86vh, 820px); padding: 0; display: flex; flex-direction: column; overflow: hidden; }
@@ -357,7 +433,7 @@
   #mediaOpen { display: grid; place-items: center; } #mediaOpen[hidden] { display: none; }
   #mediaClose { background: var(--orange) !important; border-color: var(--orange) !important; }
   .grow { margin-right: auto; }
-  .edia .iaic, .edspell .iaic { width: 36px; height: 36px; flex: none; }
+  .edtools .iaic { width: 36px; height: 36px; flex: none; }
   #edurl { flex: 1 1 90px; min-width: 0; height: 50px; font: 600 1rem "Commissioner", Arial, sans-serif; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 10px; }
   #edurl:focus { outline: 3px solid var(--blue); }
   #edword { flex: 1 1 calc(100% - 52px); min-width: 0; height: 46px; font: 800 1.2rem "Commissioner", Arial, sans-serif; border: 2px solid var(--charcoal); border-radius: var(--radius); padding: 0 10px; }
@@ -434,7 +510,7 @@
       <div id="floor"><div id="backdrop"></div><div id="grid"></div><svg id="marks" viewBox="0 0 7 7" preserveAspectRatio="none"></svg><svg id="trail" viewBox="0 0 7 7" preserveAspectRatio="none"></svg><svg id="preview" viewBox="0 0 7 7" preserveAspectRatio="none"></svg>
         <div class="edge n"></div><div class="edge e"></div><div class="edge s"></div><div class="edge w"></div>
         <div class="badge n"><svg viewBox="0 0 48 48"><path d="M24 5 L45 41 H3 Z" fill="#FBB03B" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/><path d="M24 17 V28" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="35" r="3" fill="#1A1A1A"/></svg></div><div class="badge e"><svg viewBox="0 0 48 48"><path d="M24 5 L45 41 H3 Z" fill="#FBB03B" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/><path d="M24 17 V28" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="35" r="3" fill="#1A1A1A"/></svg></div><div class="badge s"><svg viewBox="0 0 48 48"><path d="M24 5 L45 41 H3 Z" fill="#FBB03B" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/><path d="M24 17 V28" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="35" r="3" fill="#1A1A1A"/></svg></div><div class="badge w"><svg viewBox="0 0 48 48"><path d="M24 5 L45 41 H3 Z" fill="#FBB03B" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/><path d="M24 17 V28" stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/><circle cx="24" cy="35" r="3" fill="#1A1A1A"/></svg></div>
-                <div id="bot"><svg viewBox="0 0 40 56">
+                <div id="bot"><svg id="grabber" viewBox="0 0 40 42"><g class="jaw jl"><path d="M17 33 A12.5 12.5 0 0 1 17.5 8.2" fill="none" stroke="#1A1A1A" stroke-width="7.5" stroke-linecap="round"/><path d="M17 33 A12.5 12.5 0 0 1 17.5 8.2" fill="none" stroke="#E53935" stroke-width="4.5" stroke-linecap="round"/></g><g class="jaw jr"><path d="M23 33 A12.5 12.5 0 0 0 22.5 8.2" fill="none" stroke="#1A1A1A" stroke-width="7.5" stroke-linecap="round"/><path d="M23 33 A12.5 12.5 0 0 0 22.5 8.2" fill="none" stroke="#E53935" stroke-width="4.5" stroke-linecap="round"/></g><rect x="12" y="31" width="16" height="10" rx="2.5" fill="#B0B4B8" stroke="#1A1A1A" stroke-width="2"/><circle cx="20" cy="36" r="1.8" fill="#1A1A1A"/></svg><svg viewBox="0 0 40 56">
           <rect x="0" y="10" width="7" height="16" rx="2" fill="#1A1A1A"/><rect x="33" y="10" width="7" height="16" rx="2" fill="#1A1A1A"/>
           <rect x="0" y="32" width="7" height="16" rx="2" fill="#1A1A1A"/><rect x="33" y="32" width="7" height="16" rx="2" fill="#1A1A1A"/>
           <rect x="5" y="4" width="30" height="48" rx="10" fill="#0096EA" stroke="#1A1A1A" stroke-width="3"/>
@@ -448,6 +524,7 @@
         <button class="tool" id="libBtn" aria-label="Tracks library"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="15" height="15" rx="3"/><rect x="27" y="6" width="15" height="15" rx="3"/><rect x="6" y="27" width="15" height="15" rx="3"/><rect x="27" y="27" width="15" height="15" rx="3"/></svg></button>
         <button class="tool" id="bdLoad" aria-label="Backdrop"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="38" height="30" rx="5"/><circle cx="16" cy="20" r="4"/><path d="M5 34 L17 24 L26 31 L33 25 L43 34"/></svg></button>
         <button class="tool" id="bdCam" aria-label="Photo of the track"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="13" width="40" height="28" rx="5"/><path d="M16 13 L19 7 H29 L32 13"/><circle cx="24" cy="27" r="8"/></svg></button>
+        <button class="tool" id="bdMath" aria-label="Numbers square"><svg viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="5" fill="none" stroke="#1A1A1A" stroke-width="4"/><text x="24" y="31" text-anchor="middle" font-size="18" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#F15A24">123</text></svg></button>
         <button class="tool" id="bdPaint" aria-label="Modify square"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 H9 A3 3 0 0 0 6 9 V39 A3 3 0 0 0 9 42 H39 A3 3 0 0 0 42 39 V24"/><path d="M19 29 L20.5 22.5 L36 7 L41 12 L25.5 27.5 Z"/></svg></button>
         <button class="tool" id="bdClear" aria-label="Remove backdrop"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button>
         <button class="tool" id="bdTemplate" aria-label="Template"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 V30 M14 22 L24 32 L34 22 M8 40 H40"/></svg></button>
@@ -484,7 +561,7 @@
         <button class="tool small" id="recClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button></div>
       <div id="recmem"></div>
       <div id="recpad">
-        <span></span><button class="rp mv" data-r="fwd" aria-label="Forward"></button><span></span>
+        <span></span><button class="rp mv" data-r="fwd" aria-label="Forward"></button><span class="rpgrab"><button class="rp gr" data-r="grabOpen" aria-label="Open the grabber"></button><button class="rp gr" data-r="grabClose" aria-label="Close the grabber"></button></span>
         <button class="rp mv" data-r="left" aria-label="Left"></button>
         <button class="rp go" id="recGo" aria-label="Go"><svg viewBox="0 0 32 32"><path d="M9 5 L27 16 L9 27Z" fill="#fff" stroke="#1A1A1A" stroke-width="2.5" stroke-linejoin="round"/></svg></button>
         <button class="rp mv" data-r="right" aria-label="Right"></button>
@@ -586,11 +663,38 @@
   <div class="trcamfoot"><button class="tool" id="trShot" aria-label="Take photo"></button></div>
 </div></div>
 
+<div id="mathed" class="overlay"><div class="box medbox">
+  <div class="libhead"><span id="medTitle" class="grow">Numbers square</span>
+    <button class="tool small" id="medCancel" aria-label="Cancel"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button>
+    <button class="tool small" id="medOk" aria-label="OK"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17 L13 24 L26 8"/></svg></button></div>
+  <div class="medmain">
+    <div class="medrow"><b data-l="mTaskL">Task</b><div class="edrow"><button class="tool mt" data-mt="count" aria-label="Count"><svg viewBox="0 0 48 48"><circle cx="14" cy="16" r="5" fill="#E53935"/><circle cx="24" cy="16" r="5" fill="#E53935"/><circle cx="34" cy="16" r="5" fill="#E53935"/><circle cx="19" cy="30" r="5" fill="#E53935"/><circle cx="29" cy="30" r="5" fill="#E53935"/></svg></button><button class="tool mt" data-mt="seq" aria-label="Before, after, between"><svg viewBox="0 0 48 48"><text x="24" y="30" text-anchor="middle" font-size="32" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">_7_</text></svg></button><button class="tool mt" data-mt="cmp" aria-label="Compare"><svg viewBox="0 0 48 48"><text x="24" y="30" text-anchor="middle" font-size="30" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">&lt; &gt;</text></svg></button><button class="tool mt" data-mt="add" aria-label="Add and take away"><svg viewBox="0 0 48 48"><text x="24" y="32" text-anchor="middle" font-size="34" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">+&#8722;</text></svg></button><button class="tool mt" data-mt="mul" aria-label="Groups: times and share"><svg viewBox="0 0 48 48"><text x="24" y="34" text-anchor="middle" font-size="28" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">×:</text></svg></button><button class="tool mt" data-mt="pv" aria-label="Tens and ones"><svg viewBox="0 0 48 48" stroke="#1A1A1A" stroke-width="2"><rect x="5" y="6" width="7" height="36" fill="#0096EA"/><rect x="15" y="6" width="7" height="36" fill="#0096EA"/><rect x="27" y="34" width="8" height="8" fill="#FBB03B"/><rect x="37" y="34" width="8" height="8" fill="#FBB03B"/><rect x="27" y="23" width="8" height="8" fill="#FBB03B"/></svg></button><button class="tool mt" data-mt="build" aria-label="Build the number"><svg viewBox="0 0 48 48" stroke="#1A1A1A" stroke-width="2"><rect x="5" y="10" width="7" height="32" fill="#0096EA"/><rect x="16" y="34" width="8" height="8" fill="#FBB03B"/><path d="M36 12 V32 M26 22 H46" stroke-width="4.5" stroke-linecap="round"/></svg></button><button class="tool mt" data-mt="money" aria-label="Count the money"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="#F2C94C" stroke="#1A1A1A" stroke-width="2.5"/><circle cx="24" cy="24" r="12" fill="#C9CDD2"/><text x="24" y="30" text-anchor="middle" font-size="15" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">€</text></svg></button><button class="tool mt" data-mt="pay" aria-label="Pay the amount"><svg viewBox="0 0 48 48"><circle cx="19" cy="27" r="15" fill="#F2C94C" stroke="#1A1A1A" stroke-width="2.5"/><text x="19" y="33" text-anchor="middle" font-size="15" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">€</text><path d="M38 6 V22 M30 14 H46" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round"/></svg></button><button class="tool mt" data-mt="change" aria-label="Change"><svg viewBox="0 0 48 48"><rect x="3" y="12" width="30" height="18" rx="2" fill="#64B5F6" stroke="#1A1A1A" stroke-width="2.5"/><circle cx="36" cy="34" r="9" fill="#F2C94C" stroke="#1A1A1A" stroke-width="2.5"/><path d="M14 40 H26 M18 36 L14 40 L18 44" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="tool mt" data-mt="clock" aria-label="Read the clock"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-linecap="round"><circle cx="24" cy="24" r="19" fill="#fff" stroke-width="3.5"/><path d="M24 24 V12" stroke="#0071BC" stroke-width="3.5"/><path d="M24 24 H33" stroke-width="5"/></svg></button><button class="tool mt" data-mt="setclock" aria-label="Set the clock"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="26" r="16" fill="#fff" stroke-width="3.5"/><path d="M22 26 V15" stroke="#0071BC" stroke-width="3.5"/><path d="M22 26 H29" stroke-width="5"/><path d="M34 4 A14 14 0 0 1 45 15 M45 8 V15 H38" stroke-width="3.5"/></svg></button><button class="tool mt" data-mt="pattern" aria-label="Patterns"><svg viewBox="0 0 48 48"><circle cx="9" cy="24" r="6" fill="#E53935"/><rect x="18" y="18" width="12" height="12" fill="#0071BC"/><circle cx="39" cy="24" r="6" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-dasharray="3 3"/></svg></button></div></div>
+    <div class="medrow"><b data-l="mRangeL">Numbers</b><div class="edrow"><input id="mmin" type="number" min="0" max="999" inputmode="numeric" aria-label="From"><span class="mdash" data-l="mToL">–</span><input id="mmax" type="number" min="0" max="999" inputmode="numeric" aria-label="To"><span id="mUnit"></span><select id="mStep" aria-label="Step"></select><button class="tool" id="mOp" aria-label="Add, take away or both"></button><button class="tool" id="mMiss" aria-label="Missing number"><svg viewBox="0 0 48 48"><text x="24" y="29" text-anchor="middle" font-size="24" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">3+▢</text></svg></button></div></div>
+    <div class="medrow"><b data-l="mListL">Exact</b><div class="edrow"><input id="mList" maxlength="200" autocomplete="off" spellcheck="false"><span id="mListInfo"></span></div></div>
+    <div class="medrow"><b data-l="mPicL">Picture</b><div class="edrow"><button class="tool mp" data-mp="dots" aria-label="Dots"><svg viewBox="0 0 48 48"><circle cx="14" cy="16" r="5" fill="#E53935"/><circle cx="24" cy="16" r="5" fill="#E53935"/><circle cx="34" cy="16" r="5" fill="#E53935"/><circle cx="19" cy="30" r="5" fill="#E53935"/><circle cx="29" cy="30" r="5" fill="#E53935"/></svg></button><button class="tool mp" data-mp="frame" aria-label="Ten-frame"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="2.5"><rect x="4" y="14" width="40" height="20"/><path d="M12 14 V34 M20 14 V34 M28 14 V34 M36 14 V34 M4 24 H44"/><circle cx="8" cy="19" r="2.6" fill="#E53935" stroke="none"/><circle cx="16" cy="19" r="2.6" fill="#E53935" stroke="none"/><circle cx="24" cy="19" r="2.6" fill="#E53935" stroke="none"/></svg></button><button class="tool mp" data-mp="line" aria-label="Number line"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"><path d="M4 32 H44 M8 27 V37 M18 28 V36 M28 28 V36 M38 27 V37"/><path d="M8 26 Q13 12 18 26 M18 26 Q23 12 28 26" stroke="#0071BC"/></svg></button><button class="tool mp" data-mp="blocks" aria-label="Blocks"><svg viewBox="0 0 48 48" stroke="#1A1A1A" stroke-width="2"><rect x="5" y="6" width="7" height="36" fill="#0096EA"/><rect x="15" y="6" width="7" height="36" fill="#0096EA"/><rect x="27" y="34" width="8" height="8" fill="#FBB03B"/><rect x="37" y="34" width="8" height="8" fill="#FBB03B"/><rect x="27" y="23" width="8" height="8" fill="#FBB03B"/></svg></button><button class="tool mp" data-mp="none" aria-label="No picture"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round"><circle cx="24" cy="24" r="16"/><path d="M13 35 L35 13"/></svg></button></div></div>
+    <div class="medrow"><b data-l="mAnsL">Answer</b><div class="edrow"><button class="tool ma" data-ma="tiles" aria-label="Number tiles"><svg viewBox="0 0 48 48" stroke="#1A1A1A" stroke-width="2.5" fill="#FBB03B"><rect x="5" y="6" width="11" height="11" rx="2"/><rect x="18" y="6" width="11" height="11" rx="2"/><rect x="31" y="6" width="11" height="11" rx="2"/><rect x="5" y="19" width="11" height="11" rx="2"/><rect x="18" y="19" width="11" height="11" rx="2"/><rect x="31" y="19" width="11" height="11" rx="2"/><rect x="5" y="32" width="11" height="11" rx="2"/><rect x="18" y="32" width="11" height="11" rx="2"/><rect x="31" y="32" width="11" height="11" rx="2"/></svg></button><button class="tool ma" data-ma="write" aria-label="Write the digits"><svg viewBox="0 0 48 48"><text x="17" y="38" text-anchor="middle" font-size="30" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">2</text><path d="M30 38 L31 32 L41 22 L45 26 L35 36 Z" fill="#1A1A1A"/></svg></button><button class="tool ma" data-ma="choice" aria-label="Pick from three"><svg viewBox="0 0 48 48" stroke="#1A1A1A" stroke-width="2.5"><rect x="3" y="15" width="12" height="18" rx="2" fill="#fff"/><rect x="18" y="15" width="12" height="18" rx="2" fill="#3DAA4A"/><rect x="33" y="15" width="12" height="18" rx="2" fill="#fff"/></svg></button><button class="tool ma" data-ma="groups" aria-label="Tap the bigger group"><svg viewBox="0 0 48 48"><rect x="3" y="12" width="18" height="24" rx="3" fill="#fff" stroke="#1A1A1A" stroke-width="2.5"/><rect x="27" y="12" width="18" height="24" rx="3" fill="#FBB03B" stroke="#1A1A1A" stroke-width="2.5"/><circle cx="12" cy="24" r="3.5" fill="#E53935"/><circle cx="32" cy="19" r="3.5" fill="#E53935"/><circle cx="40" cy="19" r="3.5" fill="#E53935"/><circle cx="32" cy="29" r="3.5" fill="#E53935"/><circle cx="40" cy="29" r="3.5" fill="#E53935"/></svg></button></div></div>
+    <div class="medrow"><b data-l="mRobotL">Robot</b><div class="edrow"><button class="tool" id="mMove" aria-label="The answer moves the robot"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="22" width="16" height="16" rx="3"/><path d="M26 30 H42 M36 24 L42 30 L36 36"/><text x="14" y="18" text-anchor="middle" font-size="14" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#0071BC" stroke="none">5</text></svg></button></div></div>
+    <div class="medfoot"><span id="medInfo"></span>
+      <button class="tool" id="medTry" aria-label="Try"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24 C10 13 17 9 24 9 C31 9 38 13 44 24 C38 35 31 39 24 39 C17 39 10 35 4 24 Z"/><circle cx="24" cy="24" r="6"/></svg></button>
+      <button class="tool" id="medDel" aria-label="Remove"><svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12 H40 M18 12 V7 H30 V12 M12 12 L14 42 H34 L36 12"/></svg></button></div>
+  </div>
+</div></div>
+
+<div id="mathb" class="overlay"><div class="box spellbox mathbox">
+  <div class="libhead"><span class="binst grow" id="mbInst"></span>
+    <button class="tool small" id="mbSkip" aria-label="Skip" hidden><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10 L24 24 L8 38 Z M24 10 L40 24 L24 38 Z"/></svg></button></div>
+  <div class="spmain">
+    <div id="mbpic"></div>
+    <div id="mbq"></div>
+    <div id="mbkeys"></div>
+  </div>
+</div></div>
+
 <div id="spell" class="overlay"><div class="box spellbox">
   <div class="libhead">
     <button class="tool small" id="spSay" aria-label="Say the word"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 H14 L24 9 V39 L14 30 H6 Z"/><path d="M31 17 A9 9 0 0 1 31 31 M36 11 A17 17 0 0 1 36 37"/></svg></button>
     <button class="tool small" id="spHint" aria-label="Show how to write it"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 33 A12 12 0 1 1 31 33 V38 H17 Z M19 43 H29"/></svg></button>
-    <span class="grow"></span>
+    <span class="binst grow" id="spInst"></span>
     <button class="tool small" id="spSkip" aria-label="Skip" hidden><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10 L24 24 L8 38 Z M24 10 L40 24 L24 38 Z"/></svg></button></div>
   <div class="spmain">
     <div class="sptop"><canvas id="sppic" width="200" height="200"></canvas><div id="spmodel"></div></div>
@@ -613,6 +717,9 @@
   <div class="setrow" data-k="turn" data-r="tpbot"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 40 V24 Q12 12 24 12 H38"/><path d="M30 4 L38 12 L30 20"/></svg></span><button class="step" data-d="-1">−</button><span class="val"></span><button class="step" data-d="1">+</button></div>
   <div class="setrow" data-k="cols"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24 H42 M14 15 L5 24 L14 33 M34 15 L43 24 L34 33"/></svg></span><button class="step" data-d="-1">−</button><span class="val"></span><button class="step" data-d="1">+</button></div>
   <div class="setrow" data-k="rows"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 V42 M15 14 L24 5 L33 14 M15 34 L24 43 L33 34"/></svg></span><button class="step" data-d="-1">−</button><span class="val"></span><button class="step" data-d="1">+</button></div>
+  <div class="setrow addonrow" data-k="gOpen"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8 H34 M24 3 V8"/><path d="M18 8 L8 25 L13 40"/><path d="M30 8 L40 25 L35 40"/></svg></span><button class="step" data-d="-1">−</button><span class="val"></span><button class="step" data-d="1">+</button></div>
+  <div class="setrow addonrow" data-k="gClose"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8 H34 M24 3 V8"/><path d="M18 8 L13 24 L20 40"/><path d="M30 8 L35 24 L28 40"/><circle cx="24" cy="30" r="4.5" fill="#fff"/></svg></span><button class="step" data-d="-1">−</button><span class="val"></span><button class="step" data-d="1">+</button></div>
+  <div class="setrow addonrow" data-k="gPort"><span class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16 H38 V30 A8 8 0 0 1 30 38 H18 A8 8 0 0 1 10 30 Z M18 16 V6 M30 16 V6"/></svg></span><button class="step" data-d="-1">−</button><span class="val"></span><button class="step" data-d="1">+</button></div>
   <div class="btns"><button class="tool" id="setdone" style="background:#F15A24" aria-label="OK"><svg viewBox="0 0 32 32" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17 L13 24 L26 8"/></svg></button></div>
 </div></div>
 
@@ -622,13 +729,27 @@
 
 const STR = {
   en: { title: 'RoboTrails', lang: 'EL', play: 'Play', stop: 'Stop', conn: 'Connect micro:bit', off: 'micro:bit not connected', on: 'micro:bit connected', busy: 'Connecting…',
-        ws: 'Program', settings: 'Settings', cats: { ev: 'When', disp: 'Screen', snd: 'Sound', bot: 'Robot', ctl: 'Control' },
+        ws: 'Program', settings: 'Settings', cats: { ev: 'When', disp: 'Screen', snd: 'Sound', bot: 'Robot', ctl: 'Control', addon: 'Add-ons' },
         noBt: 'This browser cannot talk to the micro:bit. Use Chrome or Edge on a computer, a Chromebook or an Android tablet.', err: 'Could not connect: ',
-        lib: 'Tracks', libShare: 'Download a picture of my track', sqEdit: 'Modify square', trCam: 'Photo of the track', spWord: 'Word to write', spLv: { tiles: 'letter tiles', trace: 'trace', copy: 'copy', memory: 'from memory' }, rec: 'Record', iaErr: 'The file could not be kept on this device (it may be too big).', iaUrl: 'Video link', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
+        lib: 'Tracks', libShare: 'Download a picture of my track', sqEdit: 'Modify square', trCam: 'Photo of the track', medTitle: 'Numbers square', mUnit: { money: '€', pay: '€', change: '€ (price)', clock: 'o\'clock', setclock: 'o\'clock', mul: '(× and :)', pattern: '(start)' },
+        mStepL: { 60: 'o\'clock', 30: 'half hours', 15: 'quarters', 5: '5 minutes' }, inst: {
+          count: 'How many are there?', seq: 'Which number is missing?', add: 'Which number is missing?', pv: 'What number do the blocks show?',
+          tiles: ' Tap the numbers.', write: ' Write it.', choice: ' Pick one.', cmp: 'Pick the correct symbol.', groups: 'Tap the group with more, or =.',
+          build: 'Build the number with blocks, then press \u2713.', money: 'How much money is there?', pay: 'Put down the right money, then press \u2713.', change: 'How much change?',
+          clock: 'What time is it?', setclock: 'Set the clock to this time, then press \u2713.', pattern: 'What is missing?', shape: ' Tap the shape.', mul: 'Find the result.',
+          sp: { tiles: 'Tap the letters in order.', trace: 'Write over the dotted letters.', copy: 'Copy the word.', memory: 'Listen and write the word.' } }, mTaskL: 'Task', mRangeL: 'Random from', mToL: 'to', mListL: 'Exact', mListN: (n, bad) => n + (n === 1 ? ' problem' : ' problems') + (n > 1 ? ', one each time' : '') + (bad ? ' \u00B7 ' + bad + ' not understood' : ''),
+        mListPh: { add: 'e.g. 3+4, 9−5', mul: 'e.g. 3×4, 12:3', cmp: 'e.g. 7 9, 15 12', clock: 'e.g. 3:30, 7:15', setclock: 'e.g. 3:30, 7:15', _: 'e.g. 7, 12, 15' }, mPicL: 'Picture', mAnsL: 'Answer', mRobotL: 'Robot', medHas: 'This square already has: ', medRepl: '. OK replaces it.', mTask: { count: 'count', seq: 'before/after', cmp: 'compare', add: 'add/take away', pv: 'tens and ones', build: 'build the number', money: 'money', pay: 'pay', change: 'change', clock: 'clock', setclock: 'set the clock', pattern: 'pattern', mul: 'groups (× :)' }, spWord: 'Word to write', spLv: { tiles: 'letter tiles', trace: 'trace', copy: 'copy', memory: 'from memory' }, rec: 'Record', iaErr: 'The file could not be kept on this device (it may be too big).', iaUrl: 'Video link', libClose: 'Close', libErr: 'The tracks could not be loaded. Check the internet connection.', libMore: 'Add your own track', libEmpty: 'There are no tracks yet.', libOfficial: 'Official tracks', libPublic: 'Community tracks', libOpen: 'Tracks library' },
   el: { title: 'RoboTrails', lang: 'EN', play: 'Εκκίνηση', stop: 'Στοπ', conn: 'Σύνδεση micro:bit', off: 'Το micro:bit δεν είναι συνδεδεμένο', on: 'Το micro:bit συνδέθηκε', busy: 'Σύνδεση…',
-        ws: 'Πρόγραμμα', settings: 'Ρυθμίσεις', cats: { ev: 'Όταν', disp: 'Οθόνη', snd: 'Ήχος', bot: 'Ρομπότ', ctl: 'Έλεγχος' },
+        ws: 'Πρόγραμμα', settings: 'Ρυθμίσεις', cats: { ev: 'Όταν', disp: 'Οθόνη', snd: 'Ήχος', bot: 'Ρομπότ', ctl: 'Έλεγχος', addon: 'Πρόσθετα' },
         noBt: 'Αυτός ο browser δεν μπορεί να μιλήσει με το micro:bit. Χρησιμοποίησε Chrome ή Edge σε υπολογιστή, Chromebook ή tablet Android.', err: 'Αποτυχία σύνδεσης: ',
-        lib: 'Πίστες', libShare: 'Λήψη εικόνας της πίστας μου', sqEdit: 'Αλλαγή τετραγώνου', trCam: 'Φωτογραφία της πίστας', spWord: 'Λέξη για γράψιμο', spLv: { tiles: 'πλακίδια γραμμάτων', trace: 'ξεσήκωμα', copy: 'αντιγραφή', memory: 'από μνήμης' }, rec: 'Ηχογράφηση βημάτων', iaErr: 'Το αρχείο δεν αποθηκεύτηκε σε αυτή τη συσκευή (ίσως είναι πολύ μεγάλο).', iaUrl: 'Σύνδεσμος βίντεο', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
+        lib: 'Πίστες', libShare: 'Λήψη εικόνας της πίστας μου', sqEdit: 'Αλλαγή τετραγώνου', trCam: 'Φωτογραφία της πίστας', medTitle: 'Τετράγωνο αριθμών', mUnit: { money: '€', pay: '€', change: '€ (τιμή)', clock: 'η ώρα', setclock: 'η ώρα', mul: '(× και :)', pattern: '(αρχή)' },
+        mStepL: { 60: 'ακριβώς', 30: 'και μισή', 15: 'και τέταρτο', 5: 'ανά 5 λεπτά' }, inst: {
+          count: 'Πόσα είναι;', seq: 'Ποιος αριθμός λείπει;', add: 'Ποιος αριθμός λείπει;', pv: 'Ποιον αριθμό δείχνουν οι κύβοι;',
+          tiles: ' Πάτα τους αριθμούς.', write: ' Γράψε τον.', choice: ' Διάλεξε έναν.', cmp: 'Διάλεξε το σωστό σύμβολο.', groups: 'Πάτα την ομάδα με τα περισσότερα ή το =.',
+          build: 'Φτιάξε τον αριθμό με κύβους και πάτα \u2713.', money: 'Πόσα χρήματα είναι;', pay: 'Βάλε τα σωστά χρήματα και πάτα \u2713.', change: 'Πόσα ρέστα παίρνεις;',
+          clock: 'Τι ώρα είναι;', setclock: 'Βάλε το ρολόι σε αυτή την ώρα και πάτα \u2713.', pattern: 'Τι λείπει;', shape: ' Πάτα το σχήμα.', mul: 'Βρες το αποτέλεσμα.',
+          sp: { tiles: 'Πάτα τα γράμματα με τη σωστή σειρά.', trace: 'Γράψε πάνω στα γράμματα με τις τελείες.', copy: 'Αντέγραψε τη λέξη.', memory: 'Άκου και γράψε τη λέξη.' } }, mTaskL: 'Πράξη', mRangeL: 'Τυχαία από', mToL: 'έως', mListL: 'Ακριβώς', mListN: (n, bad) => n + (n === 1 ? ' άσκηση' : ' ασκήσεις') + (n > 1 ? ', μία κάθε φορά' : '') + (bad ? ' \u00B7 ' + bad + (bad === 1 ? ' δεν την κατάλαβα' : ' δεν τις κατάλαβα') : ''),
+        mListPh: { add: 'π.χ. 3+4, 9−5', mul: 'π.χ. 3×4, 12:3', cmp: 'π.χ. 7 9, 15 12', clock: 'π.χ. 3:30, 7:15', setclock: 'π.χ. 3:30, 7:15', _: 'π.χ. 7, 12, 15' }, mPicL: 'Εικόνα', mAnsL: 'Απάντηση', mRobotL: 'Ρομπότ', medHas: 'Το τετράγωνο έχει ήδη: ', medRepl: '. Το OK το αντικαθιστά.', mTask: { count: 'μέτρηση', seq: 'πριν/μετά', cmp: 'σύγκριση', add: 'πρόσθεση/αφαίρεση', pv: 'δεκάδες και μονάδες', build: 'φτιάξε τον αριθμό', money: 'χρήματα', pay: 'πληρωμή', change: 'ρέστα', clock: 'ρολόι', setclock: 'βάλε την ώρα', pattern: 'μοτίβο', mul: 'ομάδες (× :)' }, spWord: 'Λέξη για γράψιμο', spLv: { tiles: 'πλακίδια γραμμάτων', trace: 'ξεσήκωμα', copy: 'αντιγραφή', memory: 'από μνήμης' }, rec: 'Ηχογράφηση βημάτων', iaErr: 'Το αρχείο δεν αποθηκεύτηκε σε αυτή τη συσκευή (ίσως είναι πολύ μεγάλο).', iaUrl: 'Video link', libClose: 'Κλείσιμο', libErr: 'Δεν φορτώθηκαν οι πίστες. Ελέγξτε τη σύνδεση στο internet.', libMore: 'Προσθέστε τη δική σας πίστα', libEmpty: 'Δεν υπάρχουν ακόμη πίστες.', libOfficial: 'Επίσημες πίστες', libPublic: 'Πίστες της κοινότητας', libOpen: 'Βιβλιοθήκη πιστών' }
 };
 let LANG = 'en';
 try { LANG = localStorage.getItem('mbblocks:lang') || ((navigator.language || '').startsWith('el') ? 'el' : 'en'); } catch (e) { /* no storage */ }
@@ -657,6 +778,7 @@ const hex7 = (n) => (n >>> 0).toString(16).padStart(7, '0');
 const ico = (inner) => `<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
 const LIGHTS = [['#3D3D3D', '000000'], ['#F15A24', 'ff0000'], ['#3DDC84', '00ff00'], ['#4D8DFF', '0000ff'], ['#FBB03B', 'ffff00'], ['#FFFFFF', 'ffffff'], ['#FF5CCB', 'ff00ff']];
 const ICON = {
+  grabOpen: ico('<path d="M14 8 H34 M24 3 V8"/><path d="M18 8 L8 25 L13 40"/><path d="M30 8 L40 25 L35 40"/>'), grabClose: ico('<path d="M14 8 H34 M24 3 V8"/><path d="M18 8 L13 24 L20 40"/><path d="M30 8 L35 24 L28 40"/><circle cx="24" cy="30" r="4.5" fill="#fff"/>'),
   evA: ico('<circle cx="24" cy="24" r="20" stroke-width="4"/><path d="M16 34 L24 13 L32 34 M19 27.5 H29" stroke-width="4"/>'),
   evB: ico('<circle cx="24" cy="24" r="20" stroke-width="4"/><path d="M18 13 V35 M18 13 H25 A5.1 5.1 0 0 1 25 23.2 H18 M18 23.2 H26.2 A5.9 5.9 0 0 1 26.2 35 H18" stroke-width="4"/>'),
   evShake: ico('<rect x="15" y="9" width="18" height="30" rx="4"/><path d="M5 17 Q2 24 5 31 M43 17 Q46 24 43 31 M9 20 Q7 24 9 28 M39 20 Q41 24 39 28" stroke-width="4"/>'),
@@ -688,15 +810,17 @@ const DEFS = {
   stop: { cat: 'bot' }, near: { cat: 'bot' }, line: { cat: 'bot' },
   speed: { cat: 'bot', edu: true, vals: [1, 2, 3], def: 2 },                 // only for robots that drive precise distances
   light: { cat: 'bot', vals: [1, 2, 3, 4, 5, 6, 0], def: 1 },
+  grabOpen: { cat: 'addon' }, grabClose: { cat: 'addon' },
   wait: { cat: 'ctl', vals: [1, 2, 3], def: 1 },
   repeat: { cat: 'ctl', end: true, vals: [2, 3, 4, 5], def: 2 },
   forever: { cat: 'ctl', end: true }
 };
-const CATS = [['ev', ['evA', 'evB', 'evShake']], ['disp', ['picture', 'digit', 'clear']], ['snd', ['note']], ['bot', ['fwd', 'back', 'left', 'right', 'stop', 'speed', 'light', 'near', 'line']], ['ctl', ['wait', 'repeat', 'forever']]];
+const CATS = [['ev', ['evA', 'evB', 'evShake']], ['disp', ['picture', 'digit', 'clear']], ['snd', ['note']], ['bot', ['fwd', 'back', 'left', 'right', 'stop', 'speed', 'light', 'near', 'line']], ['ctl', ['wait', 'repeat', 'forever']], ['addon', ['grabOpen', 'grabClose']]];
 const TABICON = {
   ev: '<path d="M10 6 L36 24 L10 42Z" fill="#fff"/>', disp: '<rect x="8" y="8" width="32" height="32" rx="4"/><circle cx="18" cy="18" r="2.5" fill="#fff"/><circle cx="30" cy="30" r="2.5" fill="#fff"/><circle cx="30" cy="18" r="2.5" fill="#fff"/>',
   snd: '<path d="M18 36 V9 L38 5 V32"/><circle cx="13" cy="36" r="5" fill="#fff"/><circle cx="33" cy="32" r="5" fill="#fff"/>',
   bot: '<rect x="12" y="8" width="24" height="32" rx="8"/><path d="M6 14 V22 M42 14 V22 M6 30 V38 M42 30 V38"/>',
+  addon: '<path d="M14 8 H34 M24 3 V8"/><path d="M18 8 L8 25 L13 40"/><path d="M30 8 L40 25 L35 40"/>',
   ctl: '<path d="M9 21 A15 15 0 0 1 36 14"/><path d="M38 6 L37 16 L27 14"/><path d="M39 27 A15 15 0 0 1 12 34"/><path d="M10 42 L11 32 L21 34"/>'
 };
 const numText = (t, v) => (DEFS[t].inf && v === 0 ? '' : String(v));
@@ -924,7 +1048,7 @@ function toggleMark(kind, c, r) {
 }
 function setPlacing(kind) {
   placing = placing === kind ? null : kind;
-  $('#markTarget').classList.toggle('on', placing === 'target'); $('#markTrap').classList.toggle('on', placing === 'trap'); $('#bdPaint').classList.toggle('on', placing === 'paint'); $('#floor').classList.toggle('placing', !!placing);
+  $('#markTarget').classList.toggle('on', placing === 'target'); $('#markTrap').classList.toggle('on', placing === 'trap'); $('#bdPaint').classList.toggle('on', placing === 'paint'); $('#bdMath').classList.toggle('on', placing === 'math'); $('#floor').classList.toggle('placing', !!placing);
 }
 $('#markTarget').addEventListener('click', () => setPlacing('target')); $('#markTrap').addEventListener('click', () => setPlacing('trap'));
 function firstMark(x0, y0, x1, y1) {           // the first target/trap square whose middle the robot drives through (the square it starts in does not count)
@@ -1017,6 +1141,7 @@ $('#previewBtn').addEventListener('click', () => { pv.on = !pv.on; $('#previewBt
 /* ---------- stage tools ---------- */
 $('#floor').addEventListener('click', (e) => {                 // tap a square = start there; tap the robot = turn it a quarter; with a target/trap tool on = place or remove that square
   if (document.body.classList.contains('playing')) return;
+  if (placing === 'math') { const r = $('#floor').getBoundingClientRect(); openMathEditor(clamp(Math.floor((e.clientX - r.left) / r.width * grid.cols), 0, grid.cols - 1), clamp(Math.floor((e.clientY - r.top) / r.height * grid.rows), 0, grid.rows - 1)); return; }
   if (placing === 'paint') { const r = $('#floor').getBoundingClientRect(); openSquareEditor(clamp(Math.floor((e.clientX - r.left) / r.width * grid.cols), 0, grid.cols - 1), clamp(Math.floor((e.clientY - r.top) / r.height * grid.rows), 0, grid.rows - 1)); return; }
   if (placing) { const r = $('#floor').getBoundingClientRect(); toggleMark(placing, clamp(Math.floor((e.clientX - r.left) / r.width * grid.cols), 0, grid.cols - 1), clamp(Math.floor((e.clientY - r.top) / r.height * grid.rows), 0, grid.rows - 1)); return; }
   if (e.target.closest('#bot')) start.h = (start.h + 90) % 360;
@@ -1358,7 +1483,8 @@ async function interForTrack() {                       // what goes into a downl
   const out = [];
   for (const [key, e] of Object.entries(inter.m)) {
     const [col, row] = key.split(',').map(Number);
-    if (e.spell) out.push({ col, row, spell: e.spell });
+    if (e.math) out.push({ col, row, math: e.math });
+    else if (e.spell) out.push({ col, row, spell: e.spell });
     else if (e.url) out.push({ col, row, url: e.url });
     else { const b = await IDB.get(e.id).catch(() => null); if (b && b.size <= 10e6) out.push({ col, row, name: e.name, data: await blobToDataUrl(b) }); }
   }
@@ -1369,7 +1495,8 @@ async function applyInterFromTrack(list) {
   for (const it of list) {
     if (!Number.isInteger(it.col) || !Number.isInteger(it.row) || it.col >= grid.cols || it.row >= grid.rows) continue;
     const key = it.col + ',' + it.row;
-    if (it.spell && it.spell.word) inter.m[key] = { spell: { word: String(it.spell.word).slice(0, 24), level: SPELL_LEVELS.includes(it.spell.level) ? it.spell.level : 'copy', case: it.spell.case === 'lower' ? 'lower' : 'upper', accents: !!it.spell.accents } };
+    if (it.math && typeof it.math === 'object') inter.m[key] = { math: mathClean(it.math) };
+    else if (it.spell && it.spell.word) inter.m[key] = { spell: { word: String(it.spell.word).slice(0, 24), level: SPELL_LEVELS.includes(it.spell.level) ? it.spell.level : 'copy', case: it.spell.case === 'lower' ? 'lower' : 'upper', accents: !!it.spell.accents } };
     else if (it.url) inter.m[key] = { url: String(it.url) };
     else if (it.data) { try { const b = await (await fetch(it.data)).blob(), id = 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); await IDB.put(id, b); inter.m[key] = { id, name: it.name || 'file', mime: b.type }; } catch (e) { /* skip this one */ } }
   }
@@ -1390,6 +1517,7 @@ function embedFor(url) {                               // video sites have a pag
 let mediaUrl = null, mediaDone = null;
 function closeMedia() {
   if (typeof SP !== 'undefined' && SP.done) spClose();
+  if (typeof MB !== 'undefined' && MB.done) mbClose();
   const box = $('#mediabody'); box.querySelectorAll('video').forEach((v) => v.pause()); box.innerHTML = '';
   if (mediaUrl) { URL.revokeObjectURL(mediaUrl); mediaUrl = null; }
   $('#media').classList.remove('open'); const d = mediaDone; mediaDone = null; if (d) d();
@@ -1397,6 +1525,7 @@ function closeMedia() {
 async function showMedia(entry, pic) {                 // resolves when the person closes it
   closeMedia();
   if (entry.spell) return showSpell(entry, pic || null);
+  if (entry.math) return showMath(entry);
   const host = fsCurrent() || document.body; if ($('#media').parentNode !== host) host.appendChild($('#media'));
   const box = $('#mediabody'); let src = entry.url || '', kind = 'page';
   if (entry.id) {
@@ -1423,15 +1552,21 @@ async function checkInter(tok) {                       // after a move: did the 
   if (key !== interShown) interShown = null;
   const e = inter.m[key]; if (!e || interShown === key || (tok && !tok.alive)) return;
   interShown = key;
-  const [c, r] = key.split(',').map(Number), p = showMedia(e, e.spell ? await squarePic(c, r) : null); if (!tok) return p;
-  const w = () => closeMedia(); tok.wake.add(w); await p; tok.wake.delete(w);      // Stop closes it too
+  if (!tok) { const [c, r] = key.split(',').map(Number); return showMedia(e, e.spell ? await squarePic(c, r) : null); }
+  const res = await askInter(key, tok);
+  if (res && res.move > 0 && tok.alive) { await sleep(400, tok); if (tok.alive) await moveBlock({ t: 'fwd', v: res.move }, tok); }   // the answer moves the robot
+}
+async function askInter(key, tok) {                    // show a square's content and wait for it to close (Stop closes it too)
+  const e = inter.m[key]; if (!e) return null; const [c, r] = key.split(',').map(Number);
+  const p = showMedia(e, e.spell ? await squarePic(c, r) : null);
+  const w = () => closeMedia(); tok.wake.add(w); const res = await p; tok.wake.delete(w); return res;
 }
 
 /* the square editor part */
 ED.inter = null;                                      // what the square will have after OK: undefined = unchanged
 function edInterShow() {
   const e = ED.inter, info = $('#edinfo');
-  info.textContent = !e ? '—' : e.spell ? '\u270E ' + (e.spell.case === 'lower' ? e.spell.word : SPL.norm(e.spell.word)) + ' \u00B7 ' + T().spLv[e.spell.level] : e.url ? e.url : '\u{1F4CE} ' + e.name;
+  info.textContent = !e ? '—' : e.math ? '\u{1F522} ' + T().mTask[e.math.task] + ' \u00B7 ' + e.math.min + '\u2013' + e.math.max : e.spell ? '\u270E ' + (e.spell.case === 'lower' ? e.spell.word : SPL.norm(e.spell.word)) + ' \u00B7 ' + T().spLv[e.spell.level] : e.url ? e.url : '\u{1F4CE} ' + e.name;
   if (document.activeElement !== $('#edword')) $('#edword').value = e && e.spell ? e.spell.word : '';
   ED.spLevel = e && e.spell ? e.spell.level : ED.spLevel || 'copy';
   ED.spCase = e && e.spell ? e.spell.case || 'upper' : ED.spCase || 'upper'; ED.spAcc = e && e.spell ? !!e.spell.accents : !!ED.spAcc;
@@ -1471,11 +1606,11 @@ $('#edok').addEventListener('click', async () => {    // keep the interactive co
 /* ---------- record mode: press arrows to store steps, GO runs them one square at a time with a short pause, like a floor robot ---------- */
 const REC_MAX = 40;
 let recMem = [];
-try { recMem = JSON.parse(localStorage.getItem('mbblocks:rec') || '[]').filter((t) => ['fwd', 'back', 'left', 'right'].includes(t)); } catch (e) { /* no storage */ }
+try { recMem = JSON.parse(localStorage.getItem('mbblocks:rec') || '[]').filter((t) => ['fwd', 'back', 'left', 'right', 'grabOpen', 'grabClose'].includes(t)); } catch (e) { /* no storage */ }
 const recSave = () => { try { localStorage.setItem('mbblocks:rec', JSON.stringify(recMem)); } catch (e) { /* no storage */ } };
 function recDraw(now) {
   const box = $('#recmem'); box.innerHTML = '';
-  recMem.forEach((t, i) => { const d = document.createElement('div'); d.className = 'rchip' + (i === now ? ' now' : ''); d.innerHTML = ICON[t]; box.appendChild(d); });
+  recMem.forEach((t, i) => { const d = document.createElement('div'); d.className = 'rchip' + (i === now ? ' now' : '') + (t.startsWith('grab') ? ' gr' : ''); d.innerHTML = ICON[t]; box.appendChild(d); });
   if (now >= 0 && box.children[now]) box.children[now].scrollIntoView({ block: 'nearest', inline: 'nearest' });
   $('#recCount').textContent = recMem.length;
 }
@@ -1489,6 +1624,10 @@ let recNow = false; try { recNow = localStorage.getItem('mbblocks:recnow') === '
 const recQ = [];
 $('#recNow').classList.toggle('on', recNow);
 $('#recNow').addEventListener('click', () => { recNow = !recNow; $('#recNow').classList.toggle('on', recNow); try { localStorage.setItem('mbblocks:recnow', recNow ? '1' : '0'); } catch (e) { /* no storage */ } });
+function recStep(t, tok) {                             // one recorded step: a move of one square or quarter turn, or the grabber
+  if (t === 'grabOpen' || t === 'grabClose') return act({ t }, tok);
+  return moveBlock({ t, v: 1 }, tok);
+}
 function recBegin() {                                 // start moving: a fresh try after a star or trap, otherwise from where the robot is
   stopAll(); if (st.outcome) botReset();
   clearHits(); if (robot().precise) { eduSpeed = edu.spd; recalcCal(); mb.send('P' + eduSpeed); }
@@ -1500,7 +1639,7 @@ function recEnd(tok) {
 }
 async function recPump() {                            // immediate mode: each pressed arrow moves the robot at once (a short queue, so no press is lost)
   if (st.rec) return; const tok = recBegin();
-  while (recQ.length && tok.alive) { const t = recQ.shift(); await moveBlock({ t, v: 1 }, tok); if (recQ.length && tok.alive) await sleep(120, tok); }
+  while (recQ.length && tok.alive) { const t = recQ.shift(); await recStep(t, tok); if (recQ.length && tok.alive) await sleep(120, tok); }
   recQ.length = 0; recEnd(tok);
 }
 document.querySelectorAll('#recpad [data-r]').forEach((b) => b.addEventListener('click', () => {
@@ -1519,7 +1658,7 @@ $('#recGo').addEventListener('click', async () => {
   const tok = recBegin(); document.body.classList.add('recrun');
   await sleep(300, tok);
   for (let i = 0; i < recMem.length && tok.alive; i++) {
-    recDraw(i); await moveBlock({ t: recMem[i], v: 1 }, tok);
+    recDraw(i); await recStep(recMem[i], tok);
     if (tok.alive && i < recMem.length - 1) await sleep(500, tok);      // the pause between steps
   }
   recEnd(tok);
@@ -1566,11 +1705,15 @@ const TIPS = {
   'Grid': 'Πλέγμα', 'Go': 'Πάμε!', 'Filled or outline': 'Γεμάτο ή περίγραμμα', 'Fill': 'Κουβάς (γέμισμα)', 'File': 'Αρχείο', 'Erase memory': 'Σβήσιμο μνήμης',
   'Download my track': 'Λήψη εικόνας της πίστας μου', 'Connect': 'Σύνδεση', 'Circle': 'Κύκλος', 'Camera': 'Κάμερα', 'Brush': 'Πινέλο', 'Backdrop': 'Φόντο από εικόνα',
   'Arrow': 'Βέλος', 'Less': 'Λιγότερο', 'More': 'Περισσότερο', 'Say the word': 'Πες τη λέξη', 'Show how to write it': 'Δείξε πώς γράφεται', 'Skip': 'Παράλειψη',
-  'Letter tiles': 'Πλακίδια γραμμάτων', 'Capitals or lowercase': 'Κεφαλαία ή πεζά', 'Eyedropper': 'Σταγονόμετρο (πάρε χρώμα)', 'Picked colour': 'Χρώμα που πήρες', 'Move at once (remote control)': 'Άμεση κίνηση (τηλεχειριστήριο)', 'Write the accents too': 'Γράφει και τον τόνο', 'Trace the letters': 'Ξεσήκωμα γραμμάτων', 'Copy the word': 'Αντιγραφή της λέξης', 'From memory': 'Από μνήμης (εικόνα και ήχος)'
+  'Letter tiles': 'Πλακίδια γραμμάτων', 'Capitals or lowercase': 'Κεφαλαία ή πεζά', 'Eyedropper': 'Σταγονόμετρο (πάρε χρώμα)', 'Numbers square': 'Τετράγωνο αριθμών', 'Count the money': 'Μέτρησε τα χρήματα', 'Pay the amount': 'Πλήρωσε το ποσό', 'Change': 'Ρέστα', 'Read the clock': 'Διάβασε το ρολόι', 'Set the clock': 'Βάλε την ώρα στο ρολόι', 'Patterns': 'Μοτίβα', 'Groups: times and share': 'Ομάδες: πολλαπλασιασμός και μοιρασιά', 'Step': 'Βήμα', 'Tap the bigger group': 'Πάτα την ομάδα με τα περισσότερα', 'From': 'Από', 'To': 'Έως',
+  'Count': 'Μέτρηση', 'Before, after, between': 'Πριν, μετά, ανάμεσα', 'Compare': 'Σύγκριση', 'Add and take away': 'Πρόσθεση και αφαίρεση', 'Tens and ones': 'Δεκάδες και μονάδες', 'Build the number': 'Φτιάξε τον αριθμό',
+  'Dots': 'Τελείες', 'Ten-frame': 'Δεκάδα (πλαίσιο)', 'Number line': 'Αριθμογραμμή', 'Blocks': 'Κύβοι και ράβδοι', 'No picture': 'Χωρίς εικόνα', 'Add, take away or both': 'Πρόσθεση, αφαίρεση ή και τα δύο', 'Missing number': 'Αριθμός που λείπει',
+  'Number tiles': 'Πλακίδια αριθμών', 'Write the digits': 'Γράψε τα ψηφία', 'Pick from three': 'Διάλεξε από τρία', 'The answer moves the robot': 'Η απάντηση κινεί το ρομπότ', 'Picked colour': 'Χρώμα που πήρες', 'Move at once (remote control)': 'Άμεση κίνηση (τηλεχειριστήριο)', 'Write the accents too': 'Γράφει και τον τόνο', 'Trace the letters': 'Ξεσήκωμα γραμμάτων', 'Copy the word': 'Αντιγραφή της λέξης', 'From memory': 'Από μνήμης (εικόνα και ήχος)'
 };
 const TIPS_EN = { 'From memory': 'From memory (picture and sound)',  'Fill': 'Bucket (fill)', 'Go': 'Go!', 'Backdrop': 'Backdrop from a picture', 'Template': 'Printable track template', 'Record': 'Record steps', 'Download my track': 'Download a picture of my track', 'Reset position': 'Back to the start' };
 const tipText = (en) => (LANG === 'el' ? TIPS[en] : TIPS_EN[en]) || en;
 const BLOCK_TIPS = {
+  grabOpen: ['Open the grabber', 'Άνοιξε την αρπάγη'], grabClose: ['Close the grabber', 'Κλείσε την αρπάγη'],
   evA: ['When button A is pressed', 'Όταν πατηθεί το κουμπί A'], evB: ['When button B is pressed', 'Όταν πατηθεί το κουμπί B'], evShake: ['When shaken', 'Όταν κουνηθεί'],
   picture: ['Show a picture', 'Δείξε μια εικόνα'], digit: ['Show a number', 'Δείξε έναν αριθμό'], clear: ['Clear the screen', 'Καθάρισε την οθόνη'], note: ['Play a sound', 'Παίξε έναν ήχο'],
   fwd: ['Forward', 'Μπροστά'], back: ['Back', 'Πίσω'], left: ['Turn left', 'Στρίψε αριστερά'], right: ['Turn right', 'Στρίψε δεξιά'], stop: ['Stop the robot', 'Σταμάτα το ρομπότ'],
@@ -1579,7 +1722,7 @@ const BLOCK_TIPS = {
 };
 const COLOR_TIPS = { '#1A1A1A': ['Black', 'Μαύρο'], '#FFFFFF': ['White', 'Άσπρο'], '#9E9E9E': ['Grey', 'Γκρι'], '#E53935': ['Red', 'Κόκκινο'], '#F15A24': ['Orange', 'Πορτοκαλί'], '#FFD23F': ['Yellow', 'Κίτρινο'],
   '#3DAA4A': ['Green', 'Πράσινο'], '#0071BC': ['Blue', 'Μπλε'], '#0096EA': ['Light blue', 'Γαλάζιο'], '#8E44AD': ['Purple', 'Μωβ'], '#FF5CCB': ['Pink', 'Ροζ'], '#8B5A2B': ['Brown', 'Καφέ'] };
-const SET_TIPS = { sq: ['Length of one square (cm)', 'Μήκος ενός τετραγώνου (cm)'], spd: ['Speed (cm/s)', 'Ταχύτητα (cm/s)'], speed: ['Motor power', 'Ισχύς κινητήρων'],
+const SET_TIPS = { gOpen: ['Grabber: open (degrees)', 'Αρπάγη: ανοιχτή (μοίρες)'], gClose: ['Grabber: closed (degrees)', 'Αρπάγη: κλειστή (μοίρες)'], gPort: ['Grabber servo plug (S1-S4)', 'Υποδοχή σερβοκινητήρα αρπάγης (S1-S4)'], sq: ['Length of one square (cm)', 'Μήκος ενός τετραγώνου (cm)'], spd: ['Speed (cm/s)', 'Ταχύτητα (cm/s)'], speed: ['Motor power', 'Ισχύς κινητήρων'],
   step: ['Time for one square', 'Χρόνος για ένα τετράγωνο'], turn: ['Time for a quarter turn', 'Χρόνος για ένα τέταρτο στροφής'], cols: ['Columns', 'Στήλες'], rows: ['Rows', 'Γραμμές'] };
 const L2 = (pair) => pair[LANG === 'el' ? 1 : 0];
 function blockTip(cell) { const p = BLOCK_TIPS[cell.dataset.t]; if (p) cell.title = L2(p); }
@@ -1917,7 +2060,7 @@ async function showSpell(entry, pic) {               // pic: a canvas with the s
   const host = fsCurrent() || document.body; if ($('#spell').parentNode !== host) host.appendChild($('#spell'));
   const pc = $('#sppic'), g = pc.getContext('2d'); g.clearRect(0, 0, pc.width, pc.height); pc.hidden = !pic; if (pic) g.drawImage(pic, 0, 0, pc.width, pc.height);
   $('#spmodel').textContent = lv === 'copy' ? word.join('') : ''; $('#spmodel').style.letterSpacing = SP.low ? '.06em' : ''; $('#spmodel').hidden = lv !== 'copy';
-  $('#spSkip').hidden = true; $('#spell').classList.toggle('tiles', lv === 'tiles');
+  $('#spInst').textContent = T().inst.sp[lv]; $('#spSkip').hidden = true; $('#spell').classList.toggle('tiles', lv === 'tiles');
   const boxes = $('#spboxes'); boxes.innerHTML = ''; SP.boxes = [];
   parts.forEach(({ ch, full, marks }) => {
     const el = document.createElement('div'); el.className = 'spbox';
@@ -1942,6 +2085,478 @@ async function squarePic(c, r) {                      // the picture of one squa
   cv.getContext('2d').drawImage(bc, c * SQUARE_PX, r * SQUARE_PX, SQUARE_PX, SQUARE_PX, 0, 0, SQUARE_PX, SQUARE_PX); return cv;
 }
 
+
+/* ---------- the numbers board: count, before/after, compare, add/subtract, tens and ones, build the number ---------- */
+const MATH_TASKS = ['count', 'seq', 'cmp', 'add', 'pv', 'build', 'money', 'pay', 'change', 'clock', 'setclock', 'pattern', 'mul'];
+const MATH_PICS = ['dots', 'frame', 'line', 'blocks', 'none'];
+const MATH_ANS = ['tiles', 'write', 'choice'];
+const MATH_PRESET = { count: [1, 10, 'dots'], seq: [1, 20, 'line'], cmp: [1, 10, 'dots'], add: [0, 10, 'frame'], pv: [10, 99, 'blocks'], build: [10, 99, 'blocks'],
+  money: [1, 10, 'none'], pay: [1, 10, 'none'], change: [1, 9, 'none'], clock: [1, 12, 'none'], setclock: [1, 12, 'none'], pattern: [0, 10, 'none'], mul: [1, 5, 'dots'] };   // starting values: the teacher changes them
+const mathPreset = (t) => { const p = MATH_PRESET[t]; return p ? { min: p[0], max: p[1], pic: p[2] } : null; };
+const rint = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+const pick = (l) => l[Math.floor(Math.random() * l.length)];
+function mathClean(m) {                               // a safe copy of a numbers setting (from the editor or a downloaded track)
+  const t = MATH_TASKS.includes(m.task) ? m.task : 'count', p = mathPreset(t);
+  let min = Number.isFinite(+m.min) ? Math.round(+m.min) : p.min, max = Number.isFinite(+m.max) ? Math.round(+m.max) : p.max;
+  min = clamp(min, 0, 999); max = clamp(max, 0, 999); if (max < min) [min, max] = [max, min]; if (max === min) max = Math.min(999, min + 1);
+  let ans = MATH_ANS.includes(m.ans) || m.ans === 'groups' ? m.ans : 'tiles'; if (t === 'cmp' ? !['tiles', 'groups'].includes(ans) : ans === 'groups') ans = 'tiles';
+  if (t === 'cmp' && m.grade === 'kg' && !m.ans) ans = 'groups';
+  return { task: t, min, max, pic: MATH_PICS.includes(m.pic) ? m.pic : p.pic, ans,
+    op: (MATH_OPS[t] || MATH_OPS.add).includes(m.op) ? m.op : (MATH_OPS[t] || MATH_OPS.add)[0], missing: !!m.missing, move: !!m.move,
+    list: String(m.list || '').slice(0, 200),
+    step: MATH_STEPS[t] ? (MATH_STEPS[t].find((v) => String(v) === String(m.step)) ?? MATH_STEP0[t]) : null };
+}
+function mathMake(m) {                                // a new problem: q = the question line ('?' is where the answer goes), ans, pic = what to draw
+  const fx = mathFix(m), r2 = mathMake2(m, fx); if (r2) return r2;
+  const lo = m.min, hi = m.max;
+  if (m.task === 'count') { const n = fx ? fx.n : rint(Math.max(1, lo), Math.max(1, hi)); return { q: ['?'], ans: n, pic: { k: m.pic === 'none' || m.pic === 'line' ? 'dots' : m.pic, g: [{ n }] } }; }
+  if (m.task === 'seq') {
+    const n = fx ? Math.max(1, fx.n) : rint(lo + 1, Math.max(lo + 1, hi - 1)), f = pick(['before', 'after', 'between']);
+    const q = f === 'before' ? ['?', n] : f === 'after' ? [n, '?'] : [n - 1, '?', n + 1], ans = f === 'before' ? n - 1 : f === 'after' ? n + 1 : n;
+    return { q, ans, pic: m.pic === 'line' ? { k: 'line', lo: n - 4, hi: n + 4, show: q.filter((x) => x !== '?'), hide: ans } : { k: 'none' } };
+  }
+  if (m.task === 'cmp') {
+    let a = rint(lo, hi), b = Math.random() < 0.25 ? a : rint(lo, hi); if (a === b && Math.random() < 0.5) b = clamp(b + pick([-1, 1]), lo, hi);
+    if (fx) { a = fx.a; b = fx.b; }
+    return { q: [a, '?', b], ans: a > b ? '>' : a < b ? '<' : '=', a, b, pic: { k: m.pic, g: [{ n: a }, { n: b }], sides: true } };
+  }
+  if (m.task === 'add') {
+    const op = fx ? fx.op : m.op === '±' ? pick(['+', '-']) : m.op; let a, b, c;
+    if (fx) { a = fx.a; b = fx.b; c = op === '+' ? a + b : a - b; }
+    else if (op === '+') { c = rint(Math.max(lo, 2), Math.max(2, hi)); a = rint(1, c - 1); b = c - a; }
+    else { a = rint(Math.max(lo, 2), Math.max(2, hi)); b = rint(1, a - 1); c = a - b; }
+    const hole = m.missing ? pick(['a', 'b', 'c']) : 'c', q = [hole === 'a' ? '?' : a, op, hole === 'b' ? '?' : b, '=', hole === 'c' ? '?' : c];
+    return { q, ans: hole === 'a' ? a : hole === 'b' ? b : c, op, a, b, c, pic: { k: m.pic, g: op === '+' ? [{ n: a }, { n: b, col: 1 }] : [{ n: a, cross: b }], line: { from: a, by: op === '+' ? b : -b } } };
+  }
+  const n = fx ? fx.n : rint(Math.max(1, lo), Math.max(1, hi));
+  if (m.task === 'pv') return { q: ['?'], ans: n, pic: { k: 'blocks', g: [{ n }] } };
+  return { q: [n], ans: n, build: true, pic: { k: 'blocks', g: [{ n: 0 }] } };      // build the number: the child adds hundreds, tens and ones
+}
+
+/* drawing the pictures (SVG) */
+const MCOL = ['#E53935', '#0071BC'];
+function svgEl(w, h, inner) { return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" style="max-width:100%;height:auto">${inner}</svg>`; }
+function dotsSvg(groups) {                             // rows of five, like a dice or fingers; a crossed-out part for taking away
+  let x = 0, out = '', H = 0; const r = 15, s = 38;
+  groups.forEach((gr, gi) => {
+    const cols = Math.min(5, Math.max(1, gr.n)), rows = Math.max(1, Math.ceil(gr.n / 5)); H = Math.max(H, rows * s);
+    for (let i = 0; i < gr.n; i++) {
+      const cx = x + (i % 5) * s + s / 2, cy = Math.floor(i / 5) * s + s / 2, col = MCOL[gr.col || 0], crossed = gr.cross && i >= gr.n - gr.cross;
+      out += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${crossed ? '#fff' : col}" stroke="${col}" stroke-width="3"/>`;
+      if (crossed) out += `<path d="M${cx - 11} ${cy - 11} L${cx + 11} ${cy + 11} M${cx + 11} ${cy - 11} L${cx - 11} ${cy + 11}" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round"/>`;
+    }
+    x += cols * s + (gi < groups.length - 1 ? 40 : 0);
+  });
+  return svgEl(Math.max(x, 40), Math.max(H, s), out);
+}
+function frameSvg(groups) {                            // ten-frames (2 x 5), filled in order; up to 20
+  const total = groups.reduce((t, g) => t + g.n, 0), frames = Math.max(1, Math.ceil(total / 10)), c = 44, fw = 5 * c, gap = 24; let out = '', k = 0;
+  for (let f = 0; f < frames; f++) for (let i = 0; i < 10; i++) out += `<rect x="${f * (fw + gap) + (i % 5) * c}" y="${Math.floor(i / 5) * c}" width="${c}" height="${c}" fill="#fff" stroke="#1A1A1A" stroke-width="2.5"/>`;
+  groups.forEach((g) => { for (let i = 0; i < g.n; i++, k++) {
+    const f = Math.floor(k / 10), j = k % 10, cx = f * (fw + gap) + (j % 5) * c + c / 2, cy = Math.floor(j / 5) * c + c / 2, col = MCOL[g.col || 0], crossed = g.cross && i >= g.n - g.cross;
+    out += `<circle cx="${cx}" cy="${cy}" r="15" fill="${crossed ? '#fff' : col}" stroke="${col}" stroke-width="3"/>`;
+    if (crossed) out += `<path d="M${cx - 11} ${cy - 11} L${cx + 11} ${cy + 11} M${cx + 11} ${cy - 11} L${cx - 11} ${cy + 11}" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round"/>`;
+  } });
+  return svgEl(frames * (fw + gap) - gap + 4, 2 * c + 4, `<g transform="translate(2 2)">${out}</g>`);
+}
+function blocksSvg(groups) {                           // hundreds (flats), tens (rods) and ones (cubes)
+  const u = 15; let x = 0, out = '';
+  groups.forEach((g, gi) => {
+    const h = Math.floor(g.n / 100), t = Math.floor(g.n % 100 / 10), o = g.n % 10;
+    for (let i = 0; i < h; i++) { out += `<rect x="${x}" y="0" width="${10 * u}" height="${10 * u}" fill="#F15A24" stroke="#1A1A1A" stroke-width="1.5"/>`; for (let k = 1; k < 10; k++) out += `<path d="M${x + k * u} 0 V${10 * u} M${x} ${k * u} H${x + 10 * u}" stroke="#1A1A1A" stroke-width=".6" opacity=".5"/>`; x += 10 * u + 10; }
+    for (let i = 0; i < t; i++) { out += `<rect x="${x}" y="0" width="${u}" height="${10 * u}" fill="#0096EA" stroke="#1A1A1A" stroke-width="1.5"/>`; for (let k = 1; k < 10; k++) out += `<path d="M${x} ${k * u} H${x + u}" stroke="#1A1A1A" stroke-width=".6" opacity=".6"/>`; x += u + 6; }
+    for (let i = 0; i < o; i++) out += `<rect x="${x + (i % 2) * (u + 4)}" y="${10 * u - (Math.floor(i / 2) + 1) * (u + 4) + 4}" width="${u}" height="${u}" fill="#FBB03B" stroke="#1A1A1A" stroke-width="1.5"/>`;
+    if (o) x += 2 * (u + 4) + 6;
+    if (gi < groups.length - 1) x += 30;
+  });
+  return svgEl(Math.max(x, 20), 10 * u + 2, `<g transform="translate(1 1)">${out}</g>`);
+}
+function lineSvg(lo, hi, opt) {                        // a number line; jumps for adding and taking away; hidden numbers stay blank
+  const span = hi - lo, step = span > 300 ? 50 : span > 30 ? 10 : 1, W = 760, x = (v) => 20 + (v - lo) / span * (W - 40), y = 90; let out = `<path d="M10 ${y} H${W - 10}" stroke="#1A1A1A" stroke-width="3"/>`;
+  for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) {
+    const big = v % (step * 5) === 0; out += `<path d="M${x(v)} ${y - (big ? 12 : 8)} V${y + (big ? 12 : 8)}" stroke="#1A1A1A" stroke-width="${big ? 3 : 2}"/>`;
+    const lab = opt.labels ? opt.labels(v) : String(v);
+    if (lab) out += `<text x="${x(v)}" y="${y + 38}" text-anchor="middle" font-size="22" font-weight="700" font-family="Commissioner, Arial, sans-serif" fill="${lab === '?' ? '#F15A24' : '#1A1A1A'}">${lab}</text>`;
+  }
+  if (opt.hops) {                                     // equal hops from 0: times tables
+    const { size, count } = opt.hops;
+    for (let k = 0; k < count; k++) { const a = x(k * size), b = x((k + 1) * size), m = (a + b) / 2, hgt = Math.min(60, 18 + (b - a) / 3); out += `<path d="M${a} ${y - 6} Q${m} ${y - 6 - hgt * 2} ${b} ${y - 6}" fill="none" stroke="${MCOL[1]}" stroke-width="3.5"/><path d="M${b} ${y - 6} l-9 -8 M${b} ${y - 6} l-2 -12" stroke="${MCOL[1]}" stroke-width="3.5" stroke-linecap="round"/>`; }
+  }
+  if (opt.jump) {                                     // one hop per unit when it is small, else one big hop
+    const { from, by } = opt.jump, n = Math.abs(by), hop = n <= 12 ? 1 : n, dir = Math.sign(by) || 1, col = by < 0 ? MCOL[0] : MCOL[1];
+    for (let k = 0; k < n; k += hop) { const a = x(from + dir * k), b = x(from + dir * Math.min(k + hop, n)), m = (a + b) / 2, hgt = Math.min(60, 18 + Math.abs(b - a) / 3);
+      out += `<path d="M${a} ${y - 6} Q${m} ${y - 6 - hgt * 2} ${b} ${y - 6}" fill="none" stroke="${col}" stroke-width="3.5"/><path d="M${b} ${y - 6} l${-dir * 9} -8 M${b} ${y - 6} l${-dir * 2} -12" stroke="${col}" stroke-width="3.5" stroke-linecap="round"/>`; }
+    out += `<circle cx="${x(from)}" cy="${y}" r="8" fill="${MCOL[1]}"/>`;
+  }
+  return svgEl(W, 140, out);
+}
+function mathPic(pr) {                                 // the picture for a problem
+  const r2 = mathPic2(pr); if (r2 !== null) return r2;
+  const p = pr.pic, big = (p.g || []).some((g) => g.n > 20);
+  if (p.k === 'line') {
+    if (pr.pic.show) { const show = new Set(pr.pic.show); return lineSvg(p.lo, p.hi, { labels: (v) => (show.has(v) ? String(v) : v === p.hide ? '?' : '') }); }
+    if (p.line) { const a = p.line.from, b = a + p.line.by, lo = Math.max(0, Math.floor(Math.min(a, b) / 10) * 10 - (Math.max(a, b) <= 20 ? 0 : 0)), hi = Math.max(lo + 10, Math.ceil(Math.max(a, b) / 10) * 10);
+      return lineSvg(lo, hi, { labels: (v) => (v % 5 === 0 || v === a ? String(v) : ''), jump: p.line }); }
+    return '';
+  }
+  if (p.k === 'none' || !p.g) return '';
+  if (p.k === 'blocks' || big) return blocksSvg(p.g);
+  if (p.k === 'frame' && p.g.reduce((t, g) => t + g.n, 0) <= 20 && !p.sides) return frameSvg(p.g);
+  if (p.sides && p.k === 'frame') return p.g.map((g) => (g.n <= 20 ? frameSvg([g]) : blocksSvg([g]))).join('<span class="mgap"></span>');
+  return p.sides ? p.g.map((g) => dotsSvg([g])).join('<span class="mgap"></span>') : dotsSvg(p.g);
+}
+
+
+/* ---------- numbers board, round 2: money, the clock, patterns, groups (× and :) ---------- */
+const MATH_STEPS = { clock: [60, 30, 15, 5], setclock: [60, 30, 15, 5], pattern: ['AB', 'AAB', 'ABB', 'ABC', 1, 2, 3, 5, 10, -1, -2, -5, -10] };
+const MATH_STEP0 = { clock: 30, setclock: 60, pattern: 2 };
+const MATH_OPS = { add: ['+', '-', '±'], mul: ['×', ':', '×:'] };
+const SHAPES_P = [{ s: 'circle', c: '#E53935' }, { s: 'square', c: '#0071BC' }, { s: 'tri', c: '#3DAA4A' }, { s: 'star', c: '#FBB03B' }, { s: 'heart', c: '#FF5CCB' }];
+function shapeSvg(sh, size) {                          // one coloured shape for the patterns
+  const z = size || 56, c = sh.c; let d;
+  if (sh.s === 'circle') d = `<circle cx="24" cy="24" r="17" fill="${c}"/>`;
+  else if (sh.s === 'square') d = `<rect x="8" y="8" width="32" height="32" rx="3" fill="${c}"/>`;
+  else if (sh.s === 'tri') d = `<path d="M24 6 L42 40 H6 Z" fill="${c}"/>`;
+  else if (sh.s === 'star') d = `<polygon points="24,5 29,18 43,18 32,27 36,41 24,33 12,41 16,27 5,18 19,18" fill="${c}"/>`;
+  else d = `<path d="M24 41 C14 33 6 27 6 17 A9 9 0 0 1 24 13 A9 9 0 0 1 42 17 C42 27 34 33 24 41 Z" fill="${c}"/>`;
+  return `<svg viewBox="0 0 48 48" width="${z}" height="${z}">${d}</svg>`;
+}
+function moneySplit(A) {                              // coins and notes for an amount: the fewest, then sometimes a few broken into smaller ones
+  const out = []; [50, 20, 10, 5, 2, 1].forEach((d) => { while (A >= d) { out.push(d); A -= d; } });
+  const brk = { 2: [1, 1], 5: [2, 2, 1], 10: [5, 5], 20: [10, 10], 50: [20, 20, 10] };
+  for (let k = 0; k < 2 && out.length < 6; k++) { if (Math.random() < 0.5) continue; const i = out.findIndex((d) => brk[d]); if (i >= 0) out.splice(i, 1, ...brk[out[i]]); }
+  return out.sort((a, b) => b - a);
+}
+const NOTE_COL = { 5: '#B0B4B8', 10: '#E57373', 20: '#64B5F6', 50: '#FFB74D', 100: '#81C784' };
+function moneyItem(d, x, y) {                         // a coin (1 €, 2 €) or a note: simple shapes, not copies of the real ones
+  if (d <= 2) {
+    const outer = d === 1 ? '#F2C94C' : '#C9CDD2', inner = d === 1 ? '#C9CDD2' : '#F2C94C';
+    return `<g transform="translate(${x} ${y})"><circle cx="30" cy="30" r="29" fill="${outer}" stroke="#1A1A1A" stroke-width="2"/><circle cx="30" cy="30" r="19" fill="${inner}"/><text x="30" y="37" text-anchor="middle" font-size="19" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">${d}€</text></g>`;
+  }
+  return `<g transform="translate(${x} ${y})"><rect x="0" y="0" width="120" height="62" rx="5" fill="${NOTE_COL[d] || '#ccc'}" stroke="#1A1A1A" stroke-width="2"/><rect x="8" y="8" width="104" height="46" rx="3" fill="none" stroke="#fff" stroke-width="2"/><text x="60" y="42" text-anchor="middle" font-size="28" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">${d} €</text></g>`;
+}
+function moneySvg(items, tag) {                        // a row of money (wraps after 6), and an optional price tag
+  let x = 0, y = 0, out = '', W = 0; const row = 6;
+  items.forEach((d, i) => { if (i && i % row === 0) { x = 0; y += 76; } const w = d <= 2 ? 60 : 120; out += moneyItem(d, x, y + (d <= 2 ? 1 : 0)); x += w + 12; W = Math.max(W, x); });
+  if (tag != null) { out += `<g transform="translate(${W + 20} 6)"><path d="M0 25 L18 0 H96 V50 H18 Z" fill="#fff" stroke="#1A1A1A" stroke-width="2.5"/><circle cx="16" cy="25" r="5" fill="#1A1A1A"/><text x="58" y="34" text-anchor="middle" font-size="24" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#E53935">${tag} €</text></g>`; W += 120; }
+  return svgEl(Math.max(W, 60), y + 66, out);
+}
+function clockSvg(h, m) {                              // a clock face: short black hour hand, long blue minute hand
+  const R = 100, c = 110; let out = `<circle cx="${c}" cy="${c}" r="${R}" fill="#fff" stroke="#1A1A1A" stroke-width="5"/>`;
+  for (let k = 0; k < 60; k++) { const a = k * 6 * Math.PI / 180, r1 = k % 5 ? R - 7 : R - 13; out += `<path d="M${c + Math.sin(a) * r1} ${c - Math.cos(a) * r1} L${c + Math.sin(a) * (R - 3)} ${c - Math.cos(a) * (R - 3)}" stroke="#1A1A1A" stroke-width="${k % 5 ? 1.5 : 3.5}"/>`; }
+  for (let n = 1; n <= 12; n++) { const a = n * 30 * Math.PI / 180; out += `<text x="${c + Math.sin(a) * (R - 30)}" y="${c - Math.cos(a) * (R - 30) + 8}" text-anchor="middle" font-size="22" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">${n}</text>`; }
+  const ah = ((h % 12) + m / 60) * 30 * Math.PI / 180, am = m * 6 * Math.PI / 180;
+  out += `<path d="M${c} ${c} L${c + Math.sin(ah) * 52} ${c - Math.cos(ah) * 52}" stroke="#1A1A1A" stroke-width="10" stroke-linecap="round"/>`;
+  out += `<path d="M${c} ${c} L${c + Math.sin(am) * 82} ${c - Math.cos(am) * 82}" stroke="#0071BC" stroke-width="6" stroke-linecap="round"/><circle cx="${c}" cy="${c}" r="7" fill="#1A1A1A"/>`;
+  return svgEl(2 * c, 2 * c, out);
+}
+function groupsSvg(a, b) {                             // a groups of b: dots inside circles
+  const per = Math.min(5, b), rows = Math.ceil(b / 5), s = 34, w = per * s + 16, h = rows * s + 16; let out = '';
+  for (let g = 0; g < a; g++) {
+    const x0 = g * (w + 14); out += `<rect x="${x0}" y="0" width="${w}" height="${h}" rx="${Math.min(w, h) / 2}" fill="#F4F8FB" stroke="#0071BC" stroke-width="2.5"/>`;
+    for (let i = 0; i < b; i++) out += `<circle cx="${x0 + 8 + (i % 5) * s + s / 2}" cy="${8 + Math.floor(i / 5) * s + s / 2}" r="12" fill="#E53935"/>`;
+  }
+  return svgEl(a * (w + 14) - 14, h, out);
+}
+function arraySvg(a, b) {                              // a rows of b
+  const s = 42; let out = '';
+  for (let r = 0; r < a; r++) for (let c = 0; c < b; c++) out += `<circle cx="${c * s + s / 2}" cy="${r * s + s / 2}" r="15" fill="${r % 2 ? '#0071BC' : '#E53935'}"/>`;
+  return svgEl(b * s, a * s, out);
+}
+function shareSvg(total, plates) {                     // sharing: all the dots, and the empty plates to share them on
+  const s = 34, per = 10, rows = Math.ceil(total / per); let out = '';
+  for (let i = 0; i < total; i++) out += `<circle cx="${(i % per) * s + s / 2}" cy="${Math.floor(i / per) * s + s / 2}" r="12" fill="#E53935"/>`;
+  const y = rows * s + 20, pw = 70;
+  for (let p = 0; p < plates; p++) out += `<ellipse cx="${p * (pw + 12) + pw / 2}" cy="${y + 22}" rx="${pw / 2}" ry="20" fill="#fff" stroke="#0071BC" stroke-width="3"/>`;
+  return svgEl(Math.max(per * s, plates * (pw + 12)), y + 46, out);
+}
+function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+/* exact numbers chosen by the teacher: a list such as "3+4, 9−5"; one is picked each time (not the same twice in a row) */
+const MATH_LAST = {};
+function mathList(m) {
+  const t = m.task, out = []; let bad = 0;
+  (m.list || '').split(/[,;\n]+/).map((x) => x.trim().replace(/−/g, '-').replace(/[x*×χ]/gi, '×').replace(/÷|\//g, ':')).filter(Boolean).forEach((it) => {
+    let r = null, v = null;
+    if (t === 'add') { if ((r = it.match(/^(\d+)\s*([+-])\s*(\d+)$/)) && (r[2] === '+' || +r[1] >= +r[3])) v = { a: +r[1], op: r[2], b: +r[3] }; }
+    else if (t === 'mul') { if ((r = it.match(/^(\d+)\s*([×:])\s*(\d+)$/)) && +r[3] > 0 && +r[1] > 0 && (r[2] === '×' || +r[1] % +r[3] === 0)) v = { a: +r[1], op: r[2], b: +r[3] }; }
+    else if (t === 'cmp') { if ((r = it.match(/^(\d+)\s+(\d+)$/))) v = { a: +r[1], b: +r[2] }; }
+    else if (t === 'clock' || t === 'setclock') { if ((r = it.match(/^(\d{1,2})(?::(\d{2}))?$/)) && +r[1] >= 1 && +r[1] <= 12 && +(r[2] || 0) < 60) v = { h: +r[1], m: +(r[2] || 0) }; }
+    else if (/^\d+$/.test(it) && +it <= 999 && (+it > 0 || t === 'pattern')) v = { n: +it };
+    if (v) out.push(v); else bad++;
+  });
+  out.bad = bad; return out;
+}
+function mathFix(m) {
+  const l = mathList(m); if (!l.length) return null;
+  let k = rint(0, l.length - 1); const key = m.task + '|' + m.list; if (l.length > 1 && k === MATH_LAST[key]) k = (k + 1) % l.length; MATH_LAST[key] = k; return l[k];
+}
+function mathMake2(m, fx) {                           // the new tasks (null = not one of them)
+  const lo = m.min, hi = m.max, num = (a, b) => (fx && fx.n != null ? fx.n : rint(a, b));
+  if (m.task === 'money') { const A = num(Math.max(1, lo), Math.max(1, hi)); return { q: ['?', '€'], ans: A, pic: { k: 'money', items: moneySplit(A) } }; }
+  if (m.task === 'pay') { const A = num(Math.max(1, lo), Math.max(1, hi)); return { q: [A, '€'], ans: A, pay: true, pic: { k: 'none' } }; }
+  if (m.task === 'change') {
+    const P = Math.min(99, num(Math.max(1, lo), Math.max(1, Math.min(hi, 99)))), note = [5, 10, 20, 50, 100].find((d) => d > P);
+    return { q: [note, '−', P, '=', '?', '€'], ans: note - P, pic: { k: 'money', items: [note], tag: P } };
+  }
+  if (m.task === 'clock' || m.task === 'setclock') {
+    const st = +m.step || 60, h = fx ? fx.h : rint(clamp(lo, 1, 12), clamp(hi, 1, 12)), mm = fx ? fx.m : st === 60 ? 0 : rint(0, 60 / st - 1) * st, txt = h + ':' + pad2(mm);
+    if (m.task === 'setclock') return { q: [txt], ans: txt, clockSet: { h, m: mm, step: fx && mm % st ? [30, 15, 5, 1].find((v) => mm % v === 0) : st }, pic: { k: 'none' } };
+    const near = [[h % 12 + 1, mm], [(h + 10) % 12 + 1, mm], [h, (mm + st) % 60], [h, (mm + 60 - st) % 60], [mm / 5 || 12, h * 5 % 60]].map(([a, b]) => a + ':' + pad2(b)).filter((t) => t !== txt);
+    return { q: ['?', ':', '?'], ans: txt, holes: [String(h), pad2(mm)], noPlace: true, opts: [txt, ...[...new Set(near)].sort(() => Math.random() - 0.5).slice(0, 2)], pic: { k: 'clock', h, m: mm } };
+  }
+  if (m.task === 'pattern') {
+    const st = m.step;
+    if (typeof st === 'string') {                     // shapes: AB, AAB, ABB, ABC
+      const pal = SHAPES_P.slice().sort(() => Math.random() - 0.5), letters = [...st], unit = letters.map((L) => pal[L.charCodeAt(0) - 65]);
+      const seq = []; while (seq.length < Math.max(8, unit.length * 3)) seq.push(...unit); seq.length = Math.max(8, unit.length * 3);
+      const hole = rint(Math.max(2, unit.length), seq.length - 1), ans = seq[hole], extra = pal.find((p) => !unit.includes(p));
+      return { q: seq.map((x, i) => (i === hole ? '?' : { shape: x })), ans: ans.s, shape: ans, shapeOpts: [...new Set([...unit, extra])].sort(() => Math.random() - 0.5), pic: { k: 'none' } };
+    }
+    const d = +st, n = 5, a0 = fx ? Math.max(fx.n, d < 0 ? -d * (n - 1) : 0) : d > 0 ? rint(Math.max(0, lo), Math.max(0, hi)) : rint(Math.max(lo, -d * (n - 1)), Math.max(hi, -d * (n - 1)));
+    const terms = Array.from({ length: n }, (_, i) => a0 + i * d), hole = rint(1, n - 1), q = [];
+    terms.forEach((t, i) => { if (i) q.push(','); q.push(i === hole ? '?' : t); });
+    return { q, ans: terms[hole], pic: { k: 'none' } };
+  }
+  if (m.task === 'mul') {
+    let op = m.op === '×:' ? pick(['×', ':']) : m.op, a = rint(Math.max(1, lo), Math.max(1, hi)), b = rint(Math.max(1, lo), Math.max(1, hi));
+    if (fx) { op = fx.op; if (op === '×') { a = fx.a; b = fx.b; } else { a = fx.b; b = fx.a / fx.b; } }
+    const big = a * b > 50 || a > 10;                  // too many dots to count: a number line with equal hops instead
+    if (op === '×') return { q: [a, '×', b, '=', '?'], ans: a * b, pic: m.pic === 'none' ? { k: 'none' } : m.pic === 'line' || big ? { k: 'hops', a, b } : m.pic === 'frame' ? { k: 'array', a, b } : { k: 'groups', a, b } };
+    return { q: [a * b, ':', a, '=', '?'], ans: b, pic: m.pic === 'none' ? { k: 'none' } : m.pic === 'line' || big ? { k: 'hops', a, b } : { k: 'share', total: a * b, plates: a } };
+  }
+  return null;
+}
+function mathPic2(pr) {
+  const p = pr.pic;
+  if (p.k === 'money') return moneySvg(p.items, p.tag);
+  if (p.k === 'clock') return clockSvg(p.h, p.m);
+  if (p.k === 'groups') return groupsSvg(p.a, p.b);
+  if (p.k === 'array') return arraySvg(p.a, p.b);
+  if (p.k === 'share') return shareSvg(p.total, p.plates);
+  if (p.k === 'hops') { const end = Math.max(10, Math.ceil(p.a * p.b / 10) * 10), ls = end <= 20 ? 5 : end <= 120 ? 10 : end <= 300 ? 50 : 100; return lineSvg(0, end, { labels: (v) => (v % ls === 0 ? String(v) : ''), hops: { size: p.b, count: p.a } }); }
+  return null;
+}
+/* paying: tap coins and notes to put them on the table; tap one on the table to take it back */
+function mbPayDraw() {
+  const pic = $('#mbpic'); pic.innerHTML = '';
+  const t = document.createElement('div'); t.className = 'mtable';
+  MB.paid.forEach((d, i) => { const b = document.createElement('button'); b.className = 'mcoin'; b.innerHTML = moneySvg([d]); b.addEventListener('click', () => { MB.paid.splice(i, 1); mbPayDraw(); }); t.appendChild(b); });
+  pic.appendChild(t);
+}
+function mbPayKeys(box, add) {
+  const max = Math.max(MB.pr.ans, 1);
+  [1, 2, 5, 10, 20, 50].filter((d) => d <= Math.max(2, max)).forEach((d) => {
+    const b = document.createElement('button'); b.className = 'mkey mcoin'; b.innerHTML = moneySvg([d]);
+    b.addEventListener('click', () => { if (MB.paid.length < 15) { MB.paid.push(d); MB.paid.sort((x, y) => y - x); tone(660, 50); mbPayDraw(); } }); box.appendChild(b);
+  });
+  add('✓', (b) => { if (MB.paid.reduce((s, d) => s + d, 0) === MB.pr.ans) mbWin(); else mbWrong(b); }, 'ok');
+}
+/* setting the clock: buttons turn the hands */
+function mbClockDraw() { $('#mbpic').innerHTML = clockSvg(Math.floor(MB.clk / 60) % 12 || 12, MB.clk % 60); }
+function mbClockKeys(box, add) {
+  const cs = MB.pr.clockSet, hand = (long) => `<svg viewBox="0 0 48 48" width="34" height="34"><circle cx="24" cy="24" r="21" fill="#fff" stroke="#1A1A1A" stroke-width="3"/><path d="M24 24 V${long ? 7 : 13}" stroke="${long ? '#0071BC' : '#1A1A1A'}" stroke-width="${long ? 4 : 6}" stroke-linecap="round"/></svg>`;
+  [[60, false], [cs.step === 60 ? 0 : cs.step, true]].forEach(([d, long]) => {
+    if (!d) return; const g = document.createElement('div'); g.className = 'mbuild'; g.innerHTML = hand(long);
+    const mk = (txt, dd) => { const b = document.createElement('button'); b.className = 'mkey sm'; b.textContent = txt; b.addEventListener('click', () => { MB.clk = (MB.clk + dd + 720) % 720; tone(600, 30); mbClockDraw(); }); return b; };
+    g.prepend(mk('−', -d)); g.appendChild(mk('+', d)); box.appendChild(g);
+  });
+  add('✓', (b) => { if (MB.clk === (cs.h % 12) * 60 + cs.m) mbWin(); else mbWrong(b); }, 'ok');
+}
+
+/* the board */
+const MB = { m: null, pr: null, done: null, tries: 0, slots: [], fill: '', winT: 0, timer: 0, build: [0, 0, 0] };
+function mbClose(res) {
+  clearTimeout(MB.timer); clearTimeout(MB.winT); $('#mathb').classList.remove('open', 'won');
+  const d = MB.done; MB.done = null; MB.m = null; if (d) d(res || { ok: false });
+}
+function mbWin() {
+  [523, 659, 784, 1047].forEach((f, k) => setTimeout(() => tone(f, 140), k * 150)); $('#mathb').classList.add('won');
+  const a = MB.pr.ans, mv = MB.m.move && typeof a === 'number' && Number.isInteger(a) && a > 0 && a <= 20 ? a : 0;
+  MB.winT = setTimeout(() => mbClose({ ok: true, move: mv }), 1600);
+}
+function mbWrong(el) {
+  MB.tries++; tone(220, 160); if (el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+  if (MB.tries >= 3) $('#mbSkip').hidden = false;
+}
+function mbPlace(ch) {                                 // a place-value label above each digit box: Ε Δ Μ / H T O
+  return (LANG === 'el' ? ['Ε', 'Δ', 'Μ'] : ['H', 'T', 'O'])[3 - ch];
+}
+function mbQuestion() {                                // the question line, with the answer place (tiles, writing boxes or a sign)
+  const q = $('#mbq'); q.innerHTML = ''; MB.slots = []; MB.fill = '';
+  const pr = MB.pr; let hk = 0;
+  if (typeof pr.ans === 'number' && !pr.holes) pr.holes = [String(pr.ans)];
+  pr.q.forEach((tok) => {
+    if (tok && tok.shape) { const s = document.createElement('span'); s.className = 'mtok shp'; s.innerHTML = shapeSvg(tok.shape, 52); q.appendChild(s); return; }
+    if (tok !== '?') { const s = document.createElement('span'); s.className = 'mtok' + (tok === ',' ? ' comma' : ''); s.textContent = tok === '-' ? '−' : String(tok); q.appendChild(s); return; }
+    const hole = document.createElement('span'); hole.className = 'mhole'; q.appendChild(hole);
+    if (!pr.holes) { const b = document.createElement('span'); b.className = 'mslot sign' + (pr.shape ? ' shp' : ''); hole.appendChild(b); MB.slots.push({ el: b, d: pr.ans }); return; }
+    const hs = pr.holes[hk++] || '', digits = hs.length;
+    hs.split('').forEach((d, i) => {
+      const wrap = document.createElement('span'); wrap.className = 'mslotw';
+      if (digits > 1 && !pr.noPlace) { const lab = document.createElement('i'); lab.textContent = mbPlace(digits - i); wrap.appendChild(lab); }
+      const b = document.createElement('span'); b.className = 'mslot'; wrap.appendChild(b); hole.appendChild(wrap);
+      const slot = { el: b, d, ok: false, strokes: [] };
+      if (MB.m.ans === 'write') { slot.cv = document.createElement('canvas'); b.appendChild(slot.cv); b.classList.add('wr'); mbWriteEvents(slot); }
+      MB.slots.push(slot);
+    });
+  });
+}
+/* answering with tiles */
+function mbKeys() {
+  const box = $('#mbkeys'); box.innerHTML = ''; const pr = MB.pr;
+  const add = (label, fn, cls) => { const b = document.createElement('button'); b.className = 'mkey' + (cls ? ' ' + cls : ''); b.textContent = label; b.addEventListener('click', () => fn(b)); box.appendChild(b); return b; };
+  if (pr.pay) { mbPayKeys(box, add); return; }
+  if (pr.clockSet) { mbClockKeys(box, add); return; }
+  if (pr.shape) {                                      // patterns of shapes: tap the shape that is missing
+    pr.shapeOpts.forEach((sh) => { const b = document.createElement('button'); b.className = 'mkey shp'; b.innerHTML = shapeSvg(sh, 50);
+      b.addEventListener('click', () => { if (sh === pr.shape) { MB.slots[0].el.innerHTML = shapeSvg(sh, 50); MB.slots[0].el.classList.add('ok'); mbWin(); } else mbWrong(b); }); box.appendChild(b); });
+    return;
+  }
+  if (pr.build) {                                      // build the number with blocks
+    const kinds = MB.m.max >= 100 ? [100, 10, 1] : [10, 1];
+    kinds.forEach((v) => {
+      const i = v === 100 ? 0 : v === 10 ? 1 : 2, grp = document.createElement('div'); grp.className = 'mbuild';
+      grp.innerHTML = `<span class="mbk k${v}"></span>`; const minus = document.createElement('button'), plus = document.createElement('button');
+      minus.className = 'mkey sm'; minus.textContent = '−'; plus.className = 'mkey sm'; plus.textContent = '+';
+      minus.addEventListener('click', () => { MB.build[i] = Math.max(0, MB.build[i] - 1); mbBuildDraw(); });
+      plus.addEventListener('click', () => { MB.build[i] = Math.min(9, MB.build[i] + 1); mbBuildDraw(); });
+      grp.prepend(minus); grp.appendChild(plus); box.appendChild(grp);
+    });
+    add('✓', (b) => { const n = MB.build[0] * 100 + MB.build[1] * 10 + MB.build[2]; if (n === pr.ans) mbWin(); else mbWrong(b); }, 'ok');
+    return;
+  }
+  if (!pr.holes) {                                     // compare: the three signs (in kindergarten: tap the bigger group, or =)
+    if (MB.m.ans === 'groups') {
+      document.querySelectorAll('#mbpic .mside').forEach((s, k) => s.addEventListener('click', () => mbSign(k ? '<' : '>', s)));
+      add('=', (b) => mbSign('=', b)); return;
+    }
+    ['<', '=', '>'].forEach((s) => add(s, (b) => mbSign(s, b)));
+    return;
+  }
+  if (MB.m.ans === 'write') return;
+  if (MB.m.ans === 'choice' && pr.opts) {             // choices that are not plain numbers (times on the clock)
+    pr.opts.slice().sort(() => Math.random() - 0.5).forEach((v) => add(v, (b) => { if (v === pr.ans) { const dg = pr.holes.join(''); MB.slots.forEach((s, i) => { s.el.textContent = dg[i]; s.el.classList.add('ok'); }); mbWin(); } else mbWrong(b); }, 'wide'));
+    return;
+  }
+  if (MB.m.ans === 'choice') {
+    const a = pr.ans, c = [a - 1, a + 1, a - 2, a + 2, a + 10, a - 10].filter((v) => v >= 0 && v !== a);
+    const opts = [a]; while (opts.length < 3 && c.length) opts.push(c.splice(Math.floor(Math.random() * Math.min(4, c.length)), 1)[0]);
+    opts.sort(() => Math.random() - 0.5).forEach((v) => add(String(v), (b) => { if (v === a) { MB.slots.forEach((s, i) => { s.el.textContent = String(a)[i]; s.el.classList.add('ok'); }); mbWin(); } else mbWrong(b); }, 'wide'));
+    return;
+  }
+  for (let d = 1; d <= 10; d++) { const v = d % 10; add(String(v), () => mbDigit(String(v))); }
+  add('⌫', () => { const s = MB.slots[MB.fill.length - 1]; if (!s) return; MB.fill = MB.fill.slice(0, -1); s.el.textContent = ''; }, 'back');
+}
+function mbDigit(d) {
+  if (MB.fill.length >= MB.slots.length) return;
+  MB.slots[MB.fill.length].el.textContent = d; MB.fill += d; tone(660, 50);
+  if (MB.fill.length < MB.slots.length) return;
+  if (MB.fill === MB.pr.holes.join('')) { MB.slots.forEach((s) => s.el.classList.add('ok')); mbWin(); }
+  else { mbWrong($('#mbq .mhole')); setTimeout(() => { MB.fill = ''; MB.slots.forEach((s) => { s.el.textContent = ''; }); }, 700); }
+}
+function mbSign(s, el) {
+  if (s === MB.pr.ans) { const sl = MB.slots[0]; sl.el.textContent = s; sl.el.classList.add('ok'); mbWin(); } else mbWrong(el);
+}
+function mbBuildDraw() { $('#mbpic').innerHTML = blocksSvg([{ n: MB.build[0] * 100 + MB.build[1] * 10 + MB.build[2] }]) || ''; }
+/* answering by writing the digits (checked like letters) */
+function mbDrawSlot(s) {
+  const g = s.cv.getContext('2d'), W = s.cv.width, H = s.cv.height; g.clearRect(0, 0, W, H);
+  g.strokeStyle = '#B9C7D3'; g.lineWidth = 2; [0.16, 0.78].forEach((f) => { g.beginPath(); g.moveTo(0, H * f); g.lineTo(W, H * f); g.stroke(); });
+  if (s.hint && !s.ok) {                               // after three tries: the digit, dotted
+    const S = SPL.SHAPES[s.d][0], e = SPL.ext[s.d], k = H * 0.62, off = W / 2 - (e.l + e.r) / 2 * k;
+    g.strokeStyle = '#9BB3C8'; g.lineWidth = W * 0.05; g.lineCap = 'round'; g.setLineDash([2, W * 0.08]);
+    S.forEach((st) => { g.beginPath(); st.forEach((p, j) => g[j ? 'lineTo' : 'moveTo'](off + p[0] * k, H * 0.16 + p[1] * k)); g.stroke(); }); g.setLineDash([]);
+  }
+  g.strokeStyle = s.ok ? '#3DAA4A' : s.bad ? '#E53935' : '#1A1A1A'; g.lineWidth = Math.max(6, W * 0.07); g.lineCap = 'round'; g.lineJoin = 'round';
+  s.strokes.forEach((st) => { g.beginPath(); st.forEach((p, j) => g[j ? 'lineTo' : 'moveTo'](p[0], p[1])); if (st.length === 1) g.lineTo(st[0][0] + 0.1, st[0][1]); g.stroke(); });
+}
+function mbWriteEvents(s) {
+  const pt = (e) => { const r = s.cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * s.cv.width, (e.clientY - r.top) / r.height * s.cv.height]; };
+  let cur = null;
+  s.cv.addEventListener('pointerdown', (e) => { if (s.ok) return; e.preventDefault(); clearTimeout(s.t); if (s.bad) { s.bad = false; s.strokes = []; } try { s.cv.setPointerCapture(e.pointerId); } catch (err) { /* fine */ } cur = [pt(e)]; s.strokes.push(cur); mbDrawSlot(s); });
+  s.cv.addEventListener('pointermove', (e) => { if (!cur) return; const p = pt(e), q = cur[cur.length - 1]; if (Math.hypot(p[0] - q[0], p[1] - q[1]) < 2) return; cur.push(p); mbDrawSlot(s); });
+  const up = () => {
+    if (!cur) return; cur = null; clearTimeout(s.t);
+    s.t = setTimeout(() => {
+      const len = (st) => { let L = 0; for (let k = 1; k < st.length; k++) L += Math.hypot(st[k][0] - st[k - 1][0], st[k][1] - st[k - 1][1]); return L; };
+      const body = s.strokes.filter((st) => len(st) > s.cv.width * 0.06); if (!body.length) { s.strokes = []; mbDrawSlot(s); return; }
+      if (SPL.check(body, s.d).ok) { s.strokes = body; s.ok = true; s.el.classList.add('ok'); tone(880, 90); mbDrawSlot(s); if (MB.slots.every((x) => x.ok)) mbWin(); }
+      else { s.bad = true; mbDrawSlot(s); mbWrong(s.el); if (MB.tries >= 3) MB.slots.forEach((x) => { x.hint = true; mbDrawSlot(x); }); setTimeout(() => { if (s.bad) { s.bad = false; s.strokes = []; mbDrawSlot(s); } }, 900); }
+    }, 1100);
+  };
+  s.cv.addEventListener('pointerup', up); s.cv.addEventListener('pointercancel', up);
+}
+function mbLayout() { MB.slots.forEach((s) => { if (!s.cv) return; const r = s.el.getBoundingClientRect(); s.cv.width = Math.round(r.width * 2); s.cv.height = Math.round(r.height * 2); mbDrawSlot(s); }); }
+async function showMath(entry) {                       // resolves with { ok, move } when the board closes
+  MB.m = mathClean(entry.math); MB.pr = mathMake(MB.m); MB.tries = 0; MB.build = [0, 0, 0]; MB.paid = []; MB.clk = 0;
+  const host = fsCurrent() || document.body; if ($('#mathb').parentNode !== host) host.appendChild($('#mathb'));
+  const pic = $('#mbpic'); pic.innerHTML = MB.pr.build ? '' : mathPic(MB.pr);
+  if (MB.pr.pic.sides && MB.m.ans === 'groups') {      // compare by tapping the bigger group: the two groups are big buttons
+    const parts = pic.innerHTML.split('<span class="mgap"></span>'); pic.innerHTML = parts.map((h) => `<button class="mside">${h}</button>`).join('<span class="mgap"></span>');
+    if (!parts[0]) pic.innerHTML = `<button class="mside">${dotsSvg([{ n: MB.pr.a }])}</button><span class="mgap"></span><button class="mside">${dotsSvg([{ n: MB.pr.b }])}</button>`;
+  }
+
+  const I = T().inst, m = MB.m;                        // a short instruction in the top bar
+  $('#mbInst').textContent = ['build', 'pay', 'setclock'].includes(m.task) ? I[m.task] : m.task === 'cmp' ? (m.ans === 'groups' ? I.groups : I.cmp) : MB.pr.shape ? I.pattern + I.shape : I[m.task] + I[m.ans];
+  $('#mbSkip').hidden = true; mbQuestion(); mbKeys(); if (MB.pr.build) mbBuildDraw(); if (MB.pr.pay) mbPayDraw(); if (MB.pr.clockSet) mbClockDraw();
+  $('#mathb').classList.add('open'); requestAnimationFrame(mbLayout);
+  return new Promise((res) => { MB.done = res; });
+}
+$('#mbSkip').addEventListener('click', () => mbClose({ ok: false }));
+window.addEventListener('resize', () => { if ($('#mathb').classList.contains('open')) mbLayout(); });
+document.addEventListener('keydown', (e) => {
+  if (!$('#mathb').classList.contains('open')) return;
+  if (e.key === 'Escape') mbClose({ ok: false });
+  else if (/^\d$/.test(e.key) && MB.m.ans === 'tiles' && MB.pr.holes && !MB.pr.build && !MB.pr.pay) mbDigit(e.key);
+});
+
+/* the numbers square dialog: its own button on the stage, so the square editor stays simple */
+const MED = { c: 0, r: 0, m: mathClean({ task: 'add' }) };
+function medShow() {
+  const m = MED.m;
+  document.querySelectorAll('#mathed .mt').forEach((b) => b.classList.toggle('on', b.dataset.mt === m.task));
+  document.querySelectorAll('#mathed .mp').forEach((b) => { b.classList.toggle('on', b.dataset.mp === m.pic); b.disabled = m.task === 'pv' || m.task === 'build'; });
+  document.querySelectorAll('#mathed .ma').forEach((b) => { b.classList.toggle('on', b.dataset.ma === m.ans); b.disabled = m.task === 'build' || (m.task === 'cmp' ? !['tiles', 'groups'].includes(b.dataset.ma) : b.dataset.ma === 'groups'); });
+  $('#mOp').innerHTML = `<svg viewBox="0 0 48 48"><text x="24" y="34" text-anchor="middle" font-size="${m.op.length > 1 ? 24 : 30}" font-weight="800" font-family="Commissioner, Arial, sans-serif" fill="#1A1A1A">${m.op === '-' ? '\u2212' : m.op}</text></svg>`;
+  $('#mOp').disabled = !MATH_OPS[m.task];
+  const fixedPic = ['pv', 'build', 'money', 'pay', 'change', 'clock', 'setclock', 'pattern'].includes(m.task);
+  document.querySelectorAll('#mathed .mp').forEach((b) => { b.disabled = fixedPic || (m.task === 'mul' && b.dataset.mp === 'blocks'); });
+  document.querySelectorAll('#mathed .ma').forEach((b) => { if (['pay', 'setclock'].includes(m.task) || (m.task === 'pattern' && typeof m.step === 'string')) b.disabled = true; });
+  $('#mOp').hidden = !MATH_OPS[m.task]; $('#mMiss').hidden = m.task !== 'add';            // only where they apply, so the row stays short
+  $('#mUnit').textContent = T().mUnit[m.task] || '';
+  if (document.activeElement !== $('#mList')) $('#mList').value = m.list || '';
+  $('#mList').placeholder = T().mListPh[m.task] || T().mListPh._; const L = mathList(m);
+  $('#mListInfo').textContent = m.list ? T().mListN(L.length, L.bad) : ''; $('#mathed').classList.toggle('fixed', L.length > 0);
+  const sel = $('#mStep'); sel.hidden = !MATH_STEPS[m.task];
+  if (MATH_STEPS[m.task]) { sel.innerHTML = MATH_STEPS[m.task].map((v) => `<option value="${v}"${String(v) === String(m.step) ? ' selected' : ''}>${T().mStepL[v] || (typeof v === 'number' ? (v > 0 ? '+' : '\u2212') + Math.abs(v) : v)}</option>`).join(''); } $('#mMiss').disabled = m.task !== 'add'; $('#mMiss').classList.toggle('on', m.missing); $('#mMove').classList.toggle('on', m.move);
+  if (document.activeElement !== $('#mmin')) $('#mmin').value = m.min; if (document.activeElement !== $('#mmax')) $('#mmax').value = m.max;
+}
+async function openMathEditor(c, r) {
+  const host = fsCurrent() || document.body; if ($('#mathed').parentNode !== host) host.appendChild($('#mathed'));
+  MED.c = c; MED.r = r; const e = inter.m[c + ',' + r];
+  if (e && e.math) MED.m = mathClean(e.math);
+  $('#medInfo').textContent = e && !e.math ? T().medHas + (e.spell ? '✎ ' + e.spell.word : e.url ? e.url : '\u{1F4CE} ' + e.name) + T().medRepl : '';
+  $('#medDel').disabled = !e || !e.math; medShow(); $('#mathed').classList.add('open');
+}
+const medClose = () => $('#mathed').classList.remove('open');
+$('#medCancel').addEventListener('click', medClose);
+$('#medOk').addEventListener('click', () => { setInter(MED.c + ',' + MED.r, { math: mathClean(MED.m) }); medClose(); });
+$('#medDel').addEventListener('click', () => { setInter(MED.c + ',' + MED.r, null); medClose(); });
+$('#medTry').addEventListener('click', () => showMath({ math: mathClean(MED.m) }));
+document.querySelectorAll('#mathed .mt').forEach((b) => b.addEventListener('click', () => { const t = b.dataset.mt, p = mathPreset(t); MED.m = mathClean({ ...MED.m, task: t, min: p.min, max: p.max, pic: p.pic, op: null, step: null, list: '' }); medShow(); }));
+$('#mList').addEventListener('keydown', (e) => e.stopPropagation());
+$('#mList').addEventListener('input', () => { MED.m.list = $('#mList').value.slice(0, 200); medShow(); });
+$('#mStep').addEventListener('change', () => { MED.m = mathClean({ ...MED.m, step: $('#mStep').value }); medShow(); });
+document.querySelectorAll('#mathed .mp').forEach((b) => b.addEventListener('click', () => { MED.m.pic = b.dataset.mp; medShow(); }));
+document.querySelectorAll('#mathed .ma').forEach((b) => b.addEventListener('click', () => { MED.m.ans = b.dataset.ma; medShow(); }));
+$('#mOp').addEventListener('click', () => { const l = MATH_OPS[MED.m.task]; if (l) MED.m.op = l[(l.indexOf(MED.m.op) + 1) % l.length]; medShow(); });
+$('#mMiss').addEventListener('click', () => { MED.m.missing = !MED.m.missing; medShow(); });
+$('#mMove').addEventListener('click', () => { MED.m.move = !MED.m.move; medShow(); });
+['#mmin', '#mmax'].forEach((id) => { $(id).addEventListener('keydown', (e) => e.stopPropagation()); $(id).addEventListener('change', () => {
+  let lo = +$('#mmin').value, hi = +$('#mmax').value; if (lo > hi) { if (id === '#mmin') hi = lo + 1; else lo = Math.max(0, hi - 1); }   // the other end follows, so typing never swaps them
+  MED.m = mathClean({ ...MED.m, min: lo, max: hi }); medShow(); }); });
+$('#bdMath').addEventListener('click', () => setPlacing('math'));
 const FS_IN = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 V6 H18 M30 6 H42 V18 M42 30 V42 H30 M18 42 H6 V30"/></svg>';
 const FS_OUT = '<svg viewBox="0 0 48 48" fill="none" stroke="#1A1A1A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 V18 H6 M30 6 V18 H42 M42 30 H30 V42 M6 30 H18 V42"/></svg>';
 const fsCurrent = () => document.fullscreenElement || document.webkitFullscreenElement || null;
@@ -2152,19 +2767,27 @@ function closeEditor() { $('#editor').classList.remove('open'); st.edit = null; 
   $('#eddone').addEventListener('click', closeEditor);
 })();
 
+function botGrab(closed) { const e = $('#bot'); if (!e) return; e.classList.add('grab'); e.classList.toggle('grabc', !!closed); }
+
 /* ---------- robot settings ---------- */
-const LIM = { speed: [30, 100, 10], step: [200, 1500, 10], turn: [150, 1500, 10], sq: [10, 40, 5], spd: [20, 50, 5], cols: [3, MAX_SQUARES, 1], rows: [3, MAX_SQUARES, 1] };
+const ADDON = { gOpen: 0, gClose: 90, gPort: 1 };                                   // the grabber: servo angles for open and closed, and the servo plug (S1-S4)
+try { Object.assign(ADDON, JSON.parse(localStorage.getItem('mbblocks:addon') || '{}')); } catch (e) { /* no storage */ }
+const isAddonKey = (k) => k in ADDON;
+const LIM = { gOpen: [0, 180, 5], gClose: [0, 180, 5], gPort: [1, 4, 1], speed: [30, 100, 10], step: [200, 1500, 10], turn: [150, 1500, 10], sq: [10, 40, 5], spd: [20, 50, 5], cols: [3, MAX_SQUARES, 1], rows: [3, MAX_SQUARES, 1] };
 const isGridKey = (k) => k === 'cols' || k === 'rows';
 const isEduKey = (k) => k === 'sq' || k === 'spd';
 function renderSettings() {
   document.querySelectorAll('#settings .setrow').forEach((r) => {
     const k = r.dataset.k; r.style.display = !r.dataset.r || r.dataset.r === (robot().precise ? 'edu' : 'tpbot') ? 'flex' : 'none';
-    r.querySelector('.val').textContent = isGridKey(k) ? String(gridSet[k]) : isEduKey(k) ? edu[k] + (k === 'sq' ? ' cm' : ' cm/s') : tpCal[k] + (k === 'speed' ? '%' : ' ms');
+    r.querySelector('.val').textContent = isAddonKey(k) ? (k === 'gPort' ? 'S' + ADDON[k] : ADDON[k] + '\u00B0') : isGridKey(k) ? String(gridSet[k]) : isEduKey(k) ? edu[k] + (k === 'sq' ? ' cm' : ' cm/s') : tpCal[k] + (k === 'speed' ? '%' : ' ms');
   });
 }
 function bump(b) {
   const k = b.closest('.setrow').dataset.k, [lo, hi, s] = LIM[k];
-  if (isGridKey(k)) {
+  if (isAddonKey(k)) {
+    ADDON[k] = clamp(ADDON[k] + (+b.dataset.d) * s, lo, hi); try { localStorage.setItem('mbblocks:addon', JSON.stringify(ADDON)); } catch (e) { /* no storage */ }
+    if (k !== 'gPort') mb.send('Z' + ADDON.gPort + ',' + ADDON[k]);            // try it: the grabber moves while the teacher sets it
+  } else if (isGridKey(k)) {
     gridSet[k] = clamp(gridSet[k] + (+b.dataset.d) * s, lo, hi); try { localStorage.setItem('mbblocks:gridset', JSON.stringify(gridSet)); } catch (e) { /* no storage */ }
     if (!grid.img) { grid.cols = gridSet.cols; grid.rows = gridSet.rows; startSaved = false; applyGrid(); }       // with a backdrop, the picture decides
   } else if (isEduKey(k)) {
@@ -2214,7 +2837,23 @@ async function drive(l, r, ms, tok, sim) {
   await sleep(ms, tok);
   mb.send('W0,0');
 }
-async function moveBlock(b, tok) { await moveOnce(b, tok); if (b.v !== 0 && tok.alive) await checkInter(tok); }   // after a move: an interactive square shows its content
+async function moveBlock(b, tok) {
+  if ((b.t === 'fwd' || b.t === 'back') && b.v > 0) {        // an interactive square on the way: stop on the square before it, ask first, then go in
+    const r = Math.round(bot.h) * Math.PI / 180, dir = b.t === 'fwd' ? 1 : -1, dx = Math.round(Math.sin(r)) * dir, dy = -Math.round(Math.cos(r)) * dir;
+    const cx = Math.floor(bot.x), cy = Math.floor(bot.y);
+    for (let k = 1; k <= b.v; k++) {
+      const nx = cx + dx * k, ny = cy + dy * k; if (nx < 0 || ny < 0 || nx >= grid.cols || ny >= grid.rows) break;
+      const key = nx + ',' + ny; if (!inter.m[key] || interShown === key) continue;
+      if (k > 1) { await moveOnce({ t: b.t, v: k - 1 }, tok); if (!tok.alive) return; await sleep(250, tok); }
+      const res = await askInter(key, tok); if (!tok.alive) return;
+      interShown = key; await moveOnce({ t: b.t, v: 1 }, tok);           // answered: into the square (it does not ask again while the robot is on it)
+      if (res && res.move > 0 && tok.alive) { await sleep(400, tok); if (tok.alive) await moveBlock({ t: 'fwd', v: res.move }, tok); }   // the answer moves the robot
+      if (b.v - k > 0 && tok.alive) await moveBlock({ t: b.t, v: b.v - k }, tok);                                                       // and the rest of the move
+      return;
+    }
+  }
+  await moveOnce(b, tok); if (b.v !== 0 && tok.alive) await checkInter(tok);   // after any other move: an interactive square the robot stops on shows its content
+}
 async function moveOnce(b, tok) {
   const turn = b.t === 'left' || b.t === 'right';
   if (robot().precise) {                                                   // TPBot Edu: exact centimetres and degrees, the robot reports when it is there
@@ -2250,6 +2889,7 @@ async function act(b, tok) {
     case 'near': return waitSensor(isNear, tok);
     case 'line': return waitSensor(() => sens.line === 1, tok);
     case 'light': botLight(b.v); mb.send('H' + LIGHTS[b.v][1]); return sleep(120, tok);
+    case 'grabOpen': case 'grabClose': mb.send('Z' + ADDON.gPort + ',' + ADDON[b.t === 'grabOpen' ? 'gOpen' : 'gClose']); botGrab(b.t === 'grabClose'); return sleep(500, tok);   // a servo needs about half a second
     case 'wait': return sleep(b.v * 1000, tok);
   }
 }
@@ -2304,7 +2944,7 @@ const mb = {
 function ui() { const b = $('#conn'); b.className = mb.status === 'on' ? 'on' : mb.status === 'busy' ? 'busy' : ''; b.title = mb.status === 'on' ? T().on : mb.status === 'busy' ? T().busy : T().off; }
 function texts() {
   document.documentElement.lang = LANG; document.title = T().title; $('#title').textContent = T().title; $('#wstitle').textContent = T().ws;
-  $('#libtitle').textContent = T().lib; $('#edtitle').textContent = T().sqEdit; $('#trcamTitle').textContent = T().trCam; $('#bdCam').setAttribute('aria-label', T().trCam); $('#bdCam').title = T().trCam; $('#recBtn').setAttribute('aria-label', T().rec); $('#recBtn').title = T().rec; $('#edurl').placeholder = T().iaUrl; $('#edword').placeholder = T().spWord; $('#bdPaint').setAttribute('aria-label', T().sqEdit); $('#bdPaint').title = T().sqEdit; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
+  $('#libtitle').textContent = T().lib; $('#edtitle').textContent = T().sqEdit; $('#trcamTitle').textContent = T().trCam; $('#bdCam').setAttribute('aria-label', T().trCam); $('#bdCam').title = T().trCam; $('#recBtn').setAttribute('aria-label', T().rec); $('#recBtn').title = T().rec; $('#edurl').placeholder = T().iaUrl; $('#edword').placeholder = T().spWord; $('#medTitle').textContent = T().medTitle; document.querySelectorAll('#mathed [data-l]').forEach((b) => { b.textContent = T()[b.dataset.l]; }); $('#bdMath').setAttribute('aria-label', T().medTitle); $('#bdPaint').setAttribute('aria-label', T().sqEdit); $('#bdPaint').title = T().sqEdit; $('#libShare').setAttribute('aria-label', T().libShare); $('#libShare').title = T().libShare; $('#libClose').setAttribute('aria-label', T().libClose); $('#libBtn').setAttribute('aria-label', T().libOpen); $('#libBtn').title = T().libOpen;
   $('#lang').textContent = T().lang; $('#play').setAttribute('aria-label', T().play); $('#stop').setAttribute('aria-label', T().stop); $('#conn').setAttribute('aria-label', T().conn); $('#cog').setAttribute('aria-label', T().settings);
   renderTabs(); ui(); applyTips();
 }
