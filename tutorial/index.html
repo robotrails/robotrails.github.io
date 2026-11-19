@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoboTrails · Οδηγός χρήσης</title>
+<meta name="description" content="Πλήρης οδηγός του RoboTrails: προετοιμασία του micro:bit, τα μπλοκ, η πίστα, η λειτουργία ηχογράφησης βημάτων, τα διαδραστικά τετράγωνα με βίντεο, λέξεις και αριθμούς, και η αρπάγη.">
+<meta name="theme-color" content="#0071BC">
+<link rel="icon" href="../favicon.ico">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<style>
+  @font-face { font-family: "Commissioner"; src: url(../assets/commissioner.woff2) format("woff2"); font-weight: 400 800; font-display: swap; }
+  :root { --blue: #0071BC; --orange: #F15A24; --gold: #FBB03B; --sky: #0096EA; --charcoal: #6D6E71; --ink: #1A1A1A; --line: #DDDDDD; --alt: #F5F5F5; --accent: #B94418; --tint-blue: #E6F4FD; --tint-gold: #FEF4DE; --tint-orange: #FDEBE4; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { margin: 0; font-family: "Commissioner", "Segoe UI", Arial, sans-serif; font-size: 17px; line-height: 1.65; color: var(--ink); background: #fff; }
+  a { color: var(--blue); }
+  code { font-family: "JetBrains Mono", Consolas, "Courier New", monospace; font-size: .85em; background: var(--alt); padding: 2px 6px; border-radius: 4px; }
+  html[lang="el"] [data-l="en"], html[lang="en"] [data-l="el"] { display: none !important; }
+  header.top { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--line); }
+  header.top .in { display: flex; align-items: center; gap: 18px; min-height: 64px; max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  header.top img { height: 38px; width: auto; display: block; }
+  nav { margin-left: auto; display: flex; align-items: center; gap: 22px; font-weight: 700; font-size: 16px; }
+  nav a { text-decoration: none; color: var(--ink); } nav a:hover, nav a.on { color: var(--blue); }
+  .langbtn { font: inherit; font-weight: 700; font-size: 15px; padding: 5px 12px; background: #fff; color: var(--ink); border: 2px solid var(--charcoal); border-radius: 6px; cursor: pointer; }
+  .btn { display: inline-block; padding: 10px 20px; font: inherit; font-weight: 700; font-size: 18px; line-height: 1.3; text-decoration: none; color: #fff; background: var(--orange); border: 2px solid var(--orange); border-radius: 6px; }
+  .btn.ghost { color: var(--blue); background: #fff; border-color: var(--blue); }
+  .layout { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 48px; }
+  aside.toc { position: sticky; top: 80px; align-self: start; max-height: calc(100vh - 96px); overflow: auto; padding: 28px 0 24px; font-size: 15px; }
+  aside.toc b { display: block; margin-bottom: 8px; font-size: 13px; letter-spacing: .1em; color: var(--accent); }
+  aside.toc ol { margin: 0; padding: 0; list-style: none; counter-reset: c; }
+  aside.toc li { counter-increment: c; }
+  aside.toc a { display: grid; grid-template-columns: 26px 1fr; padding: 5px 8px; border-radius: 6px; text-decoration: none; color: var(--ink); line-height: 1.35; }
+  aside.toc a::before { content: counter(c) "."; color: var(--charcoal); font-weight: 700; }
+  aside.toc a:hover { background: var(--alt); } aside.toc a.on { background: var(--tint-blue); color: var(--blue); font-weight: 700; }
+  main { padding: 28px 0 60px; min-width: 0; }
+  .kicker { margin: 0 0 6px; font-size: 14px; font-weight: 800; letter-spacing: .1em; color: var(--accent); }
+  h1 { margin: 0 0 12px; font-size: 42px; line-height: 1.15; font-weight: 800; color: var(--blue); }
+  h2 { margin: 0 0 12px; font-size: 30px; line-height: 1.25; font-weight: 700; color: var(--blue); }
+  h3 { margin: 26px 0 8px; font-size: 21px; line-height: 1.3; font-weight: 700; }
+  h4 { margin: 18px 0 6px; font-size: 18px; }
+  .lead { font-size: 19px; max-width: 860px; }
+  section.ch { padding: 34px 0 30px; border-top: 1px solid var(--line); }
+  section.ch:first-of-type { border-top: 0; }
+  p, ul, ol, table, .callout, figure { max-width: 880px; }
+  figure { margin: 18px 0 22px; }
+  figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 6px; }
+  figure.small img { max-width: min(420px, 100%); } figure.mid img { max-width: min(560px, 100%); } figure.tiny img { max-width: min(260px, 100%); }
+  figcaption { margin-top: 6px; font-size: 14px; color: var(--charcoal); }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 18px; font-size: 16px; }
+  th, td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th { background: var(--alt); font-weight: 700; }
+  td.n { width: 44px; text-align: center; font-weight: 800; color: #fff; }
+  td.n span { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--orange); }
+  ol.steps { list-style: none; counter-reset: s; margin: 10px 0 20px; padding: 0; display: grid; gap: 12px; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start; }
+  ol.steps li::before { content: counter(s); width: 32px; height: 32px; line-height: 32px; text-align: center; border-radius: 50%; background: var(--gold); color: #000; font-weight: 800; font-size: 16px; }
+  .callout { margin: 16px 0 20px; padding: 14px 18px; border-radius: 6px; background: var(--tint-gold); }
+  .callout.blue { background: var(--tint-blue); } .callout.orange { background: var(--tint-orange); }
+  .callout .label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 800; letter-spacing: .1em; color: var(--accent); }
+  .callout p { margin: 0 0 6px; } .callout ul { margin: 4px 0 0; padding-left: 22px; }
+  .quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 8px; max-width: 900px; }
+  .quick a { display: block; padding: 14px 16px; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--ink); }
+  .quick a b { display: block; color: var(--blue); }
+  .quick a:hover { border-color: var(--blue); }
+  kbd { display: inline-block; min-width: 24px; padding: 0 6px; border: 1px solid var(--charcoal); border-bottom-width: 3px; border-radius: 5px; font: 700 14px/1.6 "Commissioner", Arial, sans-serif; text-align: center; background: #fff; }
+  .chip { display: inline-block; padding: 1px 9px; border-radius: 999px; background: var(--alt); font-weight: 700; font-size: 15px; white-space: nowrap; }
+  .totop { display: inline-block; margin-top: 8px; font-size: 14px; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--charcoal); font-size: 15px; }
+  footer .in { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; }
+  footer img { height: 36px; width: auto; display: block; }
+  footer p { margin: 0 0 6px; } footer .in > div { min-width: 0; } footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; } footer .links a { font-weight: 700; }
+  @media (max-width: 600px) { footer .in { grid-template-columns: 1fr; gap: 14px; } }
+  .tocbtn { display: none; }
+  @media (max-width: 980px) {
+    .layout { grid-template-columns: 1fr; gap: 0; }
+    aside.toc { position: static; max-height: none; padding: 18px 0 0; display: none; }
+    aside.toc.open { display: block; }
+    .tocbtn { display: inline-block; margin-top: 18px; }
+    h1 { font-size: 34px; } .quick { grid-template-columns: 1fr; }
+    nav a.hide-s { display: none; }
+  }
+  @media (max-width: 600px) { nav { gap: 12px; font-size: 15px; } header.top img { height: 28px; } header.top .in { padding: 0 14px; gap: 10px; } .layout { padding: 0 16px; } table { font-size: 15px; } th, td { padding: 7px 6px; } }
+  @media print { header.top, aside.toc, .tocbtn, footer { display: none; } .layout { display: block; } section.ch { break-inside: auto; } }
+  @media (max-width: 420px) { nav a.hide-xs { display: none; } }
+  .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 18px; } .tw table { margin: 0; }
+  code { overflow-wrap: anywhere; } li, p { overflow-wrap: break-word; }
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a href="../" aria-label="RoboTrails"><img src="../assets/stem-education-logo.png" alt="STEM education"></a>
+  <nav>
+    <a class="hide-s" href="../"><span data-l="el">Αρχική</span><span data-l="en">Home</span></a>
+    <a class="on" href="./"><span data-l="el">Οδηγός</span><span data-l="en">Guide</span></a>
+    <a class="hide-xs" href="../tracks/"><span data-l="el">Πίστες</span><span data-l="en">Tracks</span></a>
+    <a class="hide-s" href="../app/"><span data-l="el">Εφαρμογή</span><span data-l="en">App</span></a>
+    <button class="langbtn" id="lang" type="button">EN</button>
+  </nav>
+</div></header>
+
+<div class="layout">
+<aside class="toc" id="toc">
+  <b><span data-l="el">ΠΕΡΙΕΧΟΜΕΝΑ</span><span data-l="en">CONTENTS</span></b>
+  <ol>
+    <li><a href="#need"><span data-l="el">Τι χρειάζεστε</span><span data-l="en">What you need</span></a></li>
+    <li><a href="#microbit"><span data-l="el">Προετοιμασία του micro:bit</span><span data-l="en">Preparing the micro:bit</span></a></li>
+    <li><a href="#screen"><span data-l="el">Η οθόνη της εφαρμογής</span><span data-l="en">The app screen</span></a></li>
+    <li><a href="#connect"><span data-l="el">Σύνδεση του ρομπότ</span><span data-l="en">Connecting the robot</span></a></li>
+    <li><a href="#program"><span data-l="el">Φτιάχνοντας πρόγραμμα</span><span data-l="en">Building a program</span></a></li>
+    <li><a href="#blocks"><span data-l="el">Τα μπλοκ</span><span data-l="en">The blocks</span></a></li>
+    <li><a href="#run"><span data-l="el">Εκτέλεση και εργαλεία</span><span data-l="en">Running and tools</span></a></li>
+    <li><a href="#record"><span data-l="el">Ηχογράφηση βημάτων</span><span data-l="en">Record mode</span></a></li>
+    <li><a href="#tracks"><span data-l="el">Πίστες</span><span data-l="en">Tracks</span></a></li>
+    <li><a href="#paint"><span data-l="el">Αλλαγή τετραγώνου</span><span data-l="en">Modifying a square</span></a></li>
+    <li><a href="#interactive"><span data-l="el">Διαδραστικά τετράγωνα</span><span data-l="en">Interactive squares</span></a></li>
+    <li><a href="#words"><span data-l="el">Πίνακας γραφής λέξεων</span><span data-l="en">The spelling board</span></a></li>
+    <li><a href="#numbers"><span data-l="el">Τετράγωνα αριθμών</span><span data-l="en">Numbers squares</span></a></li>
+    <li><a href="#addons"><span data-l="el">Πρόσθετα: η αρπάγη</span><span data-l="en">Add-ons: the grabber</span></a></li>
+    <li><a href="#settings"><span data-l="el">Ρυθμίσεις</span><span data-l="en">Settings</span></a></li>
+    <li><a href="#class"><span data-l="el">Ιδέες για την τάξη</span><span data-l="en">Ideas for the classroom</span></a></li>
+    <li><a href="#help"><span data-l="el">Προβλήματα και λύσεις</span><span data-l="en">Troubleshooting</span></a></li>
+  </ol>
+</aside>
+
+<main>
+<p class="kicker"><span data-l="el">ΟΔΗΓΟΣ ΧΡΗΣΗΣ</span><span data-l="en">USER GUIDE</span></p>
+<h1><span data-l="el">Όλο το RoboTrails, βήμα βήμα</span><span data-l="en">All of RoboTrails, step by step</span></h1>
+<p class="lead" data-l="el">Ο οδηγός είναι γραμμένος για εκπαιδευτικούς. Ξεκινά από την προετοιμασία του micro:bit, εξηγεί κάθε κουμπί και κάθε μπλοκ, και τελειώνει με τα διαδραστικά τετράγωνα, την αρπάγη και ιδέες για την τάξη. Τα παιδιά δεν χρειάζεται να διαβάσουν τίποτα: η εφαρμογή τους μιλά με εικόνες.</p>
+<p class="lead" data-l="en">This guide is written for teachers. It starts with preparing the micro:bit, explains every button and every block, and ends with interactive squares, the grabber and classroom ideas. Children do not need to read anything: the app talks to them in pictures.</p>
+<div class="quick">
+  <a href="#microbit"><b><span data-l="el">Πρώτη φορά;</span><span data-l="en">First time?</span></b><span data-l="el">Ετοιμάστε το micro:bit (μία φορά).</span><span data-l="en">Prepare the micro:bit (once).</span></a>
+  <a href="#record"><b><span data-l="el">Για 5 ετών</span><span data-l="en">For 5-year-olds</span></b><span data-l="el">Ξεκινήστε με την ηχογράφηση βημάτων.</span><span data-l="en">Start with Record mode.</span></a>
+  <a href="#interactive"><b><span data-l="el">Γλώσσα και μαθηματικά</span><span data-l="en">Language and maths</span></b><span data-l="el">Βάλτε λέξεις και αριθμούς στην πίστα.</span><span data-l="en">Put words and numbers on the track.</span></a>
+</div>
+<button class="btn ghost tocbtn" id="tocbtn" type="button"><span data-l="el">Περιεχόμενα</span><span data-l="en">Contents</span></button>
+
+<!-- 1 -->
+<section class="ch" id="need">
+<h2><span data-l="el">1. Τι χρειάζεστε</span><span data-l="en">1. What you need</span></h2>
+<div class="tw"><table>
+<tr><th><span data-l="el">Τι</span><span data-l="en">What</span></th><th><span data-l="el">Λεπτομέρειες</span><span data-l="en">Details</span></th></tr>
+<tr><td><span data-l="el">Συσκευή</span><span data-l="en">Device</span></td><td><span data-l="el">Tablet Android, Chromebook ή υπολογιστής (Windows, macOS, Linux) με <b>Chrome</b> ή <b>Edge</b>. Στο iPad και στο Safari η εφαρμογή ανοίγει και η προσομοίωση δουλεύει, αλλά δεν γίνεται σύνδεση Bluetooth.</span><span data-l="en">An Android tablet, a Chromebook or a computer (Windows, macOS, Linux) with <b>Chrome</b> or <b>Edge</b>. On an iPad and in Safari the app opens and the simulation works, but Bluetooth connection is not possible.</span></td></tr>
+<tr><td>micro:bit</td><td><span data-l="el">Ένα <b>micro:bit V2</b> (έχει ηχείο και αρκετή μνήμη για το Bluetooth).</span><span data-l="en">A <b>micro:bit V2</b> (it has a speaker and enough memory for Bluetooth).</span></td></tr>
+<tr><td><span data-l="el">Ρομπότ</span><span data-l="en">Robot</span></td><td><span data-l="el"><b>TPBot Edu</b> (κινείται με ακρίβεια σε εκατοστά και μοίρες) ή <b>TPBot</b> (κινείται για ορισμένο χρόνο). Το ρομπότ είναι προαιρετικό: όλα δουλεύουν και στην οθόνη.</span><span data-l="en"><b>TPBot Edu</b> (moves exactly, in centimetres and degrees) or <b>TPBot</b> (moves for a set time). The robot is optional: everything also works on screen.</span></td></tr>
+<tr><td><span data-l="el">Πίστα δαπέδου</span><span data-l="en">Floor track</span></td><td><span data-l="el">Προαιρετικά, ένα πλέγμα με τετράγωνα 20 cm, τυπωμένο ή φτιαγμένο με ταινία. Η εφαρμογή τυπώνει πρότυπο και πίστες (κεφάλαιο <a href="#tracks">9</a>).</span><span data-l="en">Optional: a grid of 20 cm squares, printed or made with tape. The app prints a template and tracks (chapter <a href="#tracks">9</a>).</span></td></tr>
+<tr><td><span data-l="el">Πρόσθετα</span><span data-l="en">Add-ons</span></td><td><span data-l="el">Προαιρετικά, μια αρπάγη με σερβοκινητήρα 0–360° σε μία από τις υποδοχές S1–S4 (κεφάλαιο <a href="#addons">14</a>).</span><span data-l="en">Optional: a grabber with a 0–360° servo in one of the S1–S4 sockets (chapter <a href="#addons">14</a>).</span></td></tr>
+</table></div>
+<div class="callout blue"><span class="label"><span data-l="el">ΧΩΡΙΣ ΛΟΓΑΡΙΑΣΜΟΥΣ</span><span data-l="en">NO ACCOUNTS</span></span>
+<p data-l="el">Δεν υπάρχει εγγραφή και δεν στέλνεται τίποτα πουθενά. Το πρόγραμμα, οι ρυθμίσεις και η πίστα μένουν μόνο στη συσκευή, στον browser που τα φτιάξατε.</p>
+<p data-l="en">There is no sign-up and nothing is sent anywhere. The program, the settings and the track stay on the device only, in the browser where you made them.</p></div>
+</section>
+
+<!-- 2 -->
+<section class="ch" id="microbit">
+<h2><span data-l="el">2. Προετοιμασία του micro:bit (μία φορά)</span><span data-l="en">2. Preparing the micro:bit (once)</span></h2>
+<p data-l="el">Το micro:bit χρειάζεται ένα μικρό πρόγραμμα, τον «εκτελεστή». Αυτός δείχνει τις εικόνες, παίζει τους ήχους, οδηγεί το ρομπότ και την αρπάγη, και στέλνει πίσω τα κουμπιά και τους αισθητήρες. Όλη η σκέψη γίνεται στην εφαρμογή, γι' αυτό τα παιδιά δεν κατεβάζουν ποτέ προγράμματα.</p>
+<p data-l="en">The micro:bit needs one small program, the "runner". It shows the pictures, plays the sounds, drives the robot and the grabber, and sends the buttons and sensors back. All the thinking happens in the app, so children never download programs.</p>
+<ol class="steps">
+<li><div data-l="el">Ανοίξτε το <a href="https://makecode.microbit.org" target="_blank" rel="noopener">makecode.microbit.org</a> και φτιάξτε νέο έργο.</div><div data-l="en">Open <a href="https://makecode.microbit.org" target="_blank" rel="noopener">makecode.microbit.org</a> and start a new project.</div></li>
+<li><div data-l="el">Επιλέξτε <b>JavaScript</b> από τον διακόπτη στην κορυφή και επικολλήστε όλο τον κώδικα του <a href="../runner/main.ts" download>main.ts</a>.</div><div data-l="en">Switch to <b>JavaScript</b> at the top and paste all of <a href="../runner/main.ts" download>main.ts</a>.</div></li>
+<li><div data-l="el">Στις <b>Επεκτάσεις</b> (Extensions) προσθέστε το <b>bluetooth</b>, και μετά επικολλήστε <code>https://github.com/elecfreaks/pxt-TPBot</code> και προσθέστε το. Αν το MakeCode προτείνει να αφαιρέσει το <b>radio</b>, δεχτείτε.</div><div data-l="en">In <b>Extensions</b> add <b>bluetooth</b>, then paste <code>https://github.com/elecfreaks/pxt-TPBot</code> and add it. If MakeCode offers to remove <b>radio</b>, accept.</div></li>
+<li><div data-l="el">Γρανάζι → <b>Project Settings</b> → ενεργοποιήστε το <b>No Pairing Required</b>.</div><div data-l="en">Gear → <b>Project Settings</b> → turn on <b>No Pairing Required</b>.</div></li>
+<li><div data-l="el">Πατήστε <b>Λήψη</b> (Download) και αντιγράψτε το αρχείο <code>.hex</code> στον δίσκο <b>MICROBIT</b>.</div><div data-l="en">Press <b>Download</b> and copy the <code>.hex</code> file onto the <b>MICROBIT</b> drive.</div></li>
+</ol>
+<div class="callout"><span class="label"><span data-l="el">ΣΥΜΒΟΥΛΗ</span><span data-l="en">TIP</span></span>
+<p data-l="el">Φτιάξτε το <code>.hex</code> μία φορά και μοιραστείτε το με όλους τους συναδέλφους: αρκεί να το αντιγράψουν στο micro:bit. Ξαναφτιάξτε το μόνο όταν βγει νέα έκδοση του <code>main.ts</code> (για παράδειγμα, η αρπάγη χρειάζεται την έκδοση με την εντολή <code>Z</code>).</p>
+<p data-l="en">Make the <code>.hex</code> once and share it with every colleague: they only copy it onto the micro:bit. Make it again only when a new <code>main.ts</code> comes out (for example, the grabber needs the version with the <code>Z</code> command).</p></div>
+<p><a href="../runner/README.md"><span data-l="el">Τεχνικές λεπτομέρειες: οι εντολές του εκτελεστή</span><span data-l="en">Technical details: the runner's commands</span></a></p>
+</section>
+
+<!-- 3 -->
+<section class="ch" id="screen">
+<h2><span data-l="el">3. Η οθόνη της εφαρμογής</span><span data-l="en">3. The app screen</span></h2>
+<figure><img data-l="el" src="img/parts-el.webp" width="1280" height="800" alt="Η οθόνη της εφαρμογής με αριθμημένα μέρη" loading="lazy"><img data-l="en" src="img/parts-en.webp" width="1280" height="800" alt="The app screen with numbered parts" loading="lazy"></figure>
+<div class="tw"><table>
+<tr><td class="n"><span>1</span></td><td><b><span data-l="el">Ρομπότ</span><span data-l="en">Robot</span></b> · <span data-l="el">διαλέξτε TPBot Edu ή TPBot. Αλλάζουν οι κινήσεις και οι ρυθμίσεις.</span><span data-l="en">choose TPBot Edu or TPBot. The moves and the settings change.</span></td></tr>
+<tr><td class="n"><span>2</span></td><td><b><span data-l="el">Σύνδεση</span><span data-l="en">Connect</span></b> · <span data-l="el">Bluetooth με το micro:bit. Η τελεία γίνεται πράσινη όταν συνδεθεί.</span><span data-l="en">Bluetooth to the micro:bit. The dot turns green when connected.</span></td></tr>
+<tr><td class="n"><span>3</span></td><td><b><span data-l="el">Πλήρης οθόνη</span><span data-l="en">Full screen</span></b> · <span data-l="el">όλη η εφαρμογή σε πλήρη οθόνη, χωρίς τις μπάρες του browser.</span><span data-l="en">the whole app in full screen, without the browser bars.</span></td></tr>
+<tr><td class="n"><span>4</span></td><td><b><span data-l="el">Ρυθμίσεις</span><span data-l="en">Settings</span></b> · <span data-l="el">απόσταση και ταχύτητα του ρομπότ, μέγεθος πλέγματος, αρπάγη (κεφάλαιο <a href="#settings">15</a>).</span><span data-l="en">robot distance and speed, grid size, grabber (chapter <a href="#settings">15</a>).</span></td></tr>
+<tr><td class="n"><span>5</span></td><td><b><span data-l="el">Γλώσσα</span><span data-l="en">Language</span></b> · <span data-l="el">Ελληνικά ή Αγγλικά. Αλλάζει τις λίγες λέξεις της εφαρμογής και τις οδηγίες στους πίνακες.</span><span data-l="en">Greek or English. It changes the few words in the app and the instructions on the boards.</span></td></tr>
+<tr><td class="n"><span>6</span></td><td><b><span data-l="el">Ηχογράφηση βημάτων</span><span data-l="en">Record mode</span></b> · <span data-l="el">το πιο απλό είδος προγραμματισμού, όπως στα επιδαπέδια ρομπότ (κεφάλαιο <a href="#record">8</a>).</span><span data-l="en">the simplest kind of programming, like floor robots (chapter <a href="#record">8</a>).</span></td></tr>
+<tr><td class="n"><span>7</span></td><td><b><span data-l="el">Εκκίνηση και στοπ</span><span data-l="en">Play and stop</span></b> · <span data-l="el">τρέχει το πρόγραμμα ή το σταματά, στην οθόνη και στο ρομπότ.</span><span data-l="en">runs the program or stops it, on screen and on the robot.</span></td></tr>
+<tr><td class="n"><span>8</span></td><td><b><span data-l="el">Εικονικό micro:bit</span><span data-l="en">Virtual micro:bit</span></b> · <span data-l="el">δείχνει την οθόνη LED. Τα κουμπιά A και B πατιούνται, όπως στο πραγματικό.</span><span data-l="en">shows the LED screen. Buttons A and B can be pressed, like the real ones.</span></td></tr>
+<tr><td class="n"><span>9</span></td><td><b><span data-l="el">Κούνημα</span><span data-l="en">Shake</span></b> · <span data-l="el">«κουνάει» το εικονικό micro:bit, για το μπλοκ «όταν κουνηθεί».</span><span data-l="en">"shakes" the virtual micro:bit, for the "when shaken" block.</span></td></tr>
+<tr><td class="n"><span>10</span></td><td><b><span data-l="el">Σκηνή</span><span data-l="en">Stage</span></b> · <span data-l="el">η πίστα με το εικονικό ρομπότ. Πατήστε ένα τετράγωνο για να ξεκινά από εκεί, πατήστε το ρομπότ για να το στρίψετε.</span><span data-l="en">the track with the virtual robot. Tap a square to start there, tap the robot to turn it.</span></td></tr>
+<tr><td class="n"><span>11</span></td><td><b><span data-l="el">Εργαλεία πίστας</span><span data-l="en">Track tools</span></b> · <span data-l="el">βιβλιοθήκη, φόντο, φωτογραφία, τετράγωνα αριθμών, αλλαγή τετραγώνου, αφαίρεση φόντου, πρότυπο, πλέγμα, πλήρης οθόνη σκηνής (κεφάλαιο <a href="#tracks">9</a>).</span><span data-l="en">library, backdrop, photo, numbers squares, modify square, remove backdrop, template, grid, full-screen stage (chapter <a href="#tracks">9</a>).</span></td></tr>
+<tr><td class="n"><span>12</span></td><td><b><span data-l="el">Εργαλεία εκπαιδευτικού</span><span data-l="en">Teacher tools</span></b> · <span data-l="el">προεπισκόπηση διαδρομής, επιστροφή στην αρχή, αισθητήρες, στόχος, παγίδα, μετρητής βημάτων (κεφάλαιο <a href="#run">7</a>).</span><span data-l="en">route preview, back to start, sensors, target, trap, step counter (chapter <a href="#run">7</a>).</span></td></tr>
+<tr><td class="n"><span>13</span></td><td><b><span data-l="el">Πρόγραμμα</span><span data-l="en">Program</span></b> · <span data-l="el">εδώ μπαίνουν τα μπλοκ, από αριστερά προς τα δεξιά.</span><span data-l="en">the blocks go here, from left to right.</span></td></tr>
+<tr><td class="n"><span>14</span></td><td><b><span data-l="el">Διάταξη</span><span data-l="en">Layout</span></b> · <span data-l="el">το πρόγραμμα οριζόντια ή κάθετα.</span><span data-l="en">the program across or down.</span></td></tr>
+<tr><td class="n"><span>15</span></td><td><b><span data-l="el">Κατηγορίες</span><span data-l="en">Categories</span></b> · <span data-l="el">Όταν, Οθόνη, Ήχος, Ρομπότ, Έλεγχος, Πρόσθετα. Σε στενή οθόνη φαίνεται μόνο το εικονίδιο.</span><span data-l="en">When, Screen, Sound, Robot, Control, Add-ons. On a narrow screen only the icon shows.</span></td></tr>
+<tr><td class="n"><span>16</span></td><td><b><span data-l="el">Μπλοκ</span><span data-l="en">Blocks</span></b> · <span data-l="el">τα μπλοκ της κατηγορίας που διαλέξατε.</span><span data-l="en">the blocks of the chosen category.</span></td></tr>
+</table></div>
+<div class="callout blue"><span class="label"><span data-l="el">ΤΙ ΚΑΝΕΙ ΑΥΤΟ ΤΟ ΚΟΥΜΠΙ;</span><span data-l="en">WHAT DOES THIS BUTTON DO?</span></span>
+<p data-l="el">Με ποντίκι, αφήστε τον δείκτη πάνω σε οποιοδήποτε κουμπί ή μπλοκ: εμφανίζεται μια σύντομη εξήγηση. Στα tablet οι εξηγήσεις δεν φαίνονται, ώστε η οθόνη των παιδιών να μένει χωρίς λέξεις.</p>
+<p data-l="en">With a mouse, rest the pointer on any button or block: a short explanation appears. On tablets the explanations do not show, so the children's screen stays free of words.</p></div>
+</section>
+
+<!-- 4 -->
+<section class="ch" id="connect">
+<h2><span data-l="el">4. Σύνδεση του ρομπότ</span><span data-l="en">4. Connecting the robot</span></h2>
+<ol class="steps">
+<li><div data-l="el">Βάλτε το micro:bit (με τον εκτελεστή) στο ρομπότ και ανοίξτε το ρομπότ.</div><div data-l="en">Put the micro:bit (with the runner) in the robot and switch the robot on.</div></li>
+<li><div data-l="el">Στην εφαρμογή, διαλέξτε το σωστό ρομπότ (κουμπί 1).</div><div data-l="en">In the app, choose the right robot (button 1).</div></li>
+<li><div data-l="el">Πατήστε το κουμπί Bluetooth (κουμπί 2). Ο browser δείχνει μια λίστα: διαλέξτε το micro:bit σας (το όνομά του είναι κάτι σαν <code>BBC micro:bit [zavit]</code>).</div><div data-l="en">Press the Bluetooth button (button 2). The browser shows a list: choose your micro:bit (its name looks like <code>BBC micro:bit [zavit]</code>).</div></li>
+<li><div data-l="el">Στην οθόνη του micro:bit εμφανίζεται ένα τικ και η τελεία στο κουμπί γίνεται πράσινη. Από εδώ και πέρα, ό,τι κάνει η οθόνη το κάνει και το ρομπότ.</div><div data-l="en">A tick appears on the micro:bit screen and the dot on the button turns green. From now on, whatever the screen does, the robot does too.</div></li>
+</ol>
+<div class="callout"><span class="label"><span data-l="el">ΠΟΛΛΑ ΡΟΜΠΟΤ ΣΤΗΝ ΤΑΞΗ</span><span data-l="en">MANY ROBOTS IN ONE ROOM</span></span>
+<p data-l="el">Κάθε micro:bit έχει δικό του πενταγράμματο όνομα. Γράψτε το με ένα αυτοκόλλητο πάνω στο ρομπότ, ώστε κάθε ομάδα να διαλέγει το δικό της από τη λίστα.</p>
+<p data-l="en">Each micro:bit has its own five-letter name. Write it on a sticker on the robot, so each group picks their own from the list.</p></div>
+</section>
+
+<!-- 5 -->
+<section class="ch" id="program">
+<h2><span data-l="el">5. Φτιάχνοντας πρόγραμμα</span><span data-l="en">5. Building a program</span></h2>
+<ul>
+<li data-l="el"><b>Προσθήκη:</b> πατήστε ένα μπλοκ και μπαίνει στο τέλος του προγράμματος, ή σύρετέ το στη θέση που θέλετε.</li>
+<li data-l="en"><b>Add:</b> tap a block and it goes to the end of the program, or drag it to the place you want.</li>
+<li data-l="el"><b>Αριθμός:</b> πατήστε τον αριθμό κάτω από ένα μπλοκ για να αλλάξει (για παράδειγμα 1, 2, 3 τετράγωνα). Το <b>κενό οβάλ</b> σημαίνει «συνέχισε μέχρι να το αλλάξει άλλο μπλοκ».</li>
+<li data-l="en"><b>Number:</b> tap the number under a block to change it (for example 1, 2, 3 squares). The <b>empty oval</b> means "keep going until another block changes it".</li>
+<li data-l="el"><b>Μετακίνηση:</b> σύρετε ένα μπλοκ του προγράμματος σε άλλη θέση. <b>Διαγραφή:</b> σύρετέ το έξω από το πρόγραμμα.</li>
+<li data-l="en"><b>Move:</b> drag a program block to another place. <b>Delete:</b> drag it out of the program.</li>
+<li data-l="el"><b>Επανάληψη:</b> τα μπλοκ «επανάλαβε» και «για πάντα» αγκαλιάζουν άλλα μπλοκ. Σύρετε μπλοκ μέσα στο πλαίσιό τους.</li>
+<li data-l="en"><b>Loops:</b> the "repeat" and "forever" blocks wrap other blocks. Drag blocks into their frame.</li>
+<li data-l="el"><b>Εικόνα LED:</b> πατήστε ένα μπλοκ εικόνας μέσα στο πρόγραμμα (έχει ένα μολυβάκι) για να ζωγραφίσετε τα 25 LED.</li>
+<li data-l="en"><b>LED picture:</b> tap a picture block in the program (it has a small pencil) to draw on the 25 LEDs.</li>
+<li data-l="el">Το πρόγραμμα χωρά έως <b>30 μπλοκ</b> και αποθηκεύεται αυτόματα στη συσκευή.</li>
+<li data-l="en">A program holds up to <b>30 blocks</b> and is saved automatically on the device.</li>
+</ul>
+<figure class="tiny"><img src="img/led-editor.webp" width="380" height="452" alt="LED picture editor" loading="lazy"><figcaption><span data-l="el">Ο επεξεργαστής εικόνας LED: πατήστε τα κουτάκια, μετά το πορτοκαλί τικ.</span><span data-l="en">The LED picture editor: tap the boxes, then the orange tick.</span></figcaption></figure>
+</section>
+
+<!-- 6 -->
+<section class="ch" id="blocks">
+<h2><span data-l="el">6. Τα μπλοκ</span><span data-l="en">6. The blocks</span></h2>
+<h3><span data-l="el">Όταν (πορτοκαλί)</span><span data-l="en">When (orange)</span></h3>
+<figure><img src="img/pal-ev.webp" width="795" height="134" alt="" loading="lazy"></figure>
+<p data-l="el">Το πρόγραμμα περιμένει: <b>όταν πατηθεί το A</b>, <b>όταν πατηθεί το B</b>, <b>όταν κουνηθεί</b>. Πατήστε το πράσινο κουμπί και το πρόγραμμα σταματά στο μπλοκ αυτό μέχρι να γίνει το γεγονός. Έτσι τα παιδιά ξεκινούν το ρομπότ από το ίδιο το micro:bit (ή από τα εικονικά κουμπιά A, B και το κούνημα).</p>
+<p data-l="en">The program waits: <b>when A is pressed</b>, <b>when B is pressed</b>, <b>when shaken</b>. Press the green button and the program stops at this block until the event happens. This way children start the robot from the micro:bit itself (or from the virtual A, B and shake buttons).</p>
+<h3><span data-l="el">Οθόνη (κίτρινο)</span><span data-l="en">Screen (yellow)</span></h3>
+<figure><img src="img/pal-disp.webp" width="795" height="134" alt="" loading="lazy"></figure>
+<p data-l="el"><b>Εικόνα</b> (τη ζωγραφίζετε), <b>αριθμός</b> 0–9, <b>καθάρισμα</b> της οθόνης.</p>
+<p data-l="en"><b>Picture</b> (you draw it), <b>number</b> 0–9, <b>clear</b> the screen.</p>
+<h3><span data-l="el">Ήχος (γαλάζιο)</span><span data-l="en">Sound (light blue)</span></h3>
+<figure><img src="img/pal-snd.webp" width="795" height="134" alt="" loading="lazy"></figure>
+<p data-l="el">Δέκα ήχοι του micro:bit V2, με τον αριθμό: 1 γέλιο, 2 χαρά, 3 χαιρετισμός, 4 ελατήριο, 5 λαμπίρισμα, 6 πέταγμα, 7 τσουλήθρα, 8 μυστήριο, 9 λύπη, 10 χασμουρητό. Στην οθόνη ακούγεται μια παρόμοια μελωδία.</p>
+<p data-l="en">Ten micro:bit V2 sounds, by number: 1 giggle, 2 happy, 3 hello, 4 spring, 5 twinkle, 6 soaring, 7 slide, 8 mysterious, 9 sad, 10 yawn. On screen a similar tune plays.</p>
+<h3><span data-l="el">Ρομπότ (μπλε)</span><span data-l="en">Robot (blue)</span></h3>
+<figure><img src="img/pal-bot.webp" width="795" height="258" alt="" loading="lazy"></figure>
+<div class="tw"><table>
+<tr><th><span data-l="el">Μπλοκ</span><span data-l="en">Block</span></th><th><span data-l="el">Τι κάνει</span><span data-l="en">What it does</span></th></tr>
+<tr><td><span data-l="el">Μπροστά / πίσω</span><span data-l="en">Forward / back</span></td><td><span data-l="el">1–5 τετράγωνα, ή κενό οβάλ = συνέχεια μέχρι το επόμενο μπλοκ κίνησης ή το στοπ.</span><span data-l="en">1–5 squares, or the empty oval = keep going until the next move block or stop.</span></td></tr>
+<tr><td><span data-l="el">Αριστερά / δεξιά</span><span data-l="en">Left / right</span></td><td><span data-l="el">Στροφή επί τόπου, 1–4 τέταρτα (90°). Κενό οβάλ = γυρίζει συνέχεια.</span><span data-l="en">Turn on the spot, 1–4 quarter turns (90°). Empty oval = keeps turning.</span></td></tr>
+<tr><td><span data-l="el">Στοπ</span><span data-l="en">Stop</span></td><td><span data-l="el">Σταματά τους τροχούς.</span><span data-l="en">Stops the wheels.</span></td></tr>
+<tr><td><span data-l="el">Ταχύτητα</span><span data-l="en">Speed</span></td><td><span data-l="el">Μόνο στο TPBot Edu: 1 αργά (20 cm/s), 2 μέτρια (30), 3 γρήγορα (45).</span><span data-l="en">TPBot Edu only: 1 slow (20 cm/s), 2 medium (30), 3 fast (45).</span></td></tr>
+<tr><td><span data-l="el">Φώτα</span><span data-l="en">Lights</span></td><td><span data-l="el">Τα δύο φώτα μπροστά: 1 κόκκινο, 2 πράσινο, 3 μπλε, 4 κίτρινο, 5 άσπρο, 6 ροζ, κενό = σβηστά.</span><span data-l="en">The two front lights: 1 red, 2 green, 3 blue, 4 yellow, 5 white, 6 pink, empty = off.</span></td></tr>
+<tr><td><span data-l="el">Περίμενε εμπόδιο</span><span data-l="en">Wait for an obstacle</span></td><td><span data-l="el">Περιμένει μέχρι ο αισθητήρας απόστασης να δει κάτι πιο κοντά από 10 cm.</span><span data-l="en">Waits until the distance sensor sees something closer than 10 cm.</span></td></tr>
+<tr><td><span data-l="el">Περίμενε μαύρη γραμμή</span><span data-l="en">Wait for a black line</span></td><td><span data-l="el">Περιμένει μέχρι και οι δύο αισθητήρες δαπέδου να δουν μαύρο.</span><span data-l="en">Waits until both floor sensors see black.</span></td></tr>
+</table></div>
+<h3><span data-l="el">Έλεγχος (γκρι)</span><span data-l="en">Control (grey)</span></h3>
+<figure><img src="img/pal-ctl.webp" width="795" height="134" alt="" loading="lazy"></figure>
+<p data-l="el"><b>Περίμενε</b> 1–3 δευτερόλεπτα, <b>επανάλαβε</b> 2–5 φορές, <b>για πάντα</b>.</p>
+<p data-l="en"><b>Wait</b> 1–3 seconds, <b>repeat</b> 2–5 times, <b>forever</b>.</p>
+<h3><span data-l="el">Πρόσθετα (πράσινο)</span><span data-l="en">Add-ons (green)</span></h3>
+<figure><img src="img/pal-addon.webp" width="795" height="134" alt="" loading="lazy"></figure>
+<p data-l="el"><b>Άνοιξε την αρπάγη</b> και <b>κλείσε την αρπάγη</b>. Δείτε το κεφάλαιο <a href="#addons">14</a>.</p>
+<p data-l="en"><b>Open the grabber</b> and <b>close the grabber</b>. See chapter <a href="#addons">14</a>.</p>
+</section>
+
+<!-- 7 -->
+<section class="ch" id="run">
+<h2><span data-l="el">7. Εκτέλεση και εργαλεία εκπαιδευτικού</span><span data-l="en">7. Running and teacher tools</span></h2>
+<p data-l="el">Πατήστε το πράσινο κουμπί. Το μπλοκ που εκτελείται φωτίζεται, το εικονικό ρομπότ κινείται στη σκηνή και, αν είναι συνδεδεμένο, το πραγματικό ρομπότ κάνει το ίδιο. Το κόκκινο κουμπί σταματά τα πάντα.</p>
+<p data-l="en">Press the green button. The running block lights up, the virtual robot moves on the stage and, if connected, the real robot does the same. The red button stops everything.</p>
+<figure class="mid"><img src="img/toolbar-teacher.webp" width="848" height="116" alt="" loading="lazy"><figcaption><span data-l="el">Από αριστερά: προεπισκόπηση, επιστροφή στην αρχή, αισθητήρες, στόχος, παγίδα, μετρητής βημάτων.</span><span data-l="en">From the left: preview, back to start, sensors, target, trap, step counter.</span></figcaption></figure>
+<div class="tw"><table>
+<tr><th><span data-l="el">Εργαλείο</span><span data-l="en">Tool</span></th><th><span data-l="el">Τι κάνει</span><span data-l="en">What it does</span></th></tr>
+<tr><td><span data-l="el">Προεπισκόπηση</span><span data-l="en">Preview</span></td><td><span data-l="el">Δείχνει με διακεκομμένη γραμμή πού θα πάει το ρομπότ, πριν πατηθεί το πράσινο κουμπί. Κλείστε το όταν θέλετε τα παιδιά να προβλέψουν μόνα τους.</span><span data-l="en">Shows with a dashed line where the robot will go, before the green button is pressed. Turn it off when you want the children to predict on their own.</span></td></tr>
+<tr><td><span data-l="el">Επιστροφή στην αρχή</span><span data-l="en">Back to start</span></td><td><span data-l="el">Το εικονικό ρομπότ γυρίζει στο τετράγωνο εκκίνησης και καθαρίζουν τα ίχνη. Το πραγματικό ρομπότ το μεταφέρετε με το χέρι.</span><span data-l="en">The virtual robot goes back to the start square and the trail clears. Carry the real robot back by hand.</span></td></tr>
+<tr><td><span data-l="el">Αισθητήρες</span><span data-l="en">Sensors</span></td><td><span data-l="el">Χωρίς ρομπότ, προσομοιώνει «εμπόδιο μπροστά» και «μαύρη γραμμή», για να δοκιμάσετε τα μπλοκ αναμονής.</span><span data-l="en">Without a robot, it simulates "obstacle ahead" and "black line", to try the waiting blocks.</span></td></tr>
+<tr><td><span data-l="el">Στόχος και παγίδα</span><span data-l="en">Target and trap</span></td><td><span data-l="el">Ενεργοποιήστε το εργαλείο και πατήστε τετράγωνα για να βάλετε (ή να βγάλετε) αστέρια και παγίδες. Όταν το ρομπότ φτάνει σε αστέρι, το micro:bit χαμογελά και ακούγεται χαρούμενος ήχος. Σε παγίδα, το ρομπότ «πέφτει» και ακούγεται λυπημένος ήχος.</span><span data-l="en">Turn the tool on and tap squares to place (or remove) stars and traps. When the robot reaches a star, the micro:bit smiles and a happy sound plays. On a trap the robot "falls" and a sad sound plays.</span></td></tr>
+<tr><td><span data-l="el">Μετρητής βημάτων</span><span data-l="en">Step counter</span></td><td><span data-l="el">Μετρά τα τετράγωνα που διάνυσε το ρομπότ. Χρήσιμο για «φτάσε με τα λιγότερα βήματα».</span><span data-l="en">Counts the squares the robot has driven. Useful for "get there in the fewest steps".</span></td></tr>
+</table></div>
+<p data-l="el"><b>Τετράγωνο εκκίνησης και κατεύθυνση:</b> πατήστε ένα τετράγωνο της σκηνής για να ξεκινά από εκεί το ρομπότ. Πατήστε το ίδιο το ρομπότ για να το στρίψετε κατά ένα τέταρτο.</p>
+<p data-l="en"><b>Start square and direction:</b> tap a square on the stage for the robot to start there. Tap the robot itself to turn it a quarter turn.</p>
+<figure class="small"><img src="img/stage.webp" width="446" height="534" alt="" loading="lazy"><figcaption><span data-l="el">Πίστα με αστέρι, παγίδες και μετρητή βημάτων.</span><span data-l="en">A track with a star, traps and the step counter.</span></figcaption></figure>
+</section>
+
+<!-- 8 -->
+<section class="ch" id="record">
+<h2><span data-l="el">8. Ηχογράφηση βημάτων</span><span data-l="en">8. Record mode</span></h2>
+<p data-l="el">Ο πιο απλός τρόπος για τα μικρότερα παιδιά, όπως στα επιδαπέδια ρομπότ: πατούν βελάκια, το ρομπότ τα θυμάται, και με το «Πάμε!» τα εκτελεί ένα ένα. Ανοίγει από το μεγάλο κουμπί με την κόκκινη τελεία, αριστερά από το πράσινο κουμπί.</p>
+<p data-l="en">The simplest way for the youngest children, like floor robots: they press arrows, the robot remembers them, and "Go!" runs them one by one. It opens from the large button with the red dot, left of the green button.</p>
+<figure class="small"><img src="img/record.webp" width="797" height="718" alt="" loading="lazy"></figure>
+<ul>
+<li data-l="el"><b>Βελάκια:</b> μπροστά ένα τετράγωνο, πίσω ένα τετράγωνο, στροφή αριστερά ή δεξιά. Κάθε πάτημα ακούγεται και μπαίνει στη λωρίδα της μνήμης (έως 40 βήματα).</li>
+<li data-l="en"><b>Arrows:</b> forward one square, back one square, turn left or right. Each press beeps and joins the memory strip (up to 40 steps).</li>
+<li data-l="el"><b>Πάμε! (πράσινο):</b> εκτελεί τα βήματα με μισό δευτερόλεπτο παύση ανάμεσα. Το ρομπότ συνεχίζει από εκεί που βρίσκεται. Μετά από αστέρι ή παγίδα, ξεκινά ξανά από την αρχή.</li>
+<li data-l="en"><b>Go! (green):</b> runs the steps with half a second between them. The robot carries on from where it is. After a star or a trap, it starts again from the start square.</li>
+<li data-l="el"><b>X:</b> σβήνει τη μνήμη.</li>
+<li data-l="en"><b>X:</b> erases the memory.</li>
+<li data-l="el"><b>Αρπάγη (γκρι, πάνω δεξιά):</b> ανοίγει και κλείνει την αρπάγη, ως βήματα της μνήμης.</li>
+<li data-l="en"><b>Grabber (grey, top right):</b> opens and closes the grabber, as memory steps.</li>
+<li data-l="el"><b>Κεραυνός (άμεση κίνηση):</b> κάθε πάτημα κινεί αμέσως το ρομπότ, σαν τηλεχειριστήριο. Τα βήματα γράφονται και στη μνήμη, ώστε το «Πάμε!» να τα επαναλάβει.</li>
+<li data-l="en"><b>Lightning (move at once):</b> every press moves the robot straight away, like a remote control. The steps are still written to the memory, so "Go!" can repeat them.</li>
+</ul>
+<div class="callout"><span class="label"><span data-l="el">ΠΡΟΤΑΣΗ</span><span data-l="en">SUGGESTION</span></span>
+<p data-l="el">Ξεκινήστε με την άμεση κίνηση (τα παιδιά βλέπουν αιτία και αποτέλεσμα), περάστε στη μνήμη με το «Πάμε!» (σχεδιάζουν πριν δράσουν), και μετά στα μπλοκ του προγράμματος.</p>
+<p data-l="en">Start with "move at once" (children see cause and effect), move on to memory with "Go!" (they plan before acting), and then to the program blocks.</p></div>
+</section>
+
+<!-- 9 -->
+<section class="ch" id="tracks">
+<h2><span data-l="el">9. Πίστες</span><span data-l="en">9. Tracks</span></h2>
+<figure class="mid"><img src="img/toolbar-track.webp" width="848" height="116" alt="" loading="lazy"><figcaption><span data-l="el">Από αριστερά: βιβλιοθήκη, φόντο από εικόνα, φωτογραφία πίστας, τετράγωνο αριθμών, αλλαγή τετραγώνου, αφαίρεση φόντου, πρότυπο για εκτύπωση, πλέγμα, πλήρης οθόνη σκηνής.</span><span data-l="en">From the left: library, backdrop from a picture, photo of the track, numbers square, modify square, remove backdrop, printable template, grid, full-screen stage.</span></figcaption></figure>
+<h3><span data-l="el">Βιβλιοθήκη πιστών</span><span data-l="en">Tracks library</span></h3>
+<p data-l="el">Οι επίσημες πίστες του RoboTrails ανοίγουν με ένα πάτημα, μαζί με το τετράγωνο εκκίνησης, τα αστέρια και τις παγίδες τους. Πολλές υπάρχουν στα ελληνικά και στα αγγλικά. Το κουμπί λήψης πάνω δεξιά κατεβάζει την πίστα που έχετε στη σκηνή ως εικόνα.</p>
+<p data-l="en">The official RoboTrails tracks open with one tap, together with their start square, stars and traps. Many exist in Greek and in English. The download button at the top right saves the track on your stage as a picture.</p>
+<figure><img data-l="el" src="img/library-el.webp" width="960" height="704" alt="" loading="lazy"><img data-l="en" src="img/library-en.webp" width="960" height="704" alt="" loading="lazy"></figure>
+<h3><span data-l="el">Δική σας πίστα</span><span data-l="en">Your own track</span></h3>
+<ul>
+<li data-l="el"><b>Φόντο από εικόνα:</b> διαλέξτε μια εικόνα. Αν οι διαστάσεις της είναι πολλαπλάσια των 200 pixel (π.χ. 1200 × 1000), το πλέγμα προσαρμόζεται μόνο του (6 × 5). Αλλιώς η εικόνα απλώνεται στο τρέχον πλέγμα.</li>
+<li data-l="en"><b>Backdrop from a picture:</b> choose a picture. If its size is a multiple of 200 pixels (e.g. 1200 × 1000), the grid adjusts by itself (6 × 5). Otherwise the picture is stretched over the current grid.</li>
+<li data-l="el"><b>Φωτογραφία πίστας:</b> η κάμερα ανοίγει με τις γραμμές του πλέγματος από πάνω. Κρατήστε το tablet πάνω από την πίστα, ταιριάξτε τα τετράγωνα και τραβήξτε.</li>
+<li data-l="en"><b>Photo of the track:</b> the camera opens with the grid lines on top. Hold the tablet above the floor track, line up the squares and take the photo.</li>
+<li data-l="el"><b>Πρότυπο:</b> κατεβάζει ένα άδειο πλέγμα στο τρέχον μέγεθος, για εκτύπωση ή ζωγραφική.</li>
+<li data-l="en"><b>Template:</b> downloads an empty grid at the current size, for printing or painting.</li>
+<li data-l="el"><b>Αλλαγή τετραγώνου:</b> ζωγραφίστε ή φωτογραφίστε ένα ένα τα τετράγωνα (κεφάλαιο <a href="#paint">10</a>). Δουλεύει και στις επίσημες πίστες.</li>
+<li data-l="en"><b>Modify square:</b> draw or photograph the squares one by one (chapter <a href="#paint">10</a>). It also works on the official tracks.</li>
+<li data-l="el"><b>Μέγεθος πλέγματος:</b> 3 έως 8 στήλες και γραμμές, από τις ρυθμίσεις (όταν δεν υπάρχει φόντο).</li>
+<li data-l="en"><b>Grid size:</b> 3 to 8 columns and rows, in the settings (when there is no backdrop).</li>
+</ul>
+<h3><span data-l="el">Αποθήκευση και μεταφορά</span><span data-l="en">Saving and moving tracks</span></h3>
+<p data-l="el">Το κουμπί λήψης της βιβλιοθήκης φτιάχνει ένα αρχείο PNG της πίστας, με τις γραμμές του πλέγματος αν είναι ανοιχτό. Μέσα στο αρχείο κρύβονται και το τετράγωνο εκκίνησης, τα αστέρια, οι παγίδες και τα διαδραστικά τετράγωνα. Ανοίξτε το σε άλλο tablet με το κουμπί «φόντο από εικόνα» και όλα επανέρχονται.</p>
+<p data-l="en">The library's download button makes a PNG of the track, with the grid lines if the grid is on. Hidden inside the file are also the start square, the stars, the traps and the interactive squares. Open it on another tablet with the "backdrop from a picture" button and everything comes back.</p>
+</section>
+
+<!-- 10 -->
+<section class="ch" id="paint">
+<h2><span data-l="el">10. Αλλαγή τετραγώνου</span><span data-l="en">10. Modifying a square</span></h2>
+<p data-l="el">Ενεργοποιήστε το εργαλείο με το μολύβι στο τετράγωνο και πατήστε ένα τετράγωνο της σκηνής. Το εργαλείο μένει ενεργό, ώστε να πατάτε το ένα τετράγωνο μετά το άλλο.</p>
+<p data-l="en">Turn on the tool with the pencil on a square and tap a square on the stage. The tool stays on, so you can tap one square after another.</p>
+<figure><img data-l="el" src="img/square-editor-el.webp" width="1000" height="632" alt="" loading="lazy"><img data-l="en" src="img/square-editor-en.webp" width="1000" height="632" alt="" loading="lazy"></figure>
+<div class="tw"><table>
+<tr><th><span data-l="el">Εργαλείο</span><span data-l="en">Tool</span></th><th><span data-l="el">Χρήση</span><span data-l="en">Use</span></th></tr>
+<tr><td><span data-l="el">Πινέλο</span><span data-l="en">Brush</span></td><td><span data-l="el">Ελεύθερη ζωγραφική, σε τρία πάχη.</span><span data-l="en">Free drawing, in three thicknesses.</span></td></tr>
+<tr><td><span data-l="el">Κουβάς</span><span data-l="en">Bucket</span></td><td><span data-l="el">Γεμίζει με χρώμα μια περιοχή με παρόμοιο χρώμα.</span><span data-l="en">Fills an area of similar colour.</span></td></tr>
+<tr><td><span data-l="el">Σταγονόμετρο</span><span data-l="en">Eyedropper</span></td><td><span data-l="el">Πατήστε το και μετά το τετράγωνο: το χρώμα εκεί γίνεται το τρέχον χρώμα. Αν είναι νέο, εμφανίζεται ως 13ο χρώμα.</span><span data-l="en">Tap it, then the square: the colour there becomes the current colour. If it is new, it appears as a 13th swatch.</span></td></tr>
+<tr><td><span data-l="el">Σχήματα</span><span data-l="en">Shapes</span></td><td><span data-l="el">Τετράγωνο, κύκλος, τρίγωνο, αστέρι, καρδιά, βέλος. Σύρετε για να ορίσετε το μέγεθος ή πατήστε για κανονικό μέγεθος. Το βέλος δείχνει προς τα εκεί που σύρατε. Το κουμπί με το τετράγωνο αλλάζει γεμάτο ή περίγραμμα.</span><span data-l="en">Square, circle, triangle, star, heart, arrow. Drag to set the size or tap for a standard size. The arrow points the way you dragged. The square button switches filled or outline.</span></td></tr>
+<tr><td><span data-l="el">Γράμματα και αριθμοί</span><span data-l="en">Letters and numbers</span></td><td><span data-l="el">Γράψτε έως 6 χαρακτήρες και πατήστε μέσα στο τετράγωνο.</span><span data-l="en">Type up to 6 characters and tap in the square.</span></td></tr>
+<tr><td><span data-l="el">Κάμερα</span><span data-l="en">Camera</span></td><td><span data-l="el">Τετράγωνη φωτογραφία που γίνεται το τετράγωνο (μπορείτε μετά να ζωγραφίσετε πάνω της). Υπάρχει και επιλογή εικόνας από τη συσκευή.</span><span data-l="en">A square photo that becomes the square (you can then draw on it). You can also pick a picture from the device.</span></td></tr>
+<tr><td><span data-l="el">Αναίρεση, καθάρισμα</span><span data-l="en">Undo, clear</span></td><td><span data-l="el">Πίσω ένα βήμα, ή λευκό τετράγωνο.</span><span data-l="en">One step back, or a white square.</span></td></tr>
+</table></div>
+<p data-l="el">Στο κάτω μέρος του παραθύρου βάζετε και ένα <b>βίντεο ή μια εικόνα</b>, ή μια <b>λέξη</b> για γράψιμο. Αυτά είναι τα διαδραστικά τετράγωνα του επόμενου κεφαλαίου. Το <b>OK</b> κρατά τις αλλαγές, το <b>X</b> τις ακυρώνει.</p>
+<p data-l="en">At the bottom of the window you can also add a <b>video or picture</b>, or a <b>word</b> to write. These are the interactive squares of the next chapter. <b>OK</b> keeps the changes, <b>X</b> cancels them.</p>
+</section>
+
+<!-- 11 -->
+<section class="ch" id="interactive">
+<h2><span data-l="el">11. Διαδραστικά τετράγωνα</span><span data-l="en">11. Interactive squares</span></h2>
+<p data-l="el">Ένα διαδραστικό τετράγωνο ανοίγει κάτι όταν το ρομπότ πάει εκεί: ένα <b>βίντεο, μια εικόνα ή μια ιστοσελίδα</b>, έναν <b>πίνακα γραφής λέξεων</b> ή έναν <b>πίνακα αριθμών</b>. Φαίνεται με ένα μικρό μπλε σήμα «play» στην πάνω αριστερή γωνία και μπορεί να έχει ταυτόχρονα αστέρι ή παγίδα.</p>
+<p data-l="en">An interactive square opens something when the robot gets there: a <b>video, a picture or a web page</b>, a <b>spelling board</b> or a <b>numbers board</b>. It shows a small blue "play" sign in the top left corner and can have a star or a trap at the same time.</p>
+<h3><span data-l="el">Πότε ανοίγει</span><span data-l="en">When it opens</span></h3>
+<ul>
+<li data-l="el">Αν το διαδραστικό τετράγωνο είναι στη διαδρομή, το ρομπότ <b>σταματά στο προηγούμενο τετράγωνο</b> και ανοίγει η ερώτηση. Μόλις απαντηθεί (ή κλείσει), το ρομπότ μπαίνει στο τετράγωνο και συνεχίζει την κίνησή του.</li>
+<li data-l="en">If the interactive square is on the route, the robot <b>stops on the square before it</b> and the question opens. Once it is answered (or closed), the robot drives in and carries on with its move.</li>
+<li data-l="el">Όσο είναι ανοιχτό, το πρόγραμμα περιμένει. Το κόκκινο κουμπί στοπ το κλείνει. Με πληκτρολόγιο, το <kbd>Esc</kbd> το κλείνει επίσης.</li>
+<li data-l="en">While it is open, the program waits. The red stop button closes it. With a keyboard, <kbd>Esc</kbd> closes it too.</li>
+<li data-l="el">Κάθε τετράγωνο έχει ένα μόνο διαδραστικό στοιχείο: αν βάλετε νέο, αντικαθιστά το παλιό.</li>
+<li data-l="en">Each square holds one interactive item: a new one replaces the old one.</li>
+</ul>
+<h3><span data-l="el">Βίντεο, εικόνα ή σύνδεσμος</span><span data-l="en">Video, picture or link</span></h3>
+<p data-l="el">Στο «Αλλαγή τετραγώνου», επικολλήστε έναν σύνδεσμο ή διαλέξτε ένα αρχείο από τη συσκευή (εικόνα, κινούμενο GIF ή βίντεο). Το μάτι κάνει δοκιμή, το X το αφαιρεί.</p>
+<p data-l="en">In "Modify square", paste a link or choose a file from the device (a picture, an animated GIF or a video). The eye tries it, the X removes it.</p>
+<ul>
+<li data-l="el">Σύνδεσμοι <b>YouTube, Vimeo και Google Drive</b> παίζουν μέσα στην εφαρμογή. Άμεσοι σύνδεσμοι σε εικόνα ή βίντεο (.jpg, .gif, .mp4…) επίσης.</li>
+<li data-l="en"><b>YouTube, Vimeo and Google Drive</b> links play inside the app. Direct links to a picture or video (.jpg, .gif, .mp4…) too.</li>
+<li data-l="el">Άλλες ιστοσελίδες ανοίγουν σε πλαίσιο. Αν μια σελίδα δεν επιτρέπει να εμφανιστεί μέσα σε άλλη, πατήστε το κουμπί «άνοιγμα σε νέα καρτέλα».</li>
+<li data-l="en">Other web pages open in a frame. If a page refuses to show inside another one, press the "open in a new tab" button.</li>
+<li data-l="el">Ένα αρχείο από τη συσκευή μένει <b>μόνο σε αυτή τη συσκευή</b>. Για άλλα tablet, χρησιμοποιήστε σύνδεσμο ή κατεβάστε την πίστα: αρχεία έως 10 MB ταξιδεύουν μέσα στην εικόνα της πίστας.</li>
+<li data-l="en">A file from the device stays <b>on that device only</b>. For other tablets, use a link or download the track: files up to 10 MB travel inside the track picture.</li>
+</ul>
+</section>
+
+<!-- 12 -->
+<section class="ch" id="words">
+<h2><span data-l="el">12. Πίνακας γραφής λέξεων</span><span data-l="en">12. The spelling board</span></h2>
+<p data-l="el">Το ρομπότ φτάνει, για παράδειγμα, στο τετράγωνο με την μπανάνα, και το παιδί πρέπει να γράψει «μπανάνα». Τα γράμματα ελέγχονται ένα ένα, καθώς τα γράφει με το δάχτυλο.</p>
+<p data-l="en">The robot reaches, say, the square with the banana, and the child has to write "banana". The letters are checked one by one as the child writes them with a finger.</p>
+<figure><img data-l="el" src="img/spelling-el.webp" width="1100" height="505" alt="" loading="lazy"><img data-l="en" src="img/spelling-en.webp" width="1100" height="514" alt="" loading="lazy"><figcaption><span data-l="el">Επίπεδο «ξεσήκωμα», με πεζά: οι πράσινες τελείες δείχνουν πού ξεκινά κάθε γραμμή.</span><span data-l="en">"Trace" level, lowercase: the green dots show where each stroke starts.</span></figcaption></figure>
+<h3><span data-l="el">Ρύθμιση</span><span data-l="en">Setting it up</span></h3>
+<ol class="steps">
+<li><div data-l="el">Ζωγραφίστε ή φωτογραφίστε το τετράγωνο: αυτή είναι η εικόνα του πίνακα.</div><div data-l="en">Draw or photograph the square: this becomes the board's picture.</div></li>
+<li><div data-l="el">Στην πράσινη γραμμή, γράψτε τη λέξη κανονικά, με τόνους (π.χ. «μπανάνα»). Τα σημεία στίξης (! . , ;) εμφανίζονται ήδη συμπληρωμένα.</div><div data-l="en">In the green row, type the word normally (e.g. "banana"). Punctuation (! . , ;) is shown already filled in.</div></li>
+<li><div data-l="el">Διαλέξτε <b>ΑΒ</b> (κεφαλαία) ή <b>αβ</b> (πεζά). Με πεζά, το <b>ά</b> ζητά από το παιδί να γράψει και τους τόνους. Αλλιώς οι τόνοι είναι ήδη γραμμένοι.</div><div data-l="en">Choose <b>AB</b> (capitals) or <b>ab</b> (lowercase). In lowercase, <b>ά</b> asks the child to write the accents too. Otherwise the accents are already written.</div></li>
+<li><div data-l="el">Διαλέξτε επίπεδο (πίνακας παρακάτω) και πατήστε OK.</div><div data-l="en">Choose a level (table below) and press OK.</div></li>
+</ol>
+<div class="tw"><table>
+<tr><th><span data-l="el">Επίπεδο</span><span data-l="en">Level</span></th><th><span data-l="el">Τι βλέπει το παιδί</span><span data-l="en">What the child sees</span></th></tr>
+<tr><td><span data-l="el">Πλακίδια</span><span data-l="en">Tiles</span></td><td><span data-l="el">Πατά τα γράμματα με τη σωστή σειρά, χωρίς γράψιμο. Υπάρχουν και 3 λάθος πλακίδια.</span><span data-l="en">Taps the letters in order, without writing. There are 3 wrong tiles too.</span></td></tr>
+<tr><td><span data-l="el">Ξεσήκωμα</span><span data-l="en">Trace</span></td><td><span data-l="el">Γράφει πάνω στα γράμματα με τις τελείες.</span><span data-l="en">Writes over the dotted letters.</span></td></tr>
+<tr><td><span data-l="el">Αντιγραφή</span><span data-l="en">Copy</span></td><td><span data-l="el">Βλέπει τη λέξη από πάνω και τη γράφει.</span><span data-l="en">Sees the word above and writes it.</span></td></tr>
+<tr><td><span data-l="el">Από μνήμης</span><span data-l="en">From memory</span></td><td><span data-l="el">Βλέπει μόνο την εικόνα και ακούει τη λέξη. Διαθέσιμο μόνο με πεζά και τόνους, ώστε η φωνή του tablet να τη διαβάζει σωστά.</span><span data-l="en">Sees only the picture and hears the word. Available only with lowercase and accents, so the tablet's voice reads it correctly.</span></td></tr>
+</table></div>
+<h3><span data-l="el">Πώς ελέγχεται</span><span data-l="en">How it is checked</span></h3>
+<ul>
+<li data-l="el">Το παιδί γράφει στο κουτί με το μπλε περίγραμμα. Όταν σταματήσει για ένα δευτερόλεπτο, το γράμμα ελέγχεται: πράσινο αν είναι σωστό, κόκκινο και κούνημα αν όχι.</li>
+<li data-l="en">The child writes in the box with the blue outline. After a one-second pause the letter is checked: green if right, red and a shake if not.</li>
+<li data-l="el">Η λάμπα δείχνει πώς γράφεται το γράμμα. Μετά από 3 λάθη εμφανίζεται μόνη της, μαζί με το κουμπί παράλειψης.</li>
+<li data-l="en">The light bulb shows how the letter is written. After 3 wrong tries it appears by itself, together with the skip button.</li>
+<li data-l="el">Με πεζά ελέγχεται και το ύψος: το ο δεν είναι Ο και το ι δεν είναι l.</li>
+<li data-l="en">In lowercase the height is checked too: o is not O and i is not l.</li>
+<li data-l="el">Ο έλεγχος είναι επιεικής για μικρά παιδιά, αλλά δεν είναι τέλειος. Παρόμοια γράμματα (Ν/Μ, ν/υ, ο/σ) μπορεί σπάνια να μπερδευτούν.</li>
+<li data-l="en">The checking is lenient for young children, but not perfect. Similar letters (N/M, v/u, o/s) can occasionally be confused.</li>
+</ul>
+<div class="callout"><span class="label"><span data-l="el">ΦΩΝΗ</span><span data-l="en">VOICE</span></span>
+<p data-l="el">Η λέξη διαβάζεται με τη φωνή του tablet. Αν δεν ακούγεται τίποτα στα ελληνικά, εγκαταστήστε τα ελληνικά στις ρυθμίσεις «Μετατροπή κειμένου σε ομιλία» της συσκευής.</p>
+<p data-l="en">The word is read by the tablet's voice. If nothing is heard in Greek, install Greek in the device's "text-to-speech" settings.</p></div>
+</section>
+
+<!-- 13 -->
+<section class="ch" id="numbers">
+<h2><span data-l="el">13. Τετράγωνα αριθμών</span><span data-l="en">13. Numbers squares</span></h2>
+<p data-l="el">Ενεργοποιήστε το κουμπί <b>123</b> στα εργαλεία πίστας και πατήστε ένα τετράγωνο. Ανοίγει το παράθυρο «Τετράγωνο αριθμών». Κάθε φορά που το ρομπότ φτάνει εκεί, εμφανίζεται μια νέα άσκηση με σύντομη οδηγία στην κορυφή.</p>
+<p data-l="en">Turn on the <b>123</b> button in the track tools and tap a square. The "Numbers square" window opens. Each time the robot gets there, a new exercise appears, with a short instruction at the top.</p>
+<figure class="small"><img data-l="el" src="img/numbers-dialog-el.webp" width="560" height="591" alt="" loading="lazy"><img data-l="en" src="img/numbers-dialog-en.webp" width="560" height="591" alt="" loading="lazy"></figure>
+<h3><span data-l="el">Πράξεις</span><span data-l="en">Tasks</span></h3>
+<div class="tw"><table>
+<tr><th><span data-l="el">Πράξη</span><span data-l="en">Task</span></th><th><span data-l="el">Τι κάνει το παιδί</span><span data-l="en">What the child does</span></th></tr>
+<tr><td><span data-l="el">Μέτρηση</span><span data-l="en">Count</span></td><td><span data-l="el">Μετρά τελείες, πλαίσιο δεκάδας ή κύβους και γράφει τον αριθμό.</span><span data-l="en">Counts dots, a ten-frame or blocks and writes the number.</span></td></tr>
+<tr><td><span data-l="el">Πριν / μετά / ανάμεσα</span><span data-l="en">Before / after / between</span></td><td><code>_ 7</code> · <code>7 _</code> · <code>6 _ 8</code></td></tr>
+<tr><td><span data-l="el">Σύγκριση</span><span data-l="en">Compare</span></td><td><span data-l="el">Διαλέγει &lt;, = ή &gt;, ή πατά την ομάδα με τα περισσότερα.</span><span data-l="en">Picks &lt;, = or &gt;, or taps the group with more.</span></td></tr>
+<tr><td><span data-l="el">Πρόσθεση / αφαίρεση</span><span data-l="en">Add / take away</span></td><td><span data-l="el">Με το κουμπί + διαλέγετε +, − ή και τα δύο. Με το «αριθμός που λείπει» το κενό μπορεί να είναι οπουδήποτε: <code>3 + ▢ = 7</code>.</span><span data-l="en">The + button picks +, − or both. With "missing number" the blank can be anywhere: <code>3 + ▢ = 7</code>.</span></td></tr>
+<tr><td><span data-l="el">× και :</span><span data-l="en">× and :</span></td><td><span data-l="el">Πολλαπλασιασμός ως ομάδες ή πίνακας, διαίρεση ως μοιρασιά σε πιάτα. Μεγάλα γινόμενα εμφανίζονται σε αριθμογραμμή με ίσα άλματα.</span><span data-l="en">Multiplication as groups or an array, division as sharing onto plates. Large products show as equal hops on a number line.</span></td></tr>
+<tr><td><span data-l="el">Δεκάδες και μονάδες</span><span data-l="en">Tens and ones</span></td><td><span data-l="el">Διαβάζει κύβους και ράβδους και γράφει τον αριθμό.</span><span data-l="en">Reads cubes and rods and writes the number.</span></td></tr>
+<tr><td><span data-l="el">Φτιάξε τον αριθμό</span><span data-l="en">Build the number</span></td><td><span data-l="el">Φτιάχνει τον αριθμό με εκατοντάδες, δεκάδες και μονάδες (− / +) και πατά ✓.</span><span data-l="en">Builds the number with hundreds, tens and ones (− / +) and presses ✓.</span></td></tr>
+<tr><td><span data-l="el">Χρήματα</span><span data-l="en">Money</span></td><td><span data-l="el">Μετρά κέρματα και χαρτονομίσματα (ολόκληρα ευρώ).</span><span data-l="en">Counts coins and notes (whole euros).</span></td></tr>
+<tr><td><span data-l="el">Πληρωμή</span><span data-l="en">Pay</span></td><td><span data-l="el">Βάζει στο τραπέζι τα σωστά χρήματα. Κάθε συνδυασμός που κάνει το ποσό είναι σωστός.</span><span data-l="en">Puts the right money on the table. Any combination that makes the amount is right.</span></td></tr>
+<tr><td><span data-l="el">Ρέστα</span><span data-l="en">Change</span></td><td><span data-l="el">Χαρτονόμισμα και τιμή: <code>10 − 6 = ▢ €</code>.</span><span data-l="en">A note and a price: <code>10 − 6 = ▢ €</code>.</span></td></tr>
+<tr><td><span data-l="el">Ρολόι</span><span data-l="en">Read the clock</span></td><td><span data-l="el">Διαβάζει την ώρα: ακριβώς, και μισή, και τέταρτο ή ανά 5 λεπτά.</span><span data-l="en">Reads the time: o'clock, half hours, quarters or 5 minutes.</span></td></tr>
+<tr><td><span data-l="el">Βάλε την ώρα</span><span data-l="en">Set the clock</span></td><td><span data-l="el">Γυρίζει τους δείκτες με − / + και πατά ✓.</span><span data-l="en">Turns the hands with − / + and presses ✓.</span></td></tr>
+<tr><td><span data-l="el">Μοτίβα</span><span data-l="en">Patterns</span></td><td><span data-l="el">Σχήματα (ΑΒ, ΑΑΒ, ΑΒΒ, ΑΒΓ) ή αριθμοί ανά +1… +10 ή −1… −10. Συμπληρώνει ό,τι λείπει.</span><span data-l="en">Shapes (AB, AAB, ABB, ABC) or numbers in steps of +1… +10 or −1… −10. Fills in what is missing.</span></td></tr>
+</table></div>
+<figure><img data-l="el" src="img/numbers-add-el.webp" width="1100" height="477" alt="" loading="lazy"><img data-l="en" src="img/numbers-add-en.webp" width="1100" height="477" alt="" loading="lazy"></figure>
+<h3><span data-l="el">Οι επιλογές του παραθύρου</span><span data-l="en">The window's options</span></h3>
+<ul>
+<li data-l="el"><b>Τυχαία από … έως:</b> οι αριθμοί επιλέγονται τυχαία μέσα σε αυτό το εύρος. Στο ρολόι, το εύρος είναι οι ώρες.</li>
+<li data-l="en"><b>Random from … to:</b> the numbers are picked at random within this range. For the clock, the range is the hours.</li>
+<li data-l="el"><b>Ακριβώς:</b> γράψτε συγκεκριμένες ασκήσεις, χωρισμένες με κόμμα. Κάθε φορά επιλέγεται μία (ποτέ η ίδια δύο φορές στη σειρά). Παραδείγματα: <code>3+4, 9−5</code> · <code>3×4, 12:3</code> · <code>7 9, 15 12</code> για σύγκριση · <code>3:30, 7:15</code> για ρολόι · <code>7, 12, 15</code> για τα υπόλοιπα.</li>
+<li data-l="en"><b>Exact:</b> type specific exercises, separated by commas. One is picked each time (never the same twice in a row). Examples: <code>3+4, 9−5</code> · <code>3×4, 12:3</code> · <code>7 9, 15 12</code> to compare · <code>3:30, 7:15</code> for the clock · <code>7, 12, 15</code> for the rest.</li>
+<li data-l="el"><b>Εικόνα:</b> τελείες, πλαίσιο δεκάδας, αριθμογραμμή, κύβοι ή χωρίς εικόνα.</li>
+<li data-l="en"><b>Picture:</b> dots, ten-frame, number line, blocks or no picture.</li>
+<li data-l="el"><b>Απάντηση:</b> πλακίδια αριθμών, γράψιμο των ψηφίων με το δάχτυλο (ένα κουτί για κάθε ψηφίο, με Δ και Μ από πάνω), ή επιλογή από τρία.</li>
+<li data-l="en"><b>Answer:</b> number tiles, writing the digits with a finger (one box per digit, labelled T and O), or a choice of three.</li>
+<li data-l="el"><b>Ρομπότ:</b> «η απάντηση κινεί το ρομπότ». Με σωστή απάντηση, το ρομπότ μπαίνει στο τετράγωνο και προχωρά τόσα τετράγωνα όσα λέει η απάντηση (έως 20). Ιδανικό σε πίστα-αριθμογραμμή.</li>
+<li data-l="en"><b>Robot:</b> "the answer moves the robot". With a right answer, the robot drives into the square and then moves as many squares as the answer (up to 20). Ideal on a number-line track.</li>
+</ul>
+<p data-l="el">Μετά από 3 λάθη εμφανίζεται κουμπί παράλειψης. Το μάτι στο κάτω μέρος του παραθύρου δοκιμάζει την άσκηση, ο κάδος αφαιρεί το τετράγωνο αριθμών.</p>
+<p data-l="en">After 3 wrong tries a skip button appears. The eye at the bottom of the window tries the exercise, the bin removes the numbers square.</p>
+<h3><span data-l="el">Προτάσεις ανά τάξη</span><span data-l="en">Suggestions by grade</span></h3>
+<div class="tw"><table>
+<tr><th><span data-l="el">Πράξη</span><span data-l="en">Task</span></th><th><span data-l="el">Νηπιαγωγείο</span><span data-l="en">Kindergarten</span></th><th><span data-l="el">Α΄ Δημοτικού</span><span data-l="en">Grade 1</span></th><th><span data-l="el">Β΄ Δημοτικού</span><span data-l="en">Grade 2</span></th></tr>
+<tr><td><span data-l="el">Μέτρηση</span><span data-l="en">Count</span></td><td><span data-l="el">1–5, μετά 1–10, τελείες</span><span data-l="en">1–5, then 1–10, dots</span></td><td><span data-l="el">1–20, πλαίσιο δεκάδας</span><span data-l="en">1–20, ten-frame</span></td><td><span data-l="el">έως 100, κύβοι</span><span data-l="en">to 100, blocks</span></td></tr>
+<tr><td><span data-l="el">Πριν / μετά</span><span data-l="en">Before / after</span></td><td>1–10</td><td>1–100</td><td>1–1000</td></tr>
+<tr><td><span data-l="el">Σύγκριση</span><span data-l="en">Compare</span></td><td><span data-l="el">1–10, «πάτα την ομάδα»</span><span data-l="en">1–10, "tap the group"</span></td><td><span data-l="el">1–100, σύμβολα</span><span data-l="en">1–100, signs</span></td><td>1–1000</td></tr>
+<tr><td><span data-l="el">Πρόσθεση / αφαίρεση</span><span data-l="en">Add / take away</span></td><td><span data-l="el">έως 5, τελείες</span><span data-l="en">to 5, dots</span></td><td><span data-l="el">έως 10, μετά έως 20 με υπέρβαση δεκάδας</span><span data-l="en">to 10, then to 20 crossing ten</span></td><td><span data-l="el">έως 100, αριθμογραμμή</span><span data-l="en">to 100, number line</span></td></tr>
+<tr><td><span data-l="el">× και :</span><span data-l="en">× and :</span></td><td>–</td><td><span data-l="el">διπλά και μισά (π.χ. <code>2×4</code>, <code>8:2</code>)</span><span data-l="en">doubles and halves (e.g. <code>2×4</code>, <code>8:2</code>)</span></td><td><span data-l="el">προπαίδεια 1–5, μετά 1–10</span><span data-l="en">times tables 1–5, then 1–10</span></td></tr>
+<tr><td><span data-l="el">Δεκάδες και μονάδες</span><span data-l="en">Tens and ones</span></td><td>–</td><td>10–99</td><td>100–999</td></tr>
+<tr><td><span data-l="el">Χρήματα</span><span data-l="en">Money</span></td><td>–</td><td><span data-l="el">έως 10 €</span><span data-l="en">to 10 €</span></td><td><span data-l="el">έως 50 €, ρέστα από 20 €</span><span data-l="en">to 50 €, change from 20 €</span></td></tr>
+<tr><td><span data-l="el">Ρολόι</span><span data-l="en">Clock</span></td><td>–</td><td><span data-l="el">ακριβώς, και μισή</span><span data-l="en">o'clock, half past</span></td><td><span data-l="el">και τέταρτο, παρά τέταρτο, ανά 5 λεπτά</span><span data-l="en">quarters, 5 minutes</span></td></tr>
+<tr><td><span data-l="el">Μοτίβα</span><span data-l="en">Patterns</span></td><td><span data-l="el">σχήματα ΑΒ, ΑΑΒ</span><span data-l="en">shapes AB, AAB</span></td><td><span data-l="el">ΑΒΓ, αριθμοί +1, +2</span><span data-l="en">ABC, numbers +1, +2</span></td><td><span data-l="el">+5, +10, −2, −10</span><span data-l="en">+5, +10, −2, −10</span></td></tr>
+</table></div>
+<figure><img data-l="el" src="img/numbers-clock-el.webp" width="1100" height="605" alt="" loading="lazy"><img data-l="en" src="img/numbers-clock-en.webp" width="1100" height="605" alt="" loading="lazy"></figure>
+</section>
+
+<!-- 14 -->
+<section class="ch" id="addons">
+<h2><span data-l="el">14. Πρόσθετα: η αρπάγη</span><span data-l="en">14. Add-ons: the grabber</span></h2>
+<p data-l="el">Η αρπάγη ανοίγει και κλείνει με έναν σερβοκινητήρα 0–360°, συνδεδεμένο σε μία από τις υποδοχές S1–S4 του ρομπότ. Με αυτήν το ρομπότ μεταφέρει αντικείμενα από τετράγωνο σε τετράγωνο.</p>
+<p data-l="en">The grabber opens and closes with a 0–360° servo, plugged into one of the robot's S1–S4 sockets. With it, the robot carries objects from square to square.</p>
+<figure class="tiny"><img src="img/pincers.webp" width="153" height="157" alt="" loading="lazy"><figcaption><span data-l="el">Στη σκηνή, η αρπάγη εμφανίζεται μπροστά στο ρομπότ μετά το πρώτο μπλοκ αρπάγης.</span><span data-l="en">On the stage, the grabber appears at the front of the robot after the first grabber block.</span></figcaption></figure>
+<ol class="steps">
+<li><div data-l="el">Βεβαιωθείτε ότι το micro:bit έχει τον εκτελεστή με την εντολή <code>Z</code> (κεφάλαιο <a href="#microbit">2</a>).</div><div data-l="en">Make sure the micro:bit has the runner with the <code>Z</code> command (chapter <a href="#microbit">2</a>).</div></li>
+<li><div data-l="el">Στις ρυθμίσεις, διαλέξτε την υποδοχή του σερβοκινητήρα (S1–S4).</div><div data-l="en">In the settings, choose the servo's socket (S1–S4).</div></li>
+<li><div data-l="el">Με το ρομπότ συνδεδεμένο, ρυθμίστε τη γωνία «ανοιχτή» και τη γωνία «κλειστή» με − και +. Η αρπάγη κινείται σε κάθε πάτημα, ώστε να βρείτε τις σωστές γωνίες με την αρπάγη μπροστά σας.</div><div data-l="en">With the robot connected, set the "open" angle and the "closed" angle with − and +. The grabber moves at each press, so you find the right angles with the grabber in front of you.</div></li>
+<li><div data-l="el">Χρησιμοποιήστε τα μπλοκ της κατηγορίας «Πρόσθετα» ή τα γκρι κουμπιά της ηχογράφησης βημάτων.</div><div data-l="en">Use the blocks of the "Add-ons" category or the grey buttons of Record mode.</div></li>
+</ol>
+<div class="callout orange"><span class="label"><span data-l="el">ΠΡΟΣΟΧΗ</span><span data-l="en">CAREFUL</span></span>
+<p data-l="el">Μη βάζετε γωνία που σπρώχνει την αρπάγη πέρα από το τέρμα της: ο σερβοκινητήρας ζεσταίνεται και τα γρανάζια φθείρονται. Ρυθμίστε τις γωνίες μία φορά και σημειώστε τες.</p>
+<p data-l="en">Do not set an angle that pushes the grabber past its end stop: the servo heats up and the gears wear. Set the angles once and note them down.</p></div>
+</section>
+
+<!-- 15 -->
+<section class="ch" id="settings">
+<h2><span data-l="el">15. Ρυθμίσεις</span><span data-l="en">15. Settings</span></h2>
+<figure class="tiny"><img data-l="el" src="img/settings-el.webp" width="313" height="558" alt="" loading="lazy"><img data-l="en" src="img/settings-en.webp" width="313" height="558" alt="" loading="lazy"></figure>
+<p data-l="el">Πατήστε παρατεταμένα το − ή το + για γρήγορη αλλαγή. Οι ρυθμίσεις αποθηκεύονται στη συσκευή.</p>
+<p data-l="en">Press and hold − or + to change quickly. The settings are saved on the device.</p>
+<div class="tw"><table>
+<tr><th><span data-l="el">Ρύθμιση</span><span data-l="en">Setting</span></th><th><span data-l="el">Ρομπότ</span><span data-l="en">Robot</span></th><th><span data-l="el">Τι ορίζει</span><span data-l="en">What it sets</span></th></tr>
+<tr><td><span data-l="el">Μήκος τετραγώνου</span><span data-l="en">Square length</span></td><td>TPBot Edu</td><td><span data-l="el">10–40 cm (20 cm όπως ο χάρτης του κιτ).</span><span data-l="en">10–40 cm (20 cm like the kit's map).</span></td></tr>
+<tr><td><span data-l="el">Ταχύτητα</span><span data-l="en">Speed</span></td><td>TPBot Edu</td><td>20–50 cm/s.</td></tr>
+<tr><td><span data-l="el">Ισχύς κινητήρων</span><span data-l="en">Motor power</span></td><td>TPBot</td><td>30–100%.</td></tr>
+<tr><td><span data-l="el">Χρόνος για ένα τετράγωνο</span><span data-l="en">Time for one square</span></td><td>TPBot</td><td><span data-l="el">Πόσο κινείται για ένα τετράγωνο. Μετρήστε στο πάτωμά σας και διορθώστε.</span><span data-l="en">How long it drives for one square. Measure on your floor and adjust.</span></td></tr>
+<tr><td><span data-l="el">Χρόνος για ένα τέταρτο στροφής</span><span data-l="en">Time for a quarter turn</span></td><td>TPBot</td><td><span data-l="el">Πόσο γυρίζει για 90°.</span><span data-l="en">How long it turns for 90°.</span></td></tr>
+<tr><td><span data-l="el">Στήλες, γραμμές</span><span data-l="en">Columns, rows</span></td><td><span data-l="el">όλα</span><span data-l="en">all</span></td><td><span data-l="el">3–8, όταν δεν υπάρχει φόντο.</span><span data-l="en">3–8, when there is no backdrop.</span></td></tr>
+<tr><td><span data-l="el">Αρπάγη: ανοιχτή, κλειστή, υποδοχή</span><span data-l="en">Grabber: open, closed, socket</span></td><td><span data-l="el">όλα</span><span data-l="en">all</span></td><td><span data-l="el">Γωνίες 0–360° και υποδοχή S1–S4.</span><span data-l="en">Angles 0–360° and socket S1–S4.</span></td></tr>
+</table></div>
+<div class="callout blue"><span class="label"><span data-l="el">ΤΟ ΑΠΛΟ TPBOT</span><span data-l="en">THE PLAIN TPBOT</span></span>
+<p data-l="el">Το TPBot κινείται για ορισμένο χρόνο, οπότε η απόσταση αλλάζει με τη μπαταρία και το δάπεδο. Ελέγχετε τη ρύθμιση στην αρχή κάθε μαθήματος: βάλτε το ρομπότ να κάνει ένα τετράγωνο και μια στροφή, και διορθώστε τους χρόνους.</p>
+<p data-l="en">The TPBot moves for a set time, so the distance changes with the battery and the floor. Check the setting at the start of each lesson: make the robot drive one square and one turn, and adjust the times.</p></div>
+</section>
+
+<!-- 16 -->
+<section class="ch" id="class">
+<h2><span data-l="el">16. Ιδέες για την τάξη</span><span data-l="en">16. Ideas for the classroom</span></h2>
+<ul>
+<li data-l="el"><b>Πρώτα χωρίς οθόνη:</b> ένα παιδί είναι το «ρομπότ» και οι άλλοι δίνουν εντολές με κάρτες-βελάκια στο πάτωμα.</li>
+<li data-l="en"><b>Unplugged first:</b> one child is the "robot" and the others give commands with arrow cards on the floor.</li>
+<li data-l="el"><b>Πρόβλεψη:</b> κλείστε την προεπισκόπηση, ζητήστε από τα παιδιά να δείξουν με το δάχτυλο πού θα σταματήσει το ρομπότ, και μετά πατήστε «Πάμε!».</li>
+<li data-l="en"><b>Predict:</b> turn the preview off, ask the children to point to where the robot will stop, then press "Go!".</li>
+<li data-l="el"><b>Λιγότερα βήματα:</b> με τον μετρητή βημάτων, ποια ομάδα φτάνει στο αστέρι με τα λιγότερα;</li>
+<li data-l="en"><b>Fewest steps:</b> with the step counter, which group reaches the star in the fewest?</li>
+<li data-l="el"><b>Ιστορία στην πίστα:</b> τα παιδιά ζωγραφίζουν τετράγωνα με τα στάδια μιας ιστορίας και βάζουν σε μερικά ένα βίντεο ή μια λέξη.</li>
+<li data-l="en"><b>A story on the track:</b> children draw squares with the stages of a story and put a video or a word on some of them.</li>
+<li data-l="el"><b>Αγορά:</b> πίστα με καταστήματα, τετράγωνα «πληρωμή» και «ρέστα», και η αρπάγη μεταφέρει τα «ψώνια».</li>
+<li data-l="en"><b>Market:</b> a track with shops, "pay" and "change" squares, and the grabber carries the "shopping".</li>
+<li data-l="el"><b>Αριθμογραμμή στο πάτωμα:</b> με «η απάντηση κινεί το ρομπότ», κάθε σωστή πρόσθεση πάει το ρομπότ στο αποτέλεσμα.</li>
+<li data-l="en"><b>Number line on the floor:</b> with "the answer moves the robot", each right addition takes the robot to the result.</li>
+</ul>
+</section>
+
+<!-- 17 -->
+<section class="ch" id="help">
+<h2><span data-l="el">17. Προβλήματα και λύσεις</span><span data-l="en">17. Troubleshooting</span></h2>
+<div class="tw"><table>
+<tr><th><span data-l="el">Πρόβλημα</span><span data-l="en">Problem</span></th><th><span data-l="el">Τι να κάνετε</span><span data-l="en">What to do</span></th></tr>
+<tr><td><span data-l="el">Το micro:bit δεν εμφανίζεται στη λίστα Bluetooth.</span><span data-l="en">The micro:bit is not in the Bluetooth list.</span></td><td><span data-l="el">Χρησιμοποιήστε Chrome ή Edge (όχι iPad). Ανοίξτε το Bluetooth της συσκευής. Ελέγξτε ότι ο εκτελεστής φτιάχτηκε με το «No Pairing Required». Πατήστε το κουμπί επαναφοράς στο πίσω μέρος του micro:bit και ξαναδοκιμάστε.</span><span data-l="en">Use Chrome or Edge (not an iPad). Turn on the device's Bluetooth. Check that the runner was made with "No Pairing Required". Press the reset button on the back of the micro:bit and try again.</span></td></tr>
+<tr><td><span data-l="el">Το ρομπότ πάει πολύ μακριά ή πολύ κοντά.</span><span data-l="en">The robot goes too far or not far enough.</span></td><td><span data-l="el">TPBot Edu: ελέγξτε το μήκος τετραγώνου. TPBot: διορθώστε τους χρόνους στις ρυθμίσεις.</span><span data-l="en">TPBot Edu: check the square length. TPBot: adjust the times in the settings.</span></td></tr>
+<tr><td><span data-l="el">Η αρπάγη δεν κινείται.</span><span data-l="en">The grabber does not move.</span></td><td><span data-l="el">Ο εκτελεστής πρέπει να είναι η νέα έκδοση (κεφάλαιο <a href="#microbit">2</a>). Ελέγξτε την υποδοχή S1–S4 στις ρυθμίσεις.</span><span data-l="en">The runner must be the new version (chapter <a href="#microbit">2</a>). Check the S1–S4 socket in the settings.</span></td></tr>
+<tr><td><span data-l="el">Το βίντεο YouTube δείχνει «Error 153».</span><span data-l="en">The YouTube video shows "Error 153".</span></td><td><span data-l="el">Συμβαίνει όταν η εφαρμογή ανοίγει από αρχείο στον υπολογιστή. Ανοίξτε την από το <a href="../app/">robotrails.github.io/app</a>. Από αρχείο, το βίντεο ανοίγει σε νέα καρτέλα.</span><span data-l="en">It happens when the app is opened from a file on the computer. Open it from <a href="../app/">robotrails.github.io/app</a>. From a file, the video opens in a new tab.</span></td></tr>
+<tr><td><span data-l="el">Δεν φορτώνει η βιβλιοθήκη πιστών.</span><span data-l="en">The tracks library does not load.</span></td><td><span data-l="el">Χρειάζεται σύνδεση στο internet. Ελέγξτε τη σύνδεση και ξανανοίξτε τη βιβλιοθήκη.</span><span data-l="en">It needs an internet connection. Check the connection and open the library again.</span></td></tr>
+<tr><td><span data-l="el">Ένα βίντεο ή μια εικόνα λείπει σε άλλο tablet.</span><span data-l="en">A video or picture is missing on another tablet.</span></td><td><span data-l="el">Τα αρχεία της συσκευής μένουν σε αυτήν. Χρησιμοποιήστε σύνδεσμο, ή κατεβάστε την πίστα και ανοίξτε την στο άλλο tablet.</span><span data-l="en">Device files stay on that device. Use a link, or download the track and open it on the other tablet.</span></td></tr>
+<tr><td><span data-l="el">Η λέξη δεν ακούγεται.</span><span data-l="en">The word is not spoken.</span></td><td><span data-l="el">Η φωνή δουλεύει μόνο με πεζά και τόνους. Εγκαταστήστε την ελληνική φωνή στις ρυθμίσεις ομιλίας της συσκευής.</span><span data-l="en">The voice works only with lowercase and accents. Install the Greek voice in the device's speech settings.</span></td></tr>
+<tr><td><span data-l="el">Χάθηκε το πρόγραμμα ή η πίστα.</span><span data-l="en">The program or the track is gone.</span></td><td><span data-l="el">Αποθηκεύονται στον browser. Αν καθαρίσετε τα δεδομένα του browser ή αλλάξετε συσκευή, χάνονται. Κατεβάζετε τις πίστες σας ως εικόνα για ασφάλεια.</span><span data-l="en">They are saved in the browser. Clearing the browser's data or changing device loses them. Download your tracks as pictures to keep them safe.</span></td></tr>
+</table></div>
+<p data-l="el">Κάτι άλλο; <a href="https://github.com/robotrails/robotrails.github.io/issues" target="_blank" rel="noopener">Αναφέρετε ένα πρόβλημα</a>.</p>
+<p data-l="en">Something else? <a href="https://github.com/robotrails/robotrails.github.io/issues" target="_blank" rel="noopener">Report a problem</a>.</p>
+<a class="totop" href="#"><span data-l="el">↑ Στην κορυφή</span><span data-l="en">↑ Back to top</span></a>
+</section>
+</main>
+</div>
+
+<footer><div class="in">
+  <img src="../assets/stem-education-logo.png" alt="STEM education">
+  <div>
+    <p data-l="el">Το micro:bit είναι σήμα κατατεθέν του Micro:bit Educational Foundation και το TPBot προϊόν της ELECFREAKS. Αυτό το εργαλείο δεν συνδέεται με αυτούς και δεν έχει εγκριθεί από αυτούς.</p>
+    <p data-l="en">micro:bit is a trademark of the Micro:bit Educational Foundation and TPBot is a product of ELECFREAKS. This tool is not affiliated with or endorsed by them.</p>
+    <p class="links"><a href="../"><span data-l="el">Αρχική</span><span data-l="en">Home</span></a><a href="../tracks/"><span data-l="el">Πίστες</span><span data-l="en">Tracks</span></a><a href="../privacy.html"><span data-l="el">Απόρρητο</span><span data-l="en">Privacy</span></a><a href="https://github.com/robotrails/robotrails.github.io" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+</div></footer>
+<script>
+  (function () {
+    var l = localStorage.getItem('site:lang') || ((navigator.language || '').indexOf('el') === 0 ? 'el' : 'en');
+    function set(v) { document.documentElement.lang = v; document.getElementById('lang').textContent = v === 'el' ? 'EN' : 'EL'; document.title = v === 'el' ? 'RoboTrails · Οδηγός χρήσης' : 'RoboTrails · User guide'; localStorage.setItem('site:lang', v); }
+    set(l);
+    document.getElementById('lang').addEventListener('click', function () { set(document.documentElement.lang === 'el' ? 'en' : 'el'); });
+    document.getElementById('tocbtn').addEventListener('click', function () { document.getElementById('toc').classList.toggle('open'); });
+    // highlight the chapter being read
+    var links = [].slice.call(document.querySelectorAll('aside.toc a'));
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); }); } }); }, { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('section.ch').forEach(function (s) { io.observe(s); });
+  })();
+</script>
+</body>
+</html>
