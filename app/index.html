@@ -250,7 +250,9 @@
   .pen { border: 2px solid var(--charcoal); }
 
   /* the blocks: tabs by category, solid circles for the icons */
-  #tabs { background: var(--alt); border-bottom: 1px solid var(--line); }
+  #tabs { background: var(--alt); border-bottom: 1px solid var(--line); flex-wrap: nowrap; overflow: hidden; }
+  #tabs .tab { flex: 0 0 auto; }
+  #tabs.compact .tab[aria-selected="false"] span { display: none; } #tabs.compact .tab[aria-selected="false"] { padding: 0 10px; }     /* not enough room for the names: icons only (the name is in the tooltip) */
   .tab { border: 1px solid var(--line); border-bottom: 0; border-radius: var(--radius) var(--radius) 0 0; font-weight: 700; }
   .tab[aria-selected="true"] { border-color: transparent; }
   .tab[data-c="disp"][aria-selected="true"] { color: var(--ink); }
@@ -1549,6 +1551,7 @@ async function showMedia(entry, pic) {                 // resolves when the pers
   return new Promise((res) => { mediaDone = res; });
 }
 $('#mediaClose').addEventListener('click', closeMedia);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && $('#media').classList.contains('open')) closeMedia(); });
 async function checkInter(tok) {                       // after a move: did the robot stop on an interactive square?
   const key = Math.floor(bot.x) + ',' + Math.floor(bot.y);
   if (key !== interShown) interShown = null;
@@ -2618,6 +2621,8 @@ function cellEl(b, isPal, path) {
   const num = document.createElement('button'); num.className = 'num' + (d.vals ? '' : ' none'); num.textContent = d.vals ? numText(b.t, b.v) : '0';
   cell.append(blk, num); if (typeof blockTip === 'function') blockTip(cell); return cell;
 }
+function tabsFit() { const t = $('#tabs'); t.classList.remove('compact'); if (t.scrollWidth > t.clientWidth + 1) t.classList.add('compact'); }
+window.addEventListener('resize', () => tabsFit());
 function renderTabs() {
   const tabs = $('#tabs'); tabs.innerHTML = '';
   CATS.forEach(([c]) => {
@@ -2626,6 +2631,7 @@ function renderTabs() {
     t.addEventListener('click', () => { st.cat = c; renderTabs(); renderPalette(); });
     tabs.appendChild(t);
   });
+  requestAnimationFrame(tabsFit);
 }
 function renderPalette() {
   const row = $('#palrow'); row.innerHTML = ''; row.className = st.cat;
