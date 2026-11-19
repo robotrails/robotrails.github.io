@@ -305,9 +305,10 @@
   #recpad { --rp: clamp(70px, min(14vh, 10vw), 140px); flex: 1 1 auto; display: grid; grid-template-columns: repeat(3, var(--rp)); grid-template-rows: repeat(3, var(--rp)); gap: 14px; place-content: center; padding: 14px; }
   .rp { width: 100%; height: 100%; padding: 0; border-radius: var(--radius); border: 2px solid var(--charcoal); display: grid; place-items: center; }
   .rp svg { width: 62%; height: 62%; }
-  .rpgrab { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
-  .rp.gr { background: var(--addon, #3DAA4A); } .rp.gr svg { width: 46%; height: 70%; }
-  .rchip.gr { background: var(--addon, #3DAA4A); }
+  #recpad { position: relative; }
+  .rpgrab { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .rp.gr { width: calc(var(--rp) * .62); height: calc(var(--rp) * .62); background: #9A9EA3; } .rp.gr svg { width: 66%; height: 66%; }   /* grey, like the servo */
+  .rchip.gr { background: #9A9EA3; }
   .rp.mv { background: var(--bot); } .rp.go { background: var(--go); } .rp.er { background: #fff; }
   .rp:active { transform: scale(.94); }
   body.recrun .rp.mv { opacity: .45; }
@@ -560,8 +561,8 @@
         <button class="tool small" id="recNow" aria-label="Move at once (remote control)"><svg viewBox="0 0 48 48"><path d="M27 4 L10 27 H22 L19 44 L38 19 H26 Z" fill="#FBB03B" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg></button>
         <button class="tool small" id="recClose" aria-label="Close"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"><path d="M10 10 L38 38 M38 10 L10 38"/></svg></button></div>
       <div id="recmem"></div>
-      <div id="recpad">
-        <span></span><button class="rp mv" data-r="fwd" aria-label="Forward"></button><span class="rpgrab"><button class="rp gr" data-r="grabOpen" aria-label="Open the grabber"></button><button class="rp gr" data-r="grabClose" aria-label="Close the grabber"></button></span>
+      <div id="recpad"><div class="rpgrab"><button class="rp gr" data-r="grabOpen" aria-label="Open the grabber"></button><button class="rp gr" data-r="grabClose" aria-label="Close the grabber"></button></div>
+        <span></span><button class="rp mv" data-r="fwd" aria-label="Forward"></button><span></span>
         <button class="rp mv" data-r="left" aria-label="Left"></button>
         <button class="rp go" id="recGo" aria-label="Go"><svg viewBox="0 0 32 32"><path d="M9 5 L27 16 L9 27Z" fill="#fff" stroke="#1A1A1A" stroke-width="2.5" stroke-linejoin="round"/></svg></button>
         <button class="rp mv" data-r="right" aria-label="Right"></button>
@@ -938,7 +939,8 @@ function botApply(ms) {
   el.style.left = (bot.x / grid.cols * 100) + '%'; el.style.top = (bot.y / grid.rows * 100) + '%';
   el.style.transform = `translate(-50%, -50%) rotate(${bot.h}deg)`;
 }
-function botReset() { interShown = null; if (cont) { clearTimeout(cont.timer); (cont.timers || []).forEach(clearTimeout); } cont = null; clearHits(); resetGame(); bot.x = start.x; bot.y = start.y; bot.h = start.h; $('#trail').innerHTML = ''; botApply(0); botLight(0); updatePreview(); }
+function botReset() { interShown = null; { const e = $('#bot'); if (e) e.classList.remove('grab', 'grabc'); }   // back to the start: the grabber picture goes too
+  if (cont) { clearTimeout(cont.timer); (cont.timers || []).forEach(clearTimeout); } cont = null; clearHits(); resetGame(); bot.x = start.x; bot.y = start.y; bot.h = start.h; $('#trail').innerHTML = ''; botApply(0); botLight(0); updatePreview(); }
 function botLight(v) { ['#hl1', '#hl2'].forEach((s) => $(s).setAttribute('fill', v ? LIGHTS[v][0] : '#fff')); }
 function trailLine(x0, y0, x1, y1, ms) {
   const len = Math.hypot(x1 - x0, y1 - y0); if (len < 0.01) return null;
@@ -2770,10 +2772,10 @@ function closeEditor() { $('#editor').classList.remove('open'); st.edit = null; 
 function botGrab(closed) { const e = $('#bot'); if (!e) return; e.classList.add('grab'); e.classList.toggle('grabc', !!closed); }
 
 /* ---------- robot settings ---------- */
-const ADDON = { gOpen: 0, gClose: 90, gPort: 1 };                                   // the grabber: servo angles for open and closed, and the servo plug (S1-S4)
+const ADDON = { gOpen: 0, gClose: 90, gPort: 1 };                                   // the grabber: angles of its 0-360° servo for open and closed, and the servo plug (S1-S4)
 try { Object.assign(ADDON, JSON.parse(localStorage.getItem('mbblocks:addon') || '{}')); } catch (e) { /* no storage */ }
 const isAddonKey = (k) => k in ADDON;
-const LIM = { gOpen: [0, 180, 5], gClose: [0, 180, 5], gPort: [1, 4, 1], speed: [30, 100, 10], step: [200, 1500, 10], turn: [150, 1500, 10], sq: [10, 40, 5], spd: [20, 50, 5], cols: [3, MAX_SQUARES, 1], rows: [3, MAX_SQUARES, 1] };
+const LIM = { gOpen: [0, 360, 5], gClose: [0, 360, 5], gPort: [1, 4, 1], speed: [30, 100, 10], step: [200, 1500, 10], turn: [150, 1500, 10], sq: [10, 40, 5], spd: [20, 50, 5], cols: [3, MAX_SQUARES, 1], rows: [3, MAX_SQUARES, 1] };
 const isGridKey = (k) => k === 'cols' || k === 'rows';
 const isEduKey = (k) => k === 'sq' || k === 'spd';
 function renderSettings() {
